@@ -1,0 +1,5 @@
+export default {
+    INCLEMENT: "INCLEMENT",
+    DECLEMENT: "DECLEMENT",
+    ROUTE_CHANGE: "ROUTE_CHANGE"
+};
