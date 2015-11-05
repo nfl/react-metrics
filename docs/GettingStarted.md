@@ -68,7 +68,7 @@ class Application extends React.Component {
 }
 ```
 
-You can make configuration as shared module which is used across your applications.
+You can make configuration a shared module which you can import into all your various applications.
 
 ```javascript
 import metricsConfig from "shared-metrics-config";
@@ -175,7 +175,7 @@ class PageComponent extends React.Component {
 }
 ```
 
-You can make manual page view call per page basis at your timing by calling `this.context.metrics.pageView`
+You can disable the automatic page view tracking and instead manually track page views by using `this.context.metrics.pageView()`
 
 ```javascript
 import {exposeMetrics, PropTypes} from "react-metrics";
@@ -242,7 +242,7 @@ There are 2 ways to call `track` api from your component.
     }
     ```
 
-2. **Imperative** by calling the api explicitly. To do this, define `metrics` context as one of `contextTypes` in your child component. This allows you to call `track` api. You can pass either Object or Promise as a second argument. It's your responsibility to implement `track` api in your service, otherwise calling the api simply throws an error.
+2. **Imperative** by calling the API explicitly. To do this, define `metrics` context as one of `contextTypes` in your child component. This allows you to call the `track` API. You can pass either an Object or a Promise as a second argument. It's your responsibility to implement the `track` API in your service, otherwise calling the API simply throws an error.
 
     Example:
 
@@ -266,7 +266,7 @@ There are 2 ways to call `track` api from your component.
 
 ### Using your metrics vendor
 
-To send tracking to your metrics vendor, you can create your own service class with api methods.
+To send tracking to your metrics vendor, you can create your own service class with API methods.
 
 ```javascript
 class YourApiClass {
@@ -292,10 +292,10 @@ const YourApiObject = {
 }
 ```
 
-You don't have to return anything in your api, but if you do, it will be included as `response` in the tracking event payload.
-`react-metrics` will determine the success of the request in the form of Promise, so if you don't return anything, which `react-metrics` receives as `undefined` and convert it to `Promise.resolve(undefined)`, the request will be treated as success.
+You don't have to return anything in your API, but if you do, it will be included as `response` in the tracking event payload.
+`react-metrics` will determine the success of the request in the form of `Promise`, so if you don't return anything, which `react-metrics` receives as `undefined` and convert it to `Promise.resolve(undefined)`, the request will be treated as success.
 
-If you need any initialization step which needs to happen before `pageView` or `track` is called, we recommend you use promise for lazy initialization.
+If you need any initialization steps before `pageView` or `track` is called, we recommend you use a promise for lazy initialization.
 
 Example:
 
@@ -370,7 +370,7 @@ export default metrics({
 
 ### Tracking custom metrics
 
-You can define any api method in your service and you can call it from context object.
+You can define any API method in your service and you can call it from context object.
 Let's say if your service defines `setUser` method which stores user identity, or `videoMileStone` method to track video consumption
 
 ```javascript
