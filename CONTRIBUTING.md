@@ -37,6 +37,8 @@ Travis CI build will test your PR before it is merged. Browser testing may not r
 
 <a name="cla"></a>
 ## Contributor License Agreement (CLA)
-Please submit a CLA in order to accept your pull request.
 
-You can submit a form [here](https://cla.nfl.com/agreements/nfl/react-metrics).
+In order for your pull requests to be accepted, you must accept the [NFL Indivudal Contributor License Agreement](https://cla.nfl.com/agreements/nfl/react-metrics).
+
+Corporate contributors can email engineers@nfl.com and request the **Corporate CLA** which can be signed digitally.
+

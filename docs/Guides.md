@@ -30,7 +30,7 @@ A name of the vendor service to be returned as part of tracking response if defi
 
 ### `api`
 
-An object, a class instance or a function which returns an object which exposes tracking APIs. You don't have to define `pageView` or `track` api, but keep in mind that `react-metrcis` will assume those methods to exist for auto page view and declarative tracking and throws when not available.
+An object, a class instance or a function which returns an object which exposes tracking APIs. You don't have to define `pageView` or `track` api, but keep in mind that `react-metrics` will assume those methods to exist for auto page view and declarative tracking and throws when not available.
 You can define `name` property in your api, which will be returned as part of tracking response.
 
 Example:
@@ -60,7 +60,7 @@ Example:
 
 `react-metrics` assumes that `metrics` wrapper receives [`location`](#location) props which is updated when the URL route changes to trigger page view call.
 
-Here is the implementation guides per use cases:
+Here are the implementation guides per use cases:
 
 | Routing Solution| Action required | Example |
 | ------------- | ------------- | ------------- |
