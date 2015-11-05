@@ -6,6 +6,31 @@
 
 An analytics module for [React](https://github.com/facebook/react).
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Requirements](#requirements)
+- [Browser Requirements](#browser-requirements)
+- [Features](#features)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+  - [1. Configure Metrics](#1-configure-metrics)
+  - [2. Wrap Application Level Component](#2-wrap-application-level-component)
+  - [3. Add Custom Link Tracking](#3-add-custom-link-tracking)
+  - [4. Analytics Vendor Implementations](#4-analytics-vendor-implementations)
+- [Advanced Usage](#advanced-usage)
+  - [Override Default Page View Tracking](#override-default-page-view-tracking)
+  - [Imperative Custom Event Tracking](#imperative-custom-event-tracking)
+  - [Metrics API Outside a React Component](#metrics-api-outside-a-react-component)
+- [API, Examples, and Documentation](#api-examples-and-documentation)
+- [To run examples:](#to-run-examples)
+- [Contributing to this project](#contributing-to-this-project)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 ## Requirements
 
  * React 0.14+
