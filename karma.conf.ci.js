@@ -5,7 +5,7 @@ module.exports = function (config) {
         singleRun: true
     });
 
-    if (process.env.USE_CLOUD && process.env.SAUCE_USERNAME) {
+    if (process.env.USE_CLOUD === "true" && process.env.SAUCE_USERNAME) {
         require("./karma.conf.cloud.js")(config);
     } else {
         console.log("running default test on Chrome");

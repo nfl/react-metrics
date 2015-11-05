@@ -12,8 +12,7 @@ module.exports = function (config) {
             browserName: "Firefox",
             version: "40"
         },
-        // FIXME: can never run test on Safari
-        /*SL_iOS_Safari: {
+        SL_iOS_Safari: {
             base: "SauceLabs",
             browserName: "iphone",
             platform: "OS X 10.10",
@@ -24,7 +23,7 @@ module.exports = function (config) {
             browserName: "Safari",
             platform: "OS X 10.10",
             version: "8"
-        },*/
+        },
         SL_InternetExplorer10: {
             base: "SauceLabs",
             browserName: "Internet Explorer",
@@ -39,8 +38,9 @@ module.exports = function (config) {
         }
     };
 
-    console.log("Starting test on Sauce Labs");
     config.set({
+        captureTimeout: 120000,
+        browserNoActivityTimeout: 1500000,
         sauceLabs: {
             testName: "React Metrics",
             startConnect: true,
@@ -54,8 +54,7 @@ module.exports = function (config) {
             }
         },
         customLaunchers: customLaunchers,
-        browsers: Object.keys(customLaunchers),
-        captureTimeout: 120000
+        browsers: Object.keys(customLaunchers)
     });
 
     if (process.env.DEBUG_SAUCE) {
@@ -66,8 +65,16 @@ module.exports = function (config) {
     }
 
     if (process.env.TRAVIS) {
+        // Sauce Connect through 'karma-sauce-launcher' doesn't work on Travis, use 'sauce_connect' addon
+        config.sauceLabs.startConnect = false;
+        config.sauceLabs.connectOptions = {
+            port: 5757
+        };
         config.sauceLabs.build = "TRAVIS #" + process.env.TRAVIS_BUILD_NUMBER + " (" + process.env.TRAVIS_BUILD_ID + ")";
         config.sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
-        config.transports = ["xhr-polling"];
+        // TODO: remove once SauceLabs supports websockets.
+        // This speeds up the capturing a bit, as browsers don"t even try to use websocket.
+        console.log(">>>> setting socket.io transport to polling <<<<");
+        config.transports = ["polling"];
     }
 };
