@@ -6,11 +6,9 @@ node_js:
   #- '0.10'
 env:
   global:
-  - BROWSER_PROVIDER_READY_FILE=/tmp/sauce-connect-ready
-      - LOGS_DIR=/tmp/react-metrics-build/logs
-      - USE_CLOUD=false
-      - SAUCE_USERNAME=react-metrics-sauce2
-      - SAUCE_ACCESS_KEY=a1cb0c857820-647b-1a24-779b-4ce75082
+    - BROWSER_PROVIDER_READY_FILE=/tmp/sauce-connect-ready
+    - LOGS_DIR=/tmp/react-metrics-build/logs
+    - USE_CLOUD=false
 matrix:
   fast_finish: true
   include:
@@ -22,7 +20,6 @@ before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ] && SAUCE_USERNAME="react-metrics-sauce" && SAUCE_ACCESS_KEY="b7edf6422490-e0f9-e3a4-d50f-21b868af" || true'
 before_script:
   - mkdir -p $LOGS_DIR
   - ./scripts/setup.sh

@@ -101,7 +101,11 @@ module.exports = function (config) {
     }
 
     if (process.env.TRAVIS) {
-        process.env.SAUCE_ACCESS_KEY = process.env.SAUCE_ACCESS_KEY.split("").reverse().join("");
+        if (process.env.TRAVIS_PULL_REQUEST !== "false" || process.env.TRAVIS_BRANCH !== "master") {
+            process.env.SAUCE_USERNAME = process.env.SAUCE_USERNAME_PR;
+            process.env.SAUCE_ACCESS_KEY = process.env.SAUCE_ACCESS_KEY_PR;
+        }
+        console.log("SAUCE_USERNAME: ", process.env.SAUCE_USERNAME);
         // Sauce Connect through "karma-sauce-launcher" doesn"t work on Travis, manually run Sauce Connect
         config.sauceLabs.startConnect = false;
         config.sauceLabs.connectOptions = {
