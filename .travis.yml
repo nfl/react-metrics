@@ -6,9 +6,11 @@ node_js:
   #- '0.10'
 env:
   global:
-  - USE_CLOUD=false
-  - secure: PvY5AitaI1cCyjF05hMRMPtyQX9YLIzNow1h45DPAOlad6xfc0uCHVtZ1yiQ2YMEwGLG6lGQgwEbXyWKNmPh5VPz6iySLFJ0q7/MpbygPfuy+paYYWWqoc+y0d8OUXOfIL5/2dQy/8OdkSBCuJ8JXT8OQC8ZQH6BInv5TWFB0ScDNrWieTfHj0s6UFZCwKRW2+MyvLB7HvxPO84eMIeXSYCPqWvWwJMAnmDHlP7pji7DTgPvpl+0LNOj7Ob2FLYOVw6PKvwGmm8jqSBJaFV39bh4JLpNiZwpF6vJvPEduEpnl/9YqKqxStM3y6Ciblw44QZhNwYB5fpHdoKu9Kws/HDPP3FKxqr0SmNjYX4S4QwC8Qb3pUBOKcXQKuto3cab2OpBD2MRW8brIhBfj+yWEjTbsgV3tIfpmEqs7vYouEaxfhFiZzPKhrmHBQsFZf+ZYM0EZu8NLBSiHcidaYwEfp5kdrtBnM+B1PwNMZ8RetxB5K+fDa9QuWC0l7dqydDVcR7Oq20OEhZ3RASGNYamWuBNfyviET+d0xnhVip9JgBWq5pxNx+YIeArRd2MLjA5ngvQAqR1ITFDSSrO0GdP0V/Gwf4MuJFXL2S3nR9Lcqk83jua19fstO/f6T8PCa1pgZphJ42IDSauhBVBvd3YiU+pvd5Egsq9aAzfaY5Dcj0=
-  - secure: Pre8zAOJ3nMR7OWMyEXEup5kcUjF8MRyhQ9TgWFeNIotxo7em07L0VChhhIGBezTUVWP+w6hZcD1FcNYH4lJYswpU56W+xw/84u8vL+7pC92y9ULiYRfVvXhq/uezEEHCLV2zD/bTppNXlY0Jk032HxBcrSnj/vX+M7zFDqE7eAA2qdpCF1sZ8pA+lMWuex8KNuHtKiFJJDNLRo8RXEddp2u+1PEqdqVXkopiPT9WiiTDXnfW0zrxx0mFZKLfJ3DOjvZA4pJcMhHJzBFK6wOKJ+6GpRHYpToAd/DVaHzxRECgnyL/CejMvUeA/gKS7w1nRZW7KasCAfgDTu9sHqTXiJfspXEXYwSvTLnifuhxROFPtkwjoeprgZQY1TcK7Du9eVW/MmyqrJunWlUbPH63kgh/oe1fNbfSMgl+Pli9smszJoNBpfdfbyo+QkFV+oc/0+w/5oQhAMVecTj58mB53MlQgyfbwnf8CsQNCY3/McYJjZT9P0h/y/rRWk1h+wG28OYkpEvqMr9RbVehMSuKM0rXcWtmyeYjYdKd46b17qTZFp2dncx8BDkCQAlmyljgmfq3zIRMZJxFPk5CcIf5wZyaGN11BbYanreRXuhxOeNQypy+g6ZHzi7T6aL9FPE+BVBfkmb+nEyrOsHHR3KK2FoCsNfKt+979YpCuEjUaw=
+  - BROWSER_PROVIDER_READY_FILE=/tmp/sauce-connect-ready
+      - LOGS_DIR=/tmp/react-metrics-build/logs
+      - USE_CLOUD=false
+      - SAUCE_USERNAME=react-metrics-sauce2
+      - SAUCE_ACCESS_KEY=a1cb0c857820-647b-1a24-779b-4ce75082
 matrix:
   fast_finish: true
   include:
@@ -16,11 +18,15 @@ matrix:
       env: USE_CLOUD=true
   allow_failures:
     - env: USE_CLOUD=true
-addons:
-  sauce_connect: true
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ] && SAUCE_USERNAME="react-metrics-sauce" && SAUCE_ACCESS_KEY="b7edf6422490-e0f9-e3a4-d50f-21b868af" || true'
+before_script:
+  - mkdir -p $LOGS_DIR
+  - ./scripts/setup.sh
 script:
   - npm test
+after_script:
+  - ./scripts/teardown.sh
