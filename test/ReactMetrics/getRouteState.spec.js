@@ -1,3 +1,4 @@
+import "../../src/polyfill";
 import getRouteState from "../../src/react/getRouteState";
 
 describe("getRouteState", () => {

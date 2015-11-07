@@ -1,3 +1,4 @@
+import "../../src/polyfill";
 import createService from "../../src/core/createService";
 
 describe("createService", () => {

@@ -1,3 +1,4 @@
+import "../../src/polyfill";
 import extractApis, {filterKeysByType} from "../../src/core/utils/extractApis";
 
 describe("extractApis", () => {
