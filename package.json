@@ -53,7 +53,7 @@
     "isparta-loader": "^1.0.0",
     "json-loader": "^0.5.3",
     "karma": "^0.13.10",
-    "karma-browserstack-launcher": "^0.1.6",
+    "karma-browserstack-launcher": "taak77/karma-browserstack-launcher#feature/fixes",
     "karma-chai-sinon": "^0.1.5",
     "karma-chrome-launcher": "^0.2.0",
     "karma-cli": "0.1.1",

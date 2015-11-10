@@ -35,7 +35,7 @@ fi
 
 echo "SAUCE_USERNAME: $SAUCE_USERNAME"
 
-ARGS=""
+ARGS="-B all"
 
 # Set tunnel-id only on Travis, to make local testing easier.
 if [ ! -z "$TRAVIS_JOB_NUMBER" ]; then
