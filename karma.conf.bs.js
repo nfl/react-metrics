@@ -21,14 +21,14 @@ module.exports = function (config) {
             os: "Windows",
             os_version: "8.1",
             browser: "firefox",
-            browser_version: "40"
+            browser_version: "41"
         },
         BS_Firefox_Latest: {
             base: "BrowserStack",
             os: "Windows",
             os_version: "8.1",
             browser: "firefox",
-            browser_version: "41"
+            browser_version: "42"
         },
         BS_iOS8_Safari: {
             base: "BrowserStack",
@@ -65,6 +65,13 @@ module.exports = function (config) {
             browser: "ie",
             browser_version: "11"
         },
+        BS_Edge: {
+            base: "BrowserStack",
+            os: "Windows",
+            os_version: "10",
+            browser: "edge",
+            browser_version: "12"
+        },
         BS_ANDROID4: {
             base: "BrowserStack",
             os: "android",
@@ -72,7 +79,7 @@ module.exports = function (config) {
             browser: "android",
             browser_version: "4.4"
         }/*,
-        BS_ANDROID5: {
+        BS_ANDROID5: { // BrowserStack says this does not work as Android 5.x doesn't support communication via proxy
             base: "BrowserStack",
             os: "android",
             os_version: "5.0",

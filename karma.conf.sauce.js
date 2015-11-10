@@ -4,23 +4,23 @@ module.exports = function (config) {
     var customLaunchers = {
         SL_Chrome: {
             base: "SauceLabs",
-            browserName: "Chrome",
+            browserName: "chrome",
             version: "45"
         },
         SL_Chrome_Latest: {
             base: "SauceLabs",
-            browserName: "Chrome",
+            browserName: "chrome",
             version: "46"
         },
         SL_Firefox: {
             base: "SauceLabs",
-            browserName: "Firefox",
-            version: "40"
+            browserName: "firefox",
+            version: "41"
         },
         SL_Firefox_Latest: {
             base: "SauceLabs",
-            browserName: "Firefox",
-            version: "41"
+            browserName: "firefox",
+            version: "42"
         },
         SL_iOS8_Safari: {
             base: "SauceLabs",
@@ -36,27 +36,33 @@ module.exports = function (config) {
         },
         SL_OSX_Safari8: {
             base: "SauceLabs",
-            browserName: "Safari",
+            browserName: "safari",
             platform: "OS X 10.10",
             version: "8.0"
         },
         SL_OSX_Safari9: {
             base: "SauceLabs",
-            browserName: "Safari",
+            browserName: "safari",
             platform: "OS X 10.11",
             version: "9"
         },
         SL_InternetExplorer10: {
             base: "SauceLabs",
-            browserName: "Internet Explorer",
+            browserName: "internet explorer",
             platform: "Windows 8",
             version: "10"
         },
         SL_InternetExplorer11: {
             base: "SauceLabs",
-            browserName: "Internet Explorer",
+            browserName: "internet explorer",
             platform: "Windows 8.1",
             version: "11"
+        },
+        SL_Edge: {
+            base: "SauceLabs",
+            browserName: "microsoftedge",
+            platform: "Windows 10",
+            version: "20"
         },
         SL_ANDROID4: {
             base: "SauceLabs",
@@ -68,7 +74,7 @@ module.exports = function (config) {
             base: "SauceLabs",
             browserName: "android",
             platform: "Linux",
-            version: "5.1"
+            version: "5.0"
         }
     };
 
