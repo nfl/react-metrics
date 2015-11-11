@@ -1,5 +1,4 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty */
-import "../../src/polyfill";
 import createMetrics, {Metrics} from "../../src/core/createMetrics";
 import ActionTypes from "../../src/core/ActionTypes";
 import isPromise from "../../src/core/utils/isPromise";

@@ -1,5 +1,4 @@
 /* eslint-disable no-empty */
-import "../../src/polyfill";
 import useTrackBindingPlugin, {TrackBindingPlugin} from "../../src/core/useTrackBindingPlugin";
 import {addChildToNode, removeChildFromNode} from "../nodeUtils";
 

@@ -1,5 +1,4 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
-import "../../src/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import createHistory from "history/lib/createMemoryHistory";

@@ -1,4 +1,3 @@
-import "../../src/polyfill";
 import locationEquals from "../../src/react/locationEquals";
 
 describe("locationEquals", () => {
