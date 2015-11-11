@@ -17,11 +17,13 @@ module.exports = function (config) {
         ],
 
         files: [
-            "test/**/*Test.js"
+            "src/polyfill.js",
+            "test/**/*spec.js"
         ],
 
         preprocessors: {
-            "test/**/*Test.js": ["webpack", "sourcemap"]
+            "src/polyfill.js": ["webpack"],
+            "test/**/*spec.js": ["webpack", "sourcemap"]
         },
 
         coverageReporter: {
