@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 module.exports = function (config) {
+    // TODO: figure out Safari error where socket gets disconnected during the test.
     // https://saucelabs.com/platforms
     var customLaunchers = {
         SL_Chrome: {
@@ -31,14 +32,14 @@ module.exports = function (config) {
         SL_iOS9_Safari: {
             base: "SauceLabs",
             browserName: "iphone",
-            platform: "OS X 10.11",
+            platform: "OS X 10.10",
             version: "9.1"
         },
         SL_OSX_Safari8: {
             base: "SauceLabs",
             browserName: "safari",
             platform: "OS X 10.10",
-            version: "8.0"
+            version: "8"
         },
         SL_OSX_Safari9: {
             base: "SauceLabs",
@@ -81,9 +82,9 @@ module.exports = function (config) {
     // "saucelabs" reporter is necessary for their status badge to reflect the test result.
     config.set({
         captureTimeout: 120000,
-        browserNoActivityTimeout: 60000,
+        browserNoActivityTimeout: 120000,
         browserDisconnectTimeout: 10000,
-        browserDisconnectTolerance: 2,
+        browserDisconnectTolerance: 3,
         sauceLabs: {
             testName: "React Metrics",
             startConnect: true,
