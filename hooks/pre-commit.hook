@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+RETVAL=$?
+
+changedMarkDownFiles="$(git diff --cached README.md)"
+
+if [ ! -z "$changedMarkDownFiles" ]
+then
+    # Before commit, run doctoc to update table of contents
+    echo "pre-commit hook is running doctoc";
+
+    npm run-script doctoc
+
+    # Add doctoc output to a new commit
+    git add README.md;
+fi
+
+# Exit successfully if build succeeds.
+
+exit 0;

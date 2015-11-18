@@ -45,10 +45,12 @@
     "cerebral-react": "^0.5.0",
     "cerebral-router": "^0.6.0",
     "chai": "^3.3.0",
+    "doctoc": "^0.15.0",
     "eslint": "^1.6.0",
     "eslint-config-nfl": "^4.0.2",
     "eslint-plugin-import": "^0.8.1",
     "eslint-plugin-react": "^3.7.1",
+    "ghooks": "^0.3.2",
     "history": "^1.13.0",
     "isparta-loader": "^1.0.0",
     "json-loader": "^0.5.3",
@@ -78,10 +80,16 @@
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0"
   },
+  "config": {
+    "ghooks": {
+      "pre-commit": "./hooks/pre-commit.hook"
+    }
+  },
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf lib build",
     "compile": "babel src --out-dir lib",
+    "doctoc": "doctoc README.md",
     "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline",
     "lint": "eslint src test examples",
     "pretest": "npm run build",
