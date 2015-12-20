@@ -1,11 +1,16 @@
 import React, {PropTypes, Component} from "react";
 import ReactDOM from "react-dom";
 import invariant from "fbjs/lib/invariant";
+import {canUseDOM} from "fbjs/lib/ExecutionEnvironment";
 import {metrics as metricsType, location as locationType} from "./PropTypes";
 import createMetrics, {isMetrics} from "../core/createMetrics";
 import getRouteState from "./getRouteState";
 import findRouteComponent from "./findRouteComponent";
 import hoistStatics from "hoist-non-react-statics";
+
+function getDisplayName(Comp) {
+    return Comp.displayName || Comp.name || "Component";
+}
 
 let mountedInstances;
 
@@ -45,18 +50,16 @@ export default function metrics(metricsOrOptions, options = {}) {
 
             componentWillMount() {
                 const instances = this.constructor.getMountedMetricsInstances();
-
                 // Ensure this component should only be added in one root location.
-                if (instances.length === 1) {
-                    const mounted = instances[0];
+                if (canUseDOM && instances.length === 1) {
                     invariant(
                         false,
                         "`metrics` should only be added once to the root level component. You have added to both %s and %s.",
-                        mounted.constructor.displayName,
-                        this.constructor.displayName
+                        getDisplayName(instances[0]),
+                        getDisplayName(ComposedComponent)
                     );
                 }
-                instances.push(this);
+                instances.push(ComposedComponent);
 
                 this._newRouteState = getNewRouteState(this.props);
                 if (this._newRouteState) {
@@ -93,7 +96,7 @@ export default function metrics(metricsOrOptions, options = {}) {
             }
             componentWillUnmount() {
                 const instances = this.constructor.getMountedMetricsInstances();
-                const index = instances.indexOf(this);
+                const index = instances.indexOf(ComposedComponent);
                 instances.splice(index, 1);
 
                 metricsInstance.destroy();
