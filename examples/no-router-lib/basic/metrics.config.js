@@ -1,5 +1,5 @@
 import pkg from "../../../package.json";
-import GoogleMetrics from "../../vendors/GoogleAnalytics";
+import GoogleAnalytics from "../../vendors/GoogleAnalytics";
 
 const config = {
     vendors: [
@@ -34,7 +34,7 @@ const config = {
             }
         },
         {
-            api: new GoogleMetrics({
+            api: new GoogleAnalytics({
                 trackingId: "UA-68539421-1"
             })
         }
