@@ -8,15 +8,13 @@ const attr2obj = (elem, prefix = "data") => {
     const camelCase = string => {
         return string.replace(rdashAlpha, fcamelCase);
     };
-    let name;
-    let camelName;
-    let i;
+
     if (elem.nodeType === 1) {
-        i = attrs.length;
+        let i = attrs.length;
         while (i--) {
-            name = attrs[i].name;
+            const name = attrs[i].name;
             if (name.indexOf(`${prefix}-`) === 0) {
-                camelName = camelCase(name.slice(prefix.length + 1));
+                const camelName = camelCase(name.slice(prefix.length + 1));
                 dataAttrs[camelName] = elem.getAttribute(name);
             }
         }

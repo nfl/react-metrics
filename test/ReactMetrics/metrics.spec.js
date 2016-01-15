@@ -117,7 +117,7 @@ describe("metrics", () => {
             // context unit test fails w/o this, why??
             static contextTypes = {
                 metrics: PropTypes.metrics
-            }
+            };
             render() {
                 return (<h1>Page</h1>);
             }
@@ -160,7 +160,7 @@ describe("metrics", () => {
     it("should not auto track page view when 'autoTrackPageView' is set to false.", done => {
         @metrics(metricsConfig, {autoTrackPageView: false})
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             render() {
                 return (<div>{this.props.children}</div>);
@@ -186,11 +186,11 @@ describe("metrics", () => {
         ];
 
         class Page extends React.Component {
-            static displayName = "Page"
+            static displayName = "Page";
 
             static contextTypes = {
                 metrics: PropTypes.metrics.isRequired
-            }
+            };
 
             componentDidMount() {
                 this.context.metrics.pageView();
@@ -221,7 +221,7 @@ describe("metrics", () => {
         const metricsInstance = new Metrics(metricsConfig);
         @metrics(metricsInstance, {useTrackBinding: false})
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
             componentDidMount() {
                 // make sure click happens after binding is done.
                 setTimeout(() => {
@@ -253,7 +253,7 @@ describe("metrics", () => {
             }]
         })
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             render() {
                 return (<div><h2>Appication</h2></div>);
@@ -279,11 +279,11 @@ describe("metrics", () => {
         @metrics(metricsConfig)
         @exposeMetrics
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             static contextTypes = {
                 metrics: PropTypes.metrics.isRequired
-            }
+            };
 
             componentDidMount() {
                 this.context.metrics.pageView(customPageViewRule, customData);
@@ -326,11 +326,11 @@ describe("metrics", () => {
         @metrics(metricsConfig)
         @exposeMetrics
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             static contextTypes = {
                 metrics: PropTypes.metrics.isRequired
-            }
+            };
 
             componentDidMount() {
                 this.context.metrics.track(trackId, customData);

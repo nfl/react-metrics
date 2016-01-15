@@ -5,11 +5,11 @@ class Page extends React.Component {
     static contextTypes = {
         metrics: MetricsPropTypes.metrics,
         appState: PropTypes.any
-    }
+    };
 
     static propTypes = {
         params: PropTypes.object
-    }
+    };
 
     onClick() {
         this.context.metrics.user({

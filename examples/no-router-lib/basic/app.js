@@ -12,7 +12,7 @@ class App extends Component {
     static propTypes = {
         history: PropTypes.object,
         children: PropTypes.node
-    }
+    };
 
     render() {
         const createHref = this.props.history.createHref;

@@ -19,12 +19,12 @@ function getDisplayName(Comp) {
 
 function wrap(ComposedComponent) {
     class Metrics extends Component {
-        static displayName = `Metrics(${getDisplayName(ComposedComponent)})`
+        static displayName = `Metrics(${getDisplayName(ComposedComponent)})`;
 
         // context unit test fails w/o this, why??
         static contextTypes = {
             metrics: PropTypes.metrics
-        }
+        };
 
         componentWillMount() {
             mountedInstances.push(Metrics);

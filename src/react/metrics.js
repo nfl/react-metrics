@@ -24,7 +24,7 @@ export default function metrics(metricsOrOptions, options = {}) {
 
     return function wrap(ComposedComponent) {
         class MetricsContainer extends Component {
-            static displayName = "MetricsContainer"
+            static displayName = "MetricsContainer";
 
             static getMountedMetricsInstances() { // eslint-disable-line react/sort-comp
                 if (!mountedInstances) {
@@ -35,12 +35,12 @@ export default function metrics(metricsOrOptions, options = {}) {
 
             static childContextTypes = {
                 metrics: metricsType.isRequired
-            }
+            };
 
             static propTypes = {
                 location: locationType,
                 params: PropTypes.object
-            }
+            };
 
             getChildContext() {
                 return {
