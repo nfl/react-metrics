@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/nfl/react-metrics/compare/1.0.1...v1.1.0) (2016-02-29)
+
+
+### Features
+
+* **babel:** Upgrade Babel to 6 ([10b4e90](https://github.com/nfl/react-metrics/commit/10b4e90))
+
+
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
