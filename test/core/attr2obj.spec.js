@@ -7,16 +7,14 @@ import attr2obj from "../../src/core/utils/attr2obj";
 describe("attr2obj", () => {
     it("returns empty object if an element is not nodeType 1", () => {
         const node = document.createDocumentFragment();
-        let obj;
-        obj = attr2obj(node);
+        const obj = attr2obj(node);
         expect(obj).to.be.an("object");
         expect(Object.keys(obj).length).to.equal(0);
     });
 
     it("extracts prefixed attributes as empty object when no attribute is found", () => {
         const node = document.createElement("a");
-        let obj;
-        obj = attr2obj(node, "prefix");
+        const obj = attr2obj(node, "prefix");
         expect(obj).to.be.an("object");
         expect(Object.keys(obj).length).to.equal(0);
     });
@@ -24,8 +22,7 @@ describe("attr2obj", () => {
     it("uses 'data' as default prefix", () => {
         const node = document.createElement("a");
         node.setAttribute("data-event", "My Event Name");
-        let obj;
-        obj = attr2obj(node);
+        const obj = attr2obj(node);
         expect(obj).to.be.an("object");
         expect(obj).to.have.property("event").and.to.equal("My Event Name");
     });

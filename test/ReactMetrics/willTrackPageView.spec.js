@@ -28,7 +28,7 @@ describe("willTrackPageView", () => {
 
         @metrics(MetricsConfig)
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             render() {
                 return (<div><h1>Application</h1>{this.props.children}</div>);
@@ -36,7 +36,7 @@ describe("willTrackPageView", () => {
         }
 
         class Page extends React.Component {
-            static displayName = "Page"
+            static displayName = "Page";
 
             render() {
                 return (<div><h2>Page</h2>{this.props.children}</div>);
@@ -45,7 +45,7 @@ describe("willTrackPageView", () => {
 
         @exposeMetrics
         class Content extends React.Component {
-            static displayName = "Content"
+            static displayName = "Content";
 
             componentWillMount() {
                 componentWillMountCalled = true;
@@ -95,7 +95,7 @@ describe("willTrackPageView", () => {
         @metrics(MetricsConfig)
         @exposeMetrics
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             static willTrackPageView() {
                 return false;
@@ -128,7 +128,7 @@ describe("willTrackPageView", () => {
         @metrics(MetricsConfig)
         @exposeMetrics
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             static willTrackPageView() {
                 return {
@@ -165,7 +165,7 @@ describe("willTrackPageView", () => {
 
         @metrics(MetricsConfig)
         class Application extends React.Component {
-            static displayName = "Application"
+            static displayName = "Application";
 
             render() {
                 return (<div>{this.props.children}</div>);
@@ -174,7 +174,7 @@ describe("willTrackPageView", () => {
 
         @exposeMetrics
         class Page extends React.Component {
-            static displayName = "Page"
+            static displayName = "Page";
 
             static willTrackPageView(routeState) {
                 expect(routeState.pathname).to.equal("/page/123");

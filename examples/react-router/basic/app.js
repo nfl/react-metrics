@@ -1,21 +1,20 @@
 /* eslint-disable react/no-multi-comp */
 import React, {Component, PropTypes} from "react";
 import ReactDOM from "react-dom";
-import {Router, Route, IndexRoute, Link, IndexLink} from "react-router";
+import {Router, Route, IndexRoute, Link, IndexLink, hashHistory} from "react-router";
 import {metrics} from "react-metrics"; // eslint-disable-line import/named
 import MetricsConfig from "./metrics.config";
 import Home from "./home";
 import AsyncPageView from "./async-page-view";
 import ManualPageView from "./manual-page-view";
 import User from "./user";
-import createHistory from "history/lib/createHashHistory";
 
 class App extends Component {
-    static displayName = "My Application"
+    static displayName = "My Application";
 
     static propTypes = {
         children: PropTypes.node
-    }
+    };
 
     render() {
         return (
@@ -23,7 +22,7 @@ class App extends Component {
                 <ul>
                     <li><IndexLink to="/">Home</IndexLink></li>
                     <li><Link to="/async">Async Page View Track</Link></li>
-                    <li><Link to="/async" query={{param: "abc"}}>Async Page View Track with query param</Link></li>
+                    <li><Link to={{pathname: "/async", query: {param: "abc"}}}>Async Page View Track with query param</Link></li>
                     <li><Link to="/manual">Manual Page View Track</Link></li>
                     <li><Link to="/user/123">Page View Track with params</Link></li>
                 </ul>
@@ -45,7 +44,7 @@ class NotFound extends Component {
 }
 
 ReactDOM.render((
-    <Router history={createHistory()}>
+    <Router history={hashHistory}>
         <Route path="/" component={DecoratedApp}>
             <IndexRoute component={Home}/>
             <Route path="async" component={AsyncPageView}/>

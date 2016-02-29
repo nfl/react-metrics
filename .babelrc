@@ -1,4 +1,6 @@
 {
-    "stage": 0,
-    "blacklist": ["useStrict"]
+  "presets": ["es2015-without-strict", "stage-0", "react"],
+  "plugins": [
+    "transform-decorators-legacy"
+  ]
 }

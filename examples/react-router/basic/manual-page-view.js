@@ -5,11 +5,11 @@ import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line i
 class ManualPageView extends React.Component {
     static contextTypes = {
         metrics: PropTypes.metrics
-    }
+    };
 
     static propTypes = {
         appName: React.PropTypes.string
-    }
+    };
 
     componentDidMount() {
         const {appName} = this.props;

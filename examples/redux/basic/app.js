@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, {Component, PropTypes} from "react";
 import ReactDOM from "react-dom";
-import {Router, Route, IndexRoute, Link, IndexLink} from "react-router";
+import {Router, Route, IndexRoute, Link, IndexLink, useRouterHistory} from "react-router";
 import createHistory from "history/lib/createHashHistory";
 import {createStore, applyMiddleware} from "redux";
 import {Provider, connect} from "react-redux";
@@ -27,6 +27,7 @@ history.listen(location => {
         prevLocation = location;
     }
 });
+const appHistory = useRouterHistory(createHistory)();
 
 @connect(
     state => ({
@@ -38,7 +39,7 @@ class Application extends Component {
     static propTypes = {
         children: PropTypes.node,
         dispatch: PropTypes.func.isRequired
-    }
+    };
     onInclementClick(id) {
         this.props.dispatch(inclement(id));
     }
@@ -78,7 +79,7 @@ class Page extends Component {
         onDeclementClick: PropTypes.func,
         counterA: PropTypes.number,
         counterB: PropTypes.number
-    }
+    };
 
     render() {
         const {params, counterA, counterB, onInclementClick, onDeclementClick} = this.props;
@@ -99,7 +100,7 @@ class Page extends Component {
 ReactDOM.render((
     <div>
         <Provider store={store}>
-            <Router history={history}>
+            <Router history={appHistory}>
                 <Route path="/" component={Application}>
                     <IndexRoute component={Home}/>
                     <Route path="/page/:id" component={Page}/>

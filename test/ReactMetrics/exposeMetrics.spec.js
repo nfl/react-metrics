@@ -24,7 +24,7 @@ describe("exposeMetrics", () => {
 
     it("should be named after wrapped component", () => {
         class Comp1 extends React.Component {
-            static displayName = "Compo1"
+            static displayName = "Compo1";
             render() {
                 return (<h1>Page</h1>);
             }
@@ -76,7 +76,7 @@ describe("exposeMetrics", () => {
 
         @exposeMetrics
         class Page extends React.Component {
-            static displayName = "Page"
+            static displayName = "Page";
 
             static willTrackPageView() {
                 expect(true).to.be.ok;

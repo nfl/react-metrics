@@ -5,7 +5,7 @@ import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line i
 class AsyncPageView extends React.Component {
     static contextTypes = {
         metrics: PropTypes.metrics
-    }
+    };
 
     static willTrackPageView(routeState) {
         return AsyncPageView._promise.then(result => {
@@ -19,7 +19,7 @@ class AsyncPageView extends React.Component {
                 asyncMetrics: "asyncValue"
             });
         }, 5 * 1000);
-    })
+    });
 
     render() {
         return <h1>Async Page View Example</h1>;
