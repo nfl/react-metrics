@@ -3,6 +3,7 @@
 [![npm package](https://img.shields.io/npm/v/react-metrics.svg?style=flat-square)](https://www.npmjs.org/package/react-metrics)
 [![build status](https://img.shields.io/travis/nfl/react-metrics/master.svg?style=flat-square)](https://travis-ci.org/nfl/react-metrics)
 [![dependency status](https://img.shields.io/david/nfl/react-metrics.svg?style=flat-square)](https://david-dm.org/nfl/react-metrics)
+[![codecov.io](https://img.shields.io/codecov/c/github/nfl/react-metrics/master.svg?style=flat-square)](https://codecov.io/github/nfl/react-metrics?branch=master)
 
 An analytics module for [React](https://github.com/facebook/react).
 
