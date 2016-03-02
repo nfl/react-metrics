@@ -44,6 +44,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
+    "codecov.io": "^0.1.6",
     "commitizen": "^2.5.0",
     "conventional-changelog": "^1.0.1",
     "cz-conventional-changelog": "^1.1.5",

@@ -1,6 +1,6 @@
 node_modules/
 lib/
 dist/
-build/
+coverage/
 npm-debug.log
 .DS_Store

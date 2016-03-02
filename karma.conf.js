@@ -27,12 +27,14 @@ module.exports = function (config) {
         },
 
         coverageReporter: {
-            dir: "build/reports/coverage",
             reporters: [{
                 type: "html",
                 subdir: "html"
             }, {
                 type: "text"
+            }, {
+                type: "lcovonly",
+                subdir: "."
             }]
         },
 

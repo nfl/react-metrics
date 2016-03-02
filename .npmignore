@@ -4,5 +4,5 @@ scripts/
 docs/
 examples/
 test/
-build/
+coverage/
 *.yml
