@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from "react";
 import ReactDOM from "react-dom";
 import {Router, Route, IndexRoute, Link, IndexLink, hashHistory} from "react-router";
-import {metrics} from "react-metrics"; // eslint-disable-line import/named
+import {metrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 import MetricsConfig from "./metrics.config";
 import Home from "./home";
 import AsyncPageView from "./async-page-view";
