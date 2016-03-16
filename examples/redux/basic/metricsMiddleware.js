@@ -1,4 +1,4 @@
-import {createMetrics} from "react-metrics"; // eslint-disable-line import/named
+import {createMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 import MetricsConfig from "./metrics.config";
 import ActionTypes from "./ActionTypes";
 

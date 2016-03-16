@@ -1,5 +1,5 @@
 import React from "react";
-import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line import/named
+import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 
 @exposeMetrics
 class ManualPageView extends React.Component {

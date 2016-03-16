@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {exposeMetrics} from "react-metrics"; // eslint-disable-line import/named
+import {exposeMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 
 @exposeMetrics
 class User extends React.Component {

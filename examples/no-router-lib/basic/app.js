@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import React, {Component, PropTypes} from "react";
 import ReactDOM from "react-dom";
-import {metrics} from "react-metrics"; // eslint-disable-line import/named
+import {metrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 import MetricsConfig from "./metrics.config";
 import Home from "./home";
 import Page from "./page";

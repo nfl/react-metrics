@@ -1,8 +1,0 @@
-*.log
-node_modules/
-scripts/
-docs/
-examples/
-test/
-coverage/
-*.yml

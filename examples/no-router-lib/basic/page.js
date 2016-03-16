@@ -1,5 +1,5 @@
 import React, {PropTypes} from "react";
-import {PropTypes as MetricsPropTypes} from "react-metrics"; // eslint-disable-line import/named
+import {PropTypes as MetricsPropTypes} from "react-metrics"; // eslint-disable-line import/no-unresolved
 
 class Page extends React.Component {
     static contextTypes = {
