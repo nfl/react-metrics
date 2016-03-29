@@ -63,7 +63,7 @@ describe("exposeMetrics", () => {
 
         Metrics = exposeMetrics(Comp4);
 
-        expect(Metrics.displayName).to.be.equal("Metrics(Component)");
+        expect(Metrics.displayName).to.contains("Metrics(");
     });
 
     it("should provide 'willTrackPageView' static method to route handler component", (done) => {
