@@ -23,7 +23,7 @@ class App extends Component {
                     <li><a href={createHref("/page/A")}>Page A</a></li>
                     <li><a href={createHref("/page/B")}>Page B</a></li>
                 </ul>
-                {this.props.children && React.cloneElement(this.props.children, this.props)}
+                {this.props.children && React.cloneElement(this.props.children, {...this.props})}
             </div>
         );
     }
