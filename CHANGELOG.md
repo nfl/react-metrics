@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/nfl/react-metrics/compare/1.1.0...v1.1.1) (2016-04-14)
+
+
+### Bug Fixes
+
+* **package:** Fix react dependency ([aee0c8d](https://github.com/nfl/react-metrics/commit/aee0c8d))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/nfl/react-metrics/compare/1.0.1...v1.1.0) (2016-02-29)
 
