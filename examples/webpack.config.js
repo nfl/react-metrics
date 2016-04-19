@@ -17,7 +17,7 @@ module.exports = {
         if (!isNodeModules && !isSrc && isDirectory(dirPath)) {
             fs.readdirSync(dirPath).forEach(function (subdir) {
                 if (isDirectory(path.join(dirPath, subdir))) {
-                    entries[[dir, subdir].join("_")] = path.join(dirPath, subdir, "app.js");
+                    entries[[dir, subdir].join("_")] = ["babel-polyfill", path.join(dirPath, subdir, "app.js")];
                 }
             });
         }

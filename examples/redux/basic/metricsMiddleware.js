@@ -2,9 +2,10 @@ import {createMetrics} from "react-metrics"; // eslint-disable-line import/no-un
 import MetricsConfig from "./metrics.config";
 import ActionTypes from "./ActionTypes";
 
-const metrics = createMetrics(Object.assign(MetricsConfig, {
+const metrics = createMetrics({
+    ...MetricsConfig,
     debug: true
-}));
+});
 
 export default function metricsMiddleware({getState}) {
     return next => action => {

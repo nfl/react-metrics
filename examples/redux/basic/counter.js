@@ -5,14 +5,16 @@ export default function counter(state, action) {
     let nextState;
     switch (action.type) {
         case ActionTypes.INCLEMENT:
-            nextState = Object.assign({}, state, {
+            nextState = {
+                ...state,
                 [`counter${id}`]: state[`counter${id}`] + 1
-            });
+            };
             return nextState;
         case ActionTypes.DECLEMENT:
-            nextState = Object.assign({}, state, {
+            nextState = {
+                ...state,
                 [`counter${id}`]: state[`counter${id}`] - 1
-            });
+            };
             return nextState;
         default:
             return state;

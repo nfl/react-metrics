@@ -17,12 +17,11 @@ module.exports = function (config) {
         ],
 
         files: [
-            "src/polyfill.js",
+            "node_modules/babel-polyfill/dist/polyfill.js",
             "test/**/*spec.js"
         ],
 
         preprocessors: {
-            "src/polyfill.js": ["webpack"],
             "test/**/*spec.js": ["webpack", "sourcemap"]
         },
 
