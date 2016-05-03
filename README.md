@@ -30,6 +30,8 @@ An analytics module for [React](https://github.com/facebook/react).
 $ npm install --save react-metrics
 ```
 
+React Metrics depends on [Promise](https://promisesaplus.com/) to be available in browser. If your application support the browser which doesn't support Promise, please include the polyfill.
+
 ## Getting Started
 
 ### 1. Configure Metrics
