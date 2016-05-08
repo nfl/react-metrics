@@ -242,6 +242,44 @@ There are 2 ways to call `track` api from your component.
     }
     ```
 
+    In a case where the element you are tracking is not the click target, you can use [`MetricsElement`](/docs/api/ReactMetrics.md#MetricsElement).
+    If you use [`MetricsElement`](/docs/api/ReactMetrics.md#MetricsElement) for all declarative tracking, we recommend turning off default track-binding by passing `useTrackBinding: false` in the [`metrics`](/docs/api/ReactMetrics.md#metrics) options.
+
+    Example:
+
+    ```javascript
+    import {MetricsElement} from "react-metrics";
+
+    class PaginationComponent extends React.Component {
+        render() {
+            const {commentId, totalPage, currentPage} = this.props;
+            return (
+                <MetricsElement element="ul">
+                    <li className={currentPage > 0 ? "active" : ""}>
+                        <a
+                            href="#"
+                            data-metrics-event-name="commentPageClick"
+                            data-metrics-comment-id={commentId}
+                            data-metrics-page-num={currentPage - 1}>
+                            <span className="back">Back</span>
+                        </a>
+                    </li>
+                    <li>...</li>
+                    <li className={currentPage < totalPage - 1 ? "active" : ""}>
+                        <a
+                            href="#"
+                            data-metrics-event-name="commentPageClick"
+                            data-metrics-comment-id={commentId}
+                            data-metrics-page-num={currentPage + 1}>
+                            <span className="next">Next</span>
+                        </a>
+                    </li>
+                </MetricsElement>
+            );
+        }
+    }
+    ```
+
 2. **Imperative** by calling the API explicitly. To do this, define `metrics` context as one of `contextTypes` in your child component. This allows you to call the `track` API. You can pass either an Object or a Promise as a second argument. It's your responsibility to implement the `track` API in your service, otherwise calling the API simply throws an error.
 
     Example:

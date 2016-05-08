@@ -14,13 +14,14 @@ function getDisplayName(Comp) {
 
 let mountedInstances;
 
-export default function metrics(metricsOrOptions, options = {}) {
+export default function metrics(metricsOrConfig, options = {}) {
     const autoTrackPageView = options.autoTrackPageView === false ? false : true;
     const useTrackBinding = options.useTrackBinding === false ? false : true;
     const attributePrefix = options.attributePrefix;
+    const suppressTrackBindingWarning = !!options.suppressTrackBindingWarning;
     const getNewRouteState = options.getRouteState || getRouteState;
     const findNewRouteComponent = options.findRouteComponent || findRouteComponent;
-    const metricsInstance = isMetrics(metricsOrOptions) ? metricsOrOptions : createMetrics(metricsOrOptions);
+    const metricsInstance = isMetrics(metricsOrConfig) ? metricsOrConfig : createMetrics(metricsOrConfig);
 
     return function wrap(ComposedComponent) {
         class MetricsContainer extends Component {
@@ -34,7 +35,8 @@ export default function metrics(metricsOrOptions, options = {}) {
             }
 
             static childContextTypes = {
-                metrics: metricsType.isRequired
+                metrics: metricsType.isRequired,
+                _metricsConfig: PropTypes.object
             };
 
             static propTypes = {
@@ -44,7 +46,15 @@ export default function metrics(metricsOrOptions, options = {}) {
 
             getChildContext() {
                 return {
-                    metrics: this._getMetrics().api
+                    metrics: this._getMetrics().api,
+                    _metricsConfig: {
+                        autoTrackPageView,
+                        useTrackBinding,
+                        attributePrefix,
+                        suppressTrackBindingWarning,
+                        getNewRouteState,
+                        findNewRouteComponent
+                    }
                 };
             }
 

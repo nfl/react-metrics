@@ -93,7 +93,7 @@ Your application will now automatically trigger page view tracking.
 
 ### 3. Add Custom Link Tracking
 
-Use `data-` attributes to enable custom link tracking on your DOM elements.
+a. Use `data-` attributes to enable custom link tracking on your DOM elements.
 
 ```javascript
 // PaginationComponent.js
@@ -120,6 +120,45 @@ class PaginationComponent extends React.Component {
                         data-metrics-page-num={currentPage + 1}>
                         Next
                     </a>
+                </li>
+            </ul>
+        );
+    }
+}
+```
+
+b. Use [`MetricsElement`](/docs/api/ReactMetrics.md#MetricsElement) for custom link tracking on a nested DOM element.
+
+Please see [`MetricsElement`](/docs/api/ReactMetrics.md#MetricsElement) for more use cases.
+
+```javascript
+import {MetricsElement} from "react-metrics";
+// PaginationComponent.js
+class PaginationComponent extends React.Component {
+    render() {
+        const {commentId, totalPage, currentPage} = this.props;
+        return (
+            <ul>
+                <li className={currentPage > 0 ? "active" : ""}>
+                    <MetricsElement
+                        element="a"
+                        href="#"
+                        data-metrics-event-name="commentPageClick"
+                        data-metrics-comment-id={commentId}
+                        data-metrics-page-num={currentPage - 1}>
+                        <span className="button">Back</span>
+                    </MetricsElement>
+                </li>
+                <li>...</li>
+                <li className={currentPage < totalPage - 1 ? "active" : ""}>
+                    <MetricsElement
+                        element="a"
+                        href="#"
+                        data-metrics-event-name="commentPageClick"
+                        data-metrics-comment-id={commentId}
+                        data-metrics-page-num={currentPage + 1}>
+                        <span className="button">Next</span>
+                    </MetricsElement>
                 </li>
             </ul>
         );

@@ -10,8 +10,9 @@ function isModifiedEvent(event) {
 }
 
 export class TrackBindingPlugin {
-    constructor(attributePrefix = "data-metrics") {
-        this.attributePrefix = attributePrefix;
+    constructor({attributePrefix = "data-metrics", traverseParent = false} = {}) {
+        this._attributePrefix = attributePrefix;
+        this._traverseParent = traverseParent;
     }
 
     listen(callback, rootElement = document.body) {
@@ -23,13 +24,15 @@ export class TrackBindingPlugin {
             throw new Error("rootElement needs to be a valid node element.");
         }
 
-        if (!this._clickHandler) {
+        if (this._clickHandler) {
             this.remove();
         }
 
+        this._rootElement = rootElement;
         this._clickHandler = EventListener.listen(rootElement, "click", this._handleClick.bind(this, callback));
 
         return {
+            target: this,
             remove: this.remove.bind(this)
         };
     }
@@ -53,13 +56,26 @@ export class TrackBindingPlugin {
             return;
         }
 
-        const elem = event.target;
-        const dataset = attr2obj(elem, this.attributePrefix);
-        const eventName = dataset && dataset.eventName;
+        let elem = event.target;
+        let dataset = this._getData(elem);
 
         if (!Object.keys(dataset).length) {
-            return;
+            if (!this._traverseParent) {
+                return;
+            }
+
+            const rootElement = this._rootElement;
+            while (elem !== rootElement && !Object.keys(dataset).length) {
+                elem = elem.parentElement;
+                dataset = this._getData(elem);
+            }
+
+            if (!Object.keys(dataset).length) {
+                return;
+            }
         }
+
+        const eventName = dataset && dataset.eventName;
 
         if (eventName) {
             delete dataset.eventName;
@@ -68,9 +84,13 @@ export class TrackBindingPlugin {
             callback(dataset);
         }
     }
+
+    _getData(elem) {
+        return attr2obj(elem, this._attributePrefix);
+    }
 }
 
-export default function useTrackBindingPlugin({callback, rootElement, attributePrefix}) {
-    const trackBindingPlugin = new TrackBindingPlugin(attributePrefix);
+export default function useTrackBindingPlugin({callback, rootElement, attributePrefix, traverseParent}) {
+    const trackBindingPlugin = new TrackBindingPlugin({attributePrefix, traverseParent});
     return trackBindingPlugin.listen(callback, rootElement);
 }

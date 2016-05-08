@@ -6,6 +6,7 @@
 * [exposeMetrics](/docs/api/ReactMetrics.md#exposeMetrics)
 * [PropTypes](/docs/api/ReactMetrics.md#PropTypes)
 * [createMetrics(config)](/docs/api/ReactMetrics.md#createMetrics)
+* [MetricsElement](/docs/api/ReactMetrics.md#MetricsElement)
 
 ### Metrics API
 
