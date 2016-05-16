@@ -1,3 +1,18 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/nfl/react-metrics/compare/v1.2.1...v2.0.0) (2016-05-16)
+
+
+### Code Refactoring
+
+* **build:** remove polyfill and add umd build([cabf6c3](https://github.com/nfl/react-metrics/commit/cabf6c3))
+
+
+### BREAKING CHANGES
+
+* build: remove polyfill and depend on the parent project to include the polyfill
+
+
+
 <a name="1.2.1"></a>
 # [1.2.1](https://github.com/nfl/react-metrics/compare/1.1.1...v1.2.1) (2016-04-15)
 

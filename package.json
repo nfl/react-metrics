@@ -1,7 +1,7 @@
 {
   "name": "react-metrics",
   "description": "An analytics library for React.js",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "main": "lib/index.js",
   "contributors": [
     {
@@ -28,7 +28,8 @@
     "*.md",
     "docs",
     "src",
-    "lib"
+    "lib",
+    "dist"
   ],
   "dependencies": {
     "deep-equal": "^1.0.1",
@@ -101,7 +102,7 @@
     "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline",
     "lint": "eslint src test examples",
     "pretest": "npm run build",
-    "prepublish": "npm run build",
+    "prepublish": "npm run build && npm run build:umd && npm run build:umd:min",
     "test": "karma start"
   },
   "config": {
