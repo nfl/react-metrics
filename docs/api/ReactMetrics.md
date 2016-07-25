@@ -81,13 +81,15 @@ Example:
 {
     autoTrackPageView: false,
     useTrackBinding: true,
-    attributePrefix: "custom"
+    attributePrefix: "custom",
+    suppressTrackBindingWarning: true
 }
 ```
 
 - `autoTrackPageView`(optional) - A flag to indicate whether a page view is triggered automatically by a route change detection or not. Default value is `true`.
 - `useTrackBinding`(optional) - A flag to indicate whether metrics should use track binding. Default value is `true`.
 - `attributePrefix`(optional) - An element attribute prefix to use for tracking bining. Default value is `data-metrics`.
+- `suppressTrackBindingWarning`(optional) - A flag to indicate whether the warning which is presented when both the default track binding and [`MetricsElement`](#MetricsElement) are used should be suppressed or not. Default value is `false`.
 
 ### <a id='exposeMetrics'></a>[`exposeMetrics`](#exposeMetrics)
 
@@ -158,4 +160,85 @@ export default function metricsMiddleware() {
         return returnValue;
     };
 }
+```
+
+### <a id='MetricsElement'></a>[`MetricsElement`](#MetricsElement)
+
+`MetricsElement` is a react component which detects click event on tracking elements within its children including itself and sends tracking data.
+
+To minimize the child element traversing, it is recommended that you add `MetricsElement` as the closest common parent against the children you are tracking.
+
+Also, when you use `MetricsElement` in your application, you should stick with `MetricsElement` for all the declarative tracking and turn off the default track binding by passing `useTrackBinding=false` to the [`metrics`](#metrics) options to avoid double tracking accidentally.
+
+#### Props
+
+- `element`(optional) - Either a string to indicate a html element, a component class or a component instance to render.
+- any arbitrary tracking attributes.
+
+#### Usage
+
+Sends tracking data defined as its own props. You can pass the `element` prop with html tag string, component class or component instance.
+If a component instance is passed as `element` props, it will be cloned with new props merged into the original props of the component instance.
+
+Example:
+
+```javascript
+import React from "react";
+import {MetricsElement} from "react-metrics";
+
+const MyComponent = () => (
+    <div>
+        <MetricsElement element="a" data-metrics-event-name="SomeEvent" data-metrics-value="SomeValue">
+            <img src="..."/>
+        </MetricsElement>
+    </div>
+);
+```
+
+If `element` is not set, it renders its children only.
+
+Example:
+
+```javascript
+import React from "react";
+import {MetricsElement} from "react-metrics";
+
+const MyComponent = () => (
+    <div>
+        <MetricsElement>
+            <a data-tracking-event-name="SomeEvent" data-tracking-value="SomeValue">
+                <img src="..." />
+            </a>
+        </MetricsElement>
+    </div>
+);
+```
+
+Sends tracking data defined as child component's props.
+
+Example:
+
+```javascript
+import React from "react";
+import {MetricsElement} from "react-metrics";
+
+const MyComponent = (props) => {
+    const listItem = props.items.map(item => (
+        <li
+            key={item.id}
+            data-metrics-event-name="SomeEvent"
+            data-metrics-key={item.id}
+            data-metrics-value={item.value}
+        >
+            <img src={item.imageUrl} alt={item.title} />
+        </li>
+    ));
+    return (
+        <div>
+            <MetricsElement element="ul">
+                {listItem}
+            </MetricsElement>
+        </div>
+    );
+};
 ```

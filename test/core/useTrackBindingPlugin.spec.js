@@ -56,7 +56,7 @@ describe("useTrackBindingPlugin", () => {
             node
         );
         listener = plugin.listen(
-            () => {},
+            spy,
             node
         );
 
@@ -265,5 +265,65 @@ describe("useTrackBindingPlugin", () => {
 
         const linkNode = node.firstChild;
         linkNode.click();
+    });
+
+    it("does not call 'callback' when event is not single left click", () => {
+        addChildToNode(node, {
+            tagName: "a",
+            attrs: {
+                "href": "#",
+                "data-metrics-event-name": "myEvent"
+            },
+            content: "Link to Track"
+        });
+
+        const spy = sinon.spy();
+
+        listener = useTrackBindingPlugin({
+            callback: spy,
+            rootElement: node
+        });
+
+        const linkNode = node.firstChild;
+        listener.target._handleClick(spy, {
+            target: linkNode,
+            button: 1
+        });
+
+        expect(spy.calledOnce).to.be.false;
+
+        listener.target._handleClick(spy, {
+            target: linkNode,
+            button: 0,
+            ctrlKey: true
+        });
+
+        expect(spy.calledOnce).to.be.false;
+    });
+
+    it("does not call 'callback' when no tracking data is found", () => {
+        addChildToNode(node, {
+            tagName: "a",
+            attrs: {
+                "href": "#"
+            },
+            content: "Link to Track"
+        });
+
+        const spy = sinon.spy();
+
+        listener = useTrackBindingPlugin({
+            callback: spy,
+            rootElement: node,
+            traverseParent: true
+        });
+
+        const linkNode = node.firstChild;
+        listener.target._handleClick(spy, {
+            target: linkNode,
+            button: 0
+        });
+
+        expect(spy.calledOnce).to.be.false;
     });
 });
