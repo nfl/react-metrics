@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/nfl/react-metrics/compare/v2.0.0...v2.1.0) (2016-08-09)
+
+
+### Features
+
+* **MetricsElement:** add MetricsElement component ([b7c108e](https://github.com/nfl/react-metrics/commit/b7c108e))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/nfl/react-metrics/compare/v1.2.1...v2.0.0) (2016-05-16)
 
