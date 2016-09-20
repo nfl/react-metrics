@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/nfl/react-metrics/compare/v2.1.0...v2.1.1) (2016-09-20)
+
+
+### Performance Improvements
+
+* Prevent possible memory leaks on the server ([777a551](https://github.com/nfl/react-metrics/commit/777a551))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/nfl/react-metrics/compare/v2.0.0...v2.1.0) (2016-08-09)
 
