@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {canUseDOM} from "fbjs/lib/ExecutionEnvironment";
 import hoistStatics from "hoist-non-react-statics";
 import PropTypes from "./PropTypes";
 
@@ -27,6 +28,10 @@ function wrap(ComposedComponent) {
         };
 
         componentWillMount() {
+            if (!canUseDOM) {
+                return;
+            }
+
             mountedInstances.push(Metrics);
         }
 

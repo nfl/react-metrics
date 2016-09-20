@@ -59,9 +59,13 @@ export default function metrics(metricsOrConfig, options = {}) {
             }
 
             componentWillMount() {
+                if (!canUseDOM) {
+                    return;
+                }
+
                 const instances = this.constructor.getMountedMetricsInstances();
                 // Ensure this component should only be added in one root location.
-                if (canUseDOM && instances.length === 1) {
+                if (instances.length === 1) {
                     invariant(
                         false,
                         "`metrics` should only be added once to the root level component. You have added to both %s and %s.",
