@@ -1,7 +1,7 @@
 {
   "name": "react-metrics",
   "description": "An analytics library for React.js",
-  "version": "2.1.1",
+  "version": "2.2.1",
   "main": "lib/index.js",
   "contributors": [
     {

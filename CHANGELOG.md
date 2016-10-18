@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/nfl/react-metrics/compare/v2.1.1...v2.2.1) (2016-10-18)
+
+
+### Features
+
+* Allow merging pageDefaults data into declarative tracking data ([fd1c8bb](https://github.com/nfl/react-metrics/commit/fd1c8bb))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/nfl/react-metrics/compare/v2.1.0...v2.1.1) (2016-09-20)
 
