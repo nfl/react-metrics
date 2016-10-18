@@ -413,8 +413,8 @@ export class Metrics extends EventEmitter {
      * @param {Object} params
      * @private
      */
-    _handleClick(eventName, params) {
-        this.api.track(eventName, params);
+    _handleClick(...args) {
+        this.api.track(...args);
     }
     _removeListeners() {
         this.removeAllListeners();

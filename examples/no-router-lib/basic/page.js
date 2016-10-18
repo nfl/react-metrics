@@ -25,7 +25,13 @@ class Page extends React.Component {
             <div>
                 <h1>Page {params.id}</h1>
                 <button onClick={this.onClick.bind(this)}>Manual Track</button>
-                <button data-metrics-event-name="trackClick" data-metrics-page={params.id}>Declarative Track</button>
+                <button
+                    data-metrics-event-name="trackClick"
+                    data-metrics-page={params.id}
+                    data-metrics-merge-pagedefaults="true"
+                >
+                    Declarative Track
+                </button>
             </div>
         );
     }

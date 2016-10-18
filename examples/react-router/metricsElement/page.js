@@ -25,7 +25,14 @@ class Page extends React.Component {
             <div>
                 <h1>Page {params.id}</h1>
                 {/* Ex 1: self target */}
-                <MetricsElement element="a" data-tracking-event-name="SomeEvent" data-tracking-value="SomeValue">Link</MetricsElement>
+                <MetricsElement
+                    element="a"
+                    data-tracking-event-name="SomeEvent"
+                    data-tracking-value="SomeValue"
+                    data-tracking-merge-pagedefaults="true"
+                >
+                    Link
+                </MetricsElement>
                 {/* Ex 2: render children only */}
                 <MetricsElement>
                     <a data-tracking-event-name="SomeEvent" data-tracking-value="SomeValue">

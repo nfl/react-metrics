@@ -280,6 +280,8 @@ There are 2 ways to call `track` api from your component.
     }
     ```
 
+    If you set `{prefix}-merge-pagedefaults="true"` to the declarative tracking, the custom link tracking metrics will get merged with `pageDefaults` metrics.
+
 2. **Imperative** by calling the API explicitly. To do this, define `metrics` context as one of `contextTypes` in your child component. This allows you to call the `track` API. You can pass either an Object or a Promise as a second argument. It's your responsibility to implement the `track` API in your service, otherwise calling the API simply throws an error.
 
     Example:

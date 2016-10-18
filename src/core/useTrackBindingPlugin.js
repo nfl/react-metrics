@@ -76,12 +76,14 @@ export class TrackBindingPlugin {
         }
 
         const eventName = dataset && dataset.eventName;
+        const mergePagedefaults = dataset && dataset.mergePagedefaults;
+        delete dataset.mergePagedefaults;
 
         if (eventName) {
             delete dataset.eventName;
-            callback(eventName, dataset);
+            callback(eventName, dataset, mergePagedefaults === "true");
         } else {
-            callback(dataset);
+            callback(dataset, mergePagedefaults === "true");
         }
     }
 
