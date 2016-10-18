@@ -326,4 +326,32 @@ describe("useTrackBindingPlugin", () => {
 
         expect(spy.calledOnce).to.be.false;
     });
+
+    it("merges pageDefaults data when '{prefix}-merge-pagedefaults' is set to 'true'", (done) => {
+        addChildToNode(node, {
+            tagName: "a",
+            attrs: {
+                "href": "#",
+                "data-metrics-event-name": "myEvent",
+                "data-metrics-prop": "value",
+                "data-metrics-merge-pagedefaults": "true"
+            },
+            content: "Link to Track"
+        });
+
+        function callback(eventName, params, merge) {
+            expect(eventName).to.equal("myEvent");
+            expect(params).to.eql({prop: "value"});
+            expect(merge).to.be.true;
+            done();
+        }
+
+        listener = useTrackBindingPlugin({
+            callback,
+            rootElement: node
+        });
+
+        const linkNode = node.firstChild;
+        linkNode.click();
+    });
 });
