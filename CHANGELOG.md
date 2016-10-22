@@ -1,3 +1,8 @@
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/nfl/react-metrics/compare/v2.2.1...v2.2.2) (2016-10-22)
+
+* Republish as 2.2.2
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/nfl/react-metrics/compare/v2.1.1...v2.2.1) (2016-10-18)
 
