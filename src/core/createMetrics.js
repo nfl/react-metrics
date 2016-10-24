@@ -445,6 +445,7 @@ export default function createMetrics(options) {
         setRouteState: metrics.setRouteState.bind(metrics),
         useTrackBinding: metrics.useTrackBinding.bind(metrics),
         destroy: metrics.destroy.bind(metrics),
+        get enabled() {return metrics.enabled;},
         get api() {return metrics.api;}
     };
 }

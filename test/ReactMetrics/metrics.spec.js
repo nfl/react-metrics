@@ -138,6 +138,7 @@ describe("metrics", () => {
 
         const stub = sinon.stub(Application.prototype, "_getMetrics", () => {
             return {
+                ...metricsMock,
                 api: metricsContext
             };
         });
@@ -214,6 +215,33 @@ describe("metrics", () => {
                 </Route>
             </Router>
         ), node, execNextStep);
+    });
+    
+    it("should not throw invariant error when `enabled` is set to false in metrics config and pageView is not defined.", done => {
+        @metrics(metricsConfig)
+        class Application extends React.Component {
+            static displayName = "Application";
+
+            render() {
+                return (<div><h2>Appication</h2></div>);
+            }
+        }
+        
+        sinon.stub(Application.prototype, "_getMetrics", () => {
+            return {
+                ...metricsMock,
+                enabled: false,
+                api: {}
+            };
+        });
+
+        expect(() => {
+            ReactDOM.render((
+                <Router history={createHistory("/")}>
+                    <Route path="/" component={Application}/>
+                </Router>
+            ), node, done);
+        }).to.not.throw();
     });
 
     it("should not use track binding when 'useTrackBinding' is set to false.", done => {
