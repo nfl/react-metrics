@@ -143,6 +143,7 @@ describe("willTrackPageView", () => {
 
         const pageView = sinon.stub(Application.prototype, "_getMetrics", () => {
             return {
+                ...metricsMock,
                 api: {
                     pageView(...args) {
                         expect(typeof args[0]).to.be.equal("object");

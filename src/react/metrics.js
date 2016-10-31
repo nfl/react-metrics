@@ -77,7 +77,7 @@ export default function metrics(metricsOrConfig, options = {}) {
 
                 this._newRouteState = getNewRouteState(this.props);
                 if (this._newRouteState) {
-                    metricsInstance.setRouteState(this._newRouteState);
+                    this._getMetrics().setRouteState(this._newRouteState);
                 }
             }
             componentDidMount() {
@@ -88,7 +88,7 @@ export default function metrics(metricsOrConfig, options = {}) {
                         rootElement,
                         "`metrics` should be added to the root most component which renders node element for declarative tracking to work."
                     );
-                    metricsInstance.useTrackBinding(rootElement, attributePrefix);
+                    this._getMetrics().useTrackBinding(rootElement, attributePrefix);
                 }
 
                 if (this._newRouteState) {
@@ -99,7 +99,7 @@ export default function metrics(metricsOrConfig, options = {}) {
             componentWillReceiveProps(newProps) {
                 this._newRouteState = getNewRouteState(newProps, this.props);
                 if (this._newRouteState) {
-                    metricsInstance.setRouteState(this._newRouteState);
+                    this._getMetrics().setRouteState(this._newRouteState);
                 }
             }
             componentDidUpdate() {
@@ -113,7 +113,7 @@ export default function metrics(metricsOrConfig, options = {}) {
                 const index = instances.indexOf(ComposedComponent);
                 instances.splice(index, 1);
 
-                metricsInstance.destroy();
+                this._getMetrics().destroy();
             }
             _getMetrics() {
                 return metricsInstance;
@@ -127,6 +127,7 @@ export default function metrics(metricsOrConfig, options = {}) {
              */
             _handleRouteStateChange(routeState) {
                 const component = findNewRouteComponent();
+                const metrics = this._getMetrics();
                 let pageViewParams;
                 let shouldSuppress = false;
 
@@ -139,12 +140,12 @@ export default function metrics(metricsOrConfig, options = {}) {
                     }
                 }
 
-                if (autoTrackPageView && !shouldSuppress) {
+                if (metrics.enabled && autoTrackPageView && !shouldSuppress) {
                     invariant(
-                        typeof this._getMetrics().api.pageView === "function",
+                        typeof metrics.api.pageView === "function",
                         "react-metrics: 'pageView' api needs to be defined for automatic page view tracking."
                     );
-                    this._getMetrics().api.pageView(pageViewParams);
+                    metrics.api.pageView(pageViewParams);
                 }
             }
             /**
