@@ -1,3 +1,13 @@
+<a name="2.2.3"></a>
+## [2.2.3](https://github.com/nfl/react-metrics/compare/v2.2.2...v2.2.3) (2016-10-31)
+
+
+### Bug Fixes
+
+* Don't throw invariant error for missing pageView api when `enabled` is set to `false` in the co ([e820662](https://github.com/nfl/react-metrics/commit/e820662))
+
+
+
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/nfl/react-metrics/compare/v2.2.1...v2.2.2) (2016-10-22)
 
