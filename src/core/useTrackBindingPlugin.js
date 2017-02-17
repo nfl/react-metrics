@@ -51,40 +51,40 @@ export class TrackBindingPlugin {
      * @param {Object} event
      * @private
      */
-    _handleClick(callback, event) {
-        if (isModifiedEvent(event) || !isLeftClickEvent(event)) {
-            return;
-        }
+   _handleClick(callback, event) {
 
-        let elem = event.target;
-        let dataset = this._getData(elem);
+      if (isModifiedEvent(event) || !isLeftClickEvent(event)) {
+        return;
+      }
 
-        if (!Object.keys(dataset).length) {
-            if (!this._traverseParent) {
-                return;
-            }
+      var elem = event.target;
+      var dataset = this._getData(elem);
 
-            const rootElement = this._rootElement;
-            while (elem !== rootElement && !Object.keys(dataset).length) {
-                elem = elem.parentElement;
-                dataset = this._getData(elem);
-            }
 
-            if (!Object.keys(dataset).length) {
-                return;
-            }
-        }
+      if (!this._traverseParent) {
+        return;
+      }
 
-        const eventName = dataset && dataset.eventName;
-        const mergePagedefaults = dataset && dataset.mergePagedefaults;
-        delete dataset.mergePagedefaults;
+      var rootElement = document.body;
+      while (elem !== rootElement) {
+        elem = elem.parentElement;
+        dataset = Object.assign({},this._getData(elem),dataset);
+      }
 
-        if (eventName) {
-            delete dataset.eventName;
-            callback(eventName, dataset, mergePagedefaults === "true");
-        } else {
-            callback(dataset, mergePagedefaults === "true");
-        }
+      if (!Object.keys(dataset).length) {
+        return;
+      }
+
+      var eventName = dataset && dataset.eventName;
+      var mergePagedefaults = dataset && dataset.mergePagedefaults;
+      delete dataset.mergePagedefaults;
+
+      if (eventName) {
+        delete dataset.eventName;
+        callback(eventName, dataset, mergePagedefaults === "true");
+      } else {
+        callback(dataset, mergePagedefaults === "true");
+      }
     }
 
     _getData(elem) {
