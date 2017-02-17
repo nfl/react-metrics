@@ -127,7 +127,7 @@ export default function metrics(metricsOrConfig, options = {}) {
              */
             _handleRouteStateChange(routeState) {
                 const component = findNewRouteComponent();
-                const metrics = this._getMetrics();
+                const metricsInst = this._getMetrics();
                 let pageViewParams;
                 let shouldSuppress = false;
 
@@ -140,12 +140,12 @@ export default function metrics(metricsOrConfig, options = {}) {
                     }
                 }
 
-                if (metrics.enabled && autoTrackPageView && !shouldSuppress) {
+                if (metricsInst.enabled && autoTrackPageView && !shouldSuppress) {
                     invariant(
-                        typeof metrics.api.pageView === "function",
+                        typeof metricsInst.api.pageView === "function",
                         "react-metrics: 'pageView' api needs to be defined for automatic page view tracking."
                     );
-                    metrics.api.pageView(pageViewParams);
+                    metricsInst.api.pageView(pageViewParams);
                 }
             }
             /**

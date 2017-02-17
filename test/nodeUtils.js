@@ -9,7 +9,7 @@ export function addChildToNode(node, {tagName, attrs, content}) {
         child.innerHTML = content;
     }
     node.appendChild(child);
-    return node;
+    return child;
 }
 
 export function removeChildFromNode(node) {
