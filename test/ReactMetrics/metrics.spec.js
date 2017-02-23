@@ -216,7 +216,7 @@ describe("metrics", () => {
             </Router>
         ), node, execNextStep);
     });
-    
+
     it("should not throw invariant error when `enabled` is set to false in metrics config and pageView is not defined.", done => {
         @metrics(metricsConfig)
         class Application extends React.Component {
@@ -226,7 +226,7 @@ describe("metrics", () => {
                 return (<div><h2>Appication</h2></div>);
             }
         }
-        
+
         sinon.stub(Application.prototype, "_getMetrics", () => {
             return {
                 ...metricsMock,

@@ -218,7 +218,7 @@ describe("useTrackBindingPlugin", () => {
         expect(spy.calledOnce).to.be.false;
     });
 
-    it("calls 'callback' without 'eventName'", (done) => {
+    it("does not call 'callback' without 'eventName'", () => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
@@ -228,18 +228,16 @@ describe("useTrackBindingPlugin", () => {
             content: "Link to Track"
         });
 
-        function callback(params) {
-            expect(params).to.eql({prop: "value"});
-            done();
-        }
-
+        const spy = sinon.spy();
         listener = useTrackBindingPlugin({
-            callback,
+            callback: spy,
             rootElement: node
         });
 
         const linkNode = node.firstChild;
         linkNode.click();
+
+        expect(spy.calledOnce).to.be.false;
     });
 
     it("calls 'callback' with empty 'params'", (done) => {
@@ -352,6 +350,118 @@ describe("useTrackBindingPlugin", () => {
         });
 
         const linkNode = node.firstChild;
+        linkNode.click();
+    });
+
+    it("aggregates metrics data up to the root element", (done) => {
+        const childNode = addChildToNode(node, {
+            tagName: "div",
+            attrs: {
+                "data-metrics-prop": "value"
+            }
+        });
+
+        addChildToNode(childNode, {
+            tagName: "a",
+            attrs: {
+                "href": "#",
+                "data-metrics-event-name": "myEvent",
+                "data-metrics-prop1": "value1"
+            },
+            content: "Link to Track"
+        });
+
+        function callback(eventName, params) {
+            expect(eventName).to.equal("myEvent");
+            expect(params).to.eql({
+                prop: "value",
+                prop1: "value1"
+            });
+            done();
+        }
+
+        listener = useTrackBindingPlugin({
+            callback,
+            rootElement: node,
+            traverseParent: true
+        });
+
+        const linkNode = childNode.firstChild;
+        linkNode.click();
+    });
+
+    it("overrides metrics data from parent to child", (done) => {
+        const childNode = addChildToNode(node, {
+            tagName: "div",
+            attrs: {
+                "data-metrics-event-name": "parentEvent",
+                "data-metrics-prop": "value"
+            }
+        });
+
+        addChildToNode(childNode, {
+            tagName: "a",
+            attrs: {
+                "href": "#",
+                "data-metrics-event-name": "myEvent",
+                "data-metrics-prop": "value-overriden",
+                "data-metrics-prop1": "value1"
+            },
+            content: "Link to Track"
+        });
+
+        function callback(eventName, params) {
+            expect(eventName).to.equal("myEvent");
+            expect(params).to.eql({
+                prop: "value-overriden",
+                prop1: "value1"
+            });
+            done();
+        }
+
+        listener = useTrackBindingPlugin({
+            callback,
+            rootElement: node,
+            traverseParent: true
+        });
+
+        const linkNode = childNode.firstChild;
+        linkNode.click();
+    });
+
+    it("aggregates metrics data only when 'traverseParent' is set to true", (done) => {
+        const childNode = addChildToNode(node, {
+            tagName: "div",
+            attrs: {
+                "data-metrics-prop": "value"
+            }
+        });
+
+        addChildToNode(childNode, {
+            tagName: "a",
+            attrs: {
+                "href": "#",
+                "data-metrics-event-name": "myEvent",
+                "data-metrics-prop1": "value1"
+            },
+            content: "Link to Track"
+        });
+
+        function callback(eventName, params) {
+            expect(eventName).to.equal("myEvent");
+            expect(params).to.eql({
+                prop1: "value1"
+            });
+            done();
+        }
+
+        listener = useTrackBindingPlugin({
+            callback,
+            rootElement: node,
+            traverseParent: false
+        });
+
+        const linkNode = childNode.firstChild;
         linkNode.click();
     });
 });

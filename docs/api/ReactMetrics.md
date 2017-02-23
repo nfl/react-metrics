@@ -242,3 +242,60 @@ const MyComponent = (props) => {
     );
 };
 ```
+
+Metrics data defined in `MetricsElement` and its children will get merged.
+
+Example:
+
+```javascript
+<MetricsElement
+    element="div"
+    data-metrics-page="page A"
+>
+    <div
+        data-metrics-section="section 1"
+        data-metrics-event-name="imageClick"
+    >
+        <a data-metrics-value="Image 1">
+            <img src="http://placehold.it/200x150?text=Image+1" />
+        </a>
+    </div>
+
+    <div
+        data-metrics-section="section 2"
+        data-metrics-event-name="listItemClick"
+    >
+        <ul>
+            <li data-metrics-value="list item 1"><span>Item 1</span></li>
+            <li data-metrics-value="list item 2"><span>Item 2</span></li>
+            <li data-metrics-value="list item 3"><span>Item 3</span></li>
+        </ul>
+    </div>
+</MetricsElement>
+```
+
+Clicking `Image 1` will send the following data to `react-metrics`:
+
+```
+{
+    eventName: "imageClick",
+    params: {
+        page: "page A",
+        section: "section 1",
+        value: "Image 1"
+    }
+}
+```
+
+Clicking `Item 1` in the list will send the following data to `react-metrics`:
+
+```
+{
+    eventName: "listItemClick",
+    params: {
+        page: "page A",
+        section: "section 2",
+        value: "list item 1"
+    }
+}
+```

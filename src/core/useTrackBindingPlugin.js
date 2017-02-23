@@ -59,20 +59,16 @@ export class TrackBindingPlugin {
         let elem = event.target;
         let dataset = this._getData(elem);
 
-        if (!Object.keys(dataset).length) {
-            if (!this._traverseParent) {
-                return;
-            }
-
+        if (this._traverseParent) {
             const rootElement = this._rootElement;
-            while (elem !== rootElement && !Object.keys(dataset).length) {
+            while (elem !== rootElement) {
                 elem = elem.parentElement;
-                dataset = this._getData(elem);
+                dataset = {...this._getData(elem), ...dataset};
             }
+        }
 
-            if (!Object.keys(dataset).length) {
-                return;
-            }
+        if (!Object.keys(dataset).length) {
+            return;
         }
 
         const eventName = dataset && dataset.eventName;
@@ -82,8 +78,6 @@ export class TrackBindingPlugin {
         if (eventName) {
             delete dataset.eventName;
             callback(eventName, dataset, mergePagedefaults === "true");
-        } else {
-            callback(dataset, mergePagedefaults === "true");
         }
     }
 

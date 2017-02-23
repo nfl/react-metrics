@@ -47,6 +47,29 @@ class Page extends React.Component {
                 <MetricsElement element="ul" style={{listStyle: "none", width: 200, padding: 0}}>
                     {listItem}
                 </MetricsElement>
+                {/* Ex 5: aggregate metrics data */}
+                <MetricsElement
+                    element="div"
+                    data-tracking-key1="val1"
+                >
+                    <div
+                        data-tracking-merge-pagedefaults="true"
+                        data-tracking-key2="val2"
+                    >
+                        <a data-tracking-event-name="AnotherEvent" data-tracking-value="AnotherValue">
+                            <img src="http://placehold.it/200x150?text=Image+1" style={{padding: 5}} />
+                        </a>
+                    </div>
+
+                    <div
+                        data-tracking-key1="val1-1"
+                        data-tracking-key3="val3"
+                    >
+                        <ul style={{listStyle: "none", width: 200, padding: 0}}>
+                            {listItem}
+                        </ul>
+                    </div>
+                </MetricsElement>
             </div>
         );
     }
