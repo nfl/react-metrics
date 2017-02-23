@@ -1,3 +1,13 @@
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/nfl/react-metrics/compare/v2.2.3...v2.3.0) (2017-02-23)
+
+
+### Features
+
+* support aggregating metrics data within 'MetricsElement' ([dc976a3](https://github.com/nfl/react-metrics/commit/dc976a3))
+
+
+
 <a name="2.2.3"></a>
 ## [2.2.3](https://github.com/nfl/react-metrics/compare/v2.2.2...v2.2.3) (2016-10-31)
 
