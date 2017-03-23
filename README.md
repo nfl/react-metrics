@@ -1,9 +1,12 @@
-<img src="http://static.nfl.com/static/content/public/static/img/logos/nfl-engineering-light.svg" width="300" />
+<img align="right" height="200" src="http://static.nfl.com/static/content/public/static/img/logos/nfl-engineering-light.svg" />
+
 # React Metrics
-[![npm package](https://img.shields.io/npm/v/react-metrics.svg?style=flat-square)](https://www.npmjs.org/package/react-metrics)
-[![build status](https://img.shields.io/travis/nfl/react-metrics/master.svg?style=flat-square)](https://travis-ci.org/nfl/react-metrics)
-[![dependency status](https://img.shields.io/david/nfl/react-metrics.svg?style=flat-square)](https://david-dm.org/nfl/react-metrics)
+
+[![npm Version](https://img.shields.io/npm/v/react-metrics.svg?style=flat-square)](https://www.npmjs.org/package/react-metrics)
+[![Build Status](https://img.shields.io/travis/nfl/react-metrics/master.svg?style=flat-square)](https://travis-ci.org/nfl/react-metrics)
+[![Dependency Status](https://img.shields.io/david/nfl/react-metrics.svg?style=flat-square)](https://david-dm.org/nfl/react-metrics)
 [![codecov.io](https://img.shields.io/codecov/c/github/nfl/react-metrics/master.svg?style=flat-square)](https://codecov.io/github/nfl/react-metrics?branch=master)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
 An analytics module for [React](https://github.com/facebook/react).
 
