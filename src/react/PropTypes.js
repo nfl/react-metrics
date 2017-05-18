@@ -1,14 +1,12 @@
-import {PropTypes} from "react";
+import PropTypes from "prop-types";
 
-const {shape, object, string} = PropTypes;
+export const metrics = PropTypes.object;
 
-export const metrics = object;
-
-export const location = shape({
-    pathname: string.isRequired,
-    search: string.isRequired,
-    query: object,
-    state: object
+export const location = PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string.isRequired,
+    query: PropTypes.object,
+    state: PropTypes.object
 });
 
 export default {
