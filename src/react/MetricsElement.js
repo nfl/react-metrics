@@ -1,11 +1,11 @@
 import {
-    PropTypes,
     Component,
     Children,
     createElement,
     cloneElement,
     isValidElement
 } from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import invariant from "fbjs/lib/invariant";
 import warning from "fbjs/lib/warning";

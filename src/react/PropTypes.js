@@ -1,6 +1,4 @@
-import {PropTypes} from "react";
-
-const {shape, object, string} = PropTypes;
+import {shape, object, string} from "prop-types";
 
 export const metrics = object;
 
