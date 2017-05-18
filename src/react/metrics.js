@@ -1,5 +1,6 @@
-import React, {PropTypes, Component} from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import invariant from "fbjs/lib/invariant";
 import {canUseDOM} from "fbjs/lib/ExecutionEnvironment";
 import {metrics as metricsType, location as locationType} from "./PropTypes";

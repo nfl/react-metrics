@@ -1,5 +1,4 @@
 import {
-    PropTypes,
     Component,
     Children,
     createElement,
@@ -7,6 +6,7 @@ import {
     isValidElement
 } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import invariant from "fbjs/lib/invariant";
 import warning from "fbjs/lib/warning";
 import MetricsPropTypes from "./PropTypes";
