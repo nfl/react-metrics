@@ -56,7 +56,7 @@ export class TrackBindingPlugin {
             return;
         }
 
-        let elem = event.target;
+        let elem = event.target || event.srcElement;
         let dataset = this._getData(elem);
 
         if (this._traverseParent) {
