@@ -1,3 +1,13 @@
+<a name="2.3.1"></a>
+## [2.3.1](https://github.com/nfl/react-metrics/compare/v2.3.0...v2.3.1) (2017-05-22)
+
+
+### Bug Fixes
+
+* Fix warning when using PropTypes via main package (fix #39) (#43) ([03a4c4](https://github.com/nfl/react-metrics/commit/03a4c4d1b8025f635b35aaddea354982cf877805))
+* Support ie10 quirks mode (#41) ([56ba30](https://github.com/nfl/react-metrics/commit/56ba305c4304ba3d8efbf8c8c0a99932d61734fd))
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/nfl/react-metrics/compare/v2.2.3...v2.3.0) (2017-02-23)
 
