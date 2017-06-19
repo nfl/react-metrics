@@ -16,7 +16,11 @@ class Page extends React.Component {
             username: "exampleuser"
         });
         const {params} = this.props;
-        this.context.metrics.track("trackClick", {page: params.id}, true/* this will merge page default metrics */);
+        this.context.metrics.track(
+            "trackClick",
+            {page: params.id},
+            true /* this will merge page default metrics */
+        );
     }
 
     render() {

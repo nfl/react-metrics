@@ -17,7 +17,7 @@ describe("extractApis", () => {
             methodA() {}
         };
         const service = Object.create(parent, {
-            methodB: {value: function () {}}
+            methodB: {value: function() {}}
         });
         const result = extractApis(service);
         expect(result).to.be.an("array");
@@ -71,7 +71,7 @@ describe("extractApis", () => {
         };
         function ServiceClass() {}
         ServiceClass.prototype = new ParentClass();
-        ServiceClass.prototype.methodB = function () {};
+        ServiceClass.prototype.methodB = function() {};
         const service = new ServiceClass();
         const result = extractApis(service);
         expect(result).to.be.an("array");
@@ -106,7 +106,12 @@ describe("extractApis", () => {
         const result = extractApis([service1, service2]);
         expect(result).to.be.an("array");
         expect(result).to.have.length(4);
-        expect(result).to.have.members(["methodA", "methodB", "methodC", "methodD"]);
+        expect(result).to.have.members([
+            "methodA",
+            "methodB",
+            "methodC",
+            "methodD"
+        ]);
     });
 
     it("uses total and type for filterKeysByType", () => {
@@ -118,19 +123,26 @@ describe("extractApis", () => {
         expect(result).to.have.length(2);
         expect(result).to.have.members(["methodA", "methodB"]);
 
-        result = filterKeysByType({
-            methodA() {},
-            methodB() {},
-            methodC() {}
-        }, ["methodB"]);
+        result = filterKeysByType(
+            {
+                methodA() {},
+                methodB() {},
+                methodC() {}
+            },
+            ["methodB"]
+        );
         expect(result).to.be.an("array");
         expect(result).to.have.length(2);
         expect(result).to.have.members(["methodA", "methodC"]);
 
-        result = filterKeysByType({
-            methodA: "methodA",
-            methodB: "methodB"
-        }, [], "string");
+        result = filterKeysByType(
+            {
+                methodA: "methodA",
+                methodB: "methodB"
+            },
+            [],
+            "string"
+        );
         expect(result).to.be.an("array");
         expect(result).to.have.length(2);
         expect(result).to.have.members(["methodA", "methodB"]);

@@ -27,7 +27,6 @@ class TestService {
             });
         });
     }
-
 }
 
 export default TestService;

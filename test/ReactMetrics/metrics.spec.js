@@ -18,11 +18,15 @@ describe("metrics", () => {
     let node;
 
     before(() => {
-        pageDefaultsStub = sinon.stub(metricsConfig, "pageDefaults", (routeState) => {
-            return Object.assign({}, defaultData, {
-                siteSection: routeState.pathname
-            });
-        });
+        pageDefaultsStub = sinon.stub(
+            metricsConfig,
+            "pageDefaults",
+            routeState => {
+                return Object.assign({}, defaultData, {
+                    siteSection: routeState.pathname
+                });
+            }
+        );
     });
 
     after(() => {
@@ -43,15 +47,16 @@ describe("metrics", () => {
         @metrics(metricsConfig)
         class Application extends React.Component {
             render() {
-                return (<div></div>);
+                return <div />;
             }
         }
 
-        const tree = ReactTestUtils.renderIntoDocument(
-            <Application/>
-        );
+        const tree = ReactTestUtils.renderIntoDocument(<Application />);
 
-        const app = ReactTestUtils.findRenderedComponentWithType(tree, Application);
+        const app = ReactTestUtils.findRenderedComponentWithType(
+            tree,
+            Application
+        );
         expect(isMetrics(app._getMetrics())).to.be.true;
 
         tree.componentWillUnmount();
@@ -63,15 +68,16 @@ describe("metrics", () => {
         @metrics(metricsInstance)
         class Application extends React.Component {
             render() {
-                return (<div></div>);
+                return <div />;
             }
         }
 
-        const tree = ReactTestUtils.renderIntoDocument(
-            <Application/>
-        );
+        const tree = ReactTestUtils.renderIntoDocument(<Application />);
 
-        const app = ReactTestUtils.findRenderedComponentWithType(tree, Application);
+        const app = ReactTestUtils.findRenderedComponentWithType(
+            tree,
+            Application
+        );
         expect(app._getMetrics()).to.eql(metricsInstance);
 
         tree.componentWillUnmount();
@@ -82,7 +88,7 @@ describe("metrics", () => {
         class Application extends React.Component {
             static displayName = "TestApplication";
             render() {
-                return (<div>{this.props.children}</div>);
+                return <div>{this.props.children}</div>;
             }
         }
 
@@ -90,24 +96,27 @@ describe("metrics", () => {
         class Page extends React.Component {
             static displayName = "TestPage";
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         }
 
-        const execNextStep = function () {
+        const execNextStep = function() {
             this.history.pushState(null, "/page");
             done();
         };
 
         expect(() => {
-            ReactDOM.render((
+            ReactDOM.render(
                 <Router history={createHistory("/")} onUpdate={execNextStep}>
                     <Route path="/" component={Application}>
-                        <Route path="/page" component={Page}/>
+                        <Route path="/page" component={Page} />
                     </Route>
-                </Router>
-            ), node);
-        }).to.throw("metrics should only be added once to the root level component. You have added to both TestApplication and TestPage");
+                </Router>,
+                node
+            );
+        }).to.throw(
+            "metrics should only be added once to the root level component. You have added to both TestApplication and TestPage"
+        );
     });
 
     it("should make 'metrics' context available", () => {
@@ -119,12 +128,12 @@ describe("metrics", () => {
                 metrics: PropTypes.metrics
             };
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         }
         class Page2 extends React.Component {
             render() {
-                return (<h1>Page2</h1>);
+                return <h1>Page2</h1>;
             }
         }
         const TestPage = exposeMetrics(Page2);
@@ -132,7 +141,7 @@ describe("metrics", () => {
         @metrics(metricsConfig)
         class Application extends React.Component {
             render() {
-                return (<div><Page/><TestPage/></div>);
+                return <div><Page /><TestPage /></div>;
             }
         }
 
@@ -143,14 +152,15 @@ describe("metrics", () => {
             };
         });
 
-        const tree = ReactTestUtils.renderIntoDocument(
-            <Application/>
-        );
+        const tree = ReactTestUtils.renderIntoDocument(<Application />);
 
         const page = ReactTestUtils.findRenderedComponentWithType(tree, Page);
         expect(page.context.metrics).to.eql(metricsContext);
 
-        const pageWithMetrics = ReactTestUtils.findRenderedComponentWithType(tree, TestPage);
+        const pageWithMetrics = ReactTestUtils.findRenderedComponentWithType(
+            tree,
+            TestPage
+        );
         expect(pageWithMetrics.context.metrics).to.eql(metricsContext);
 
         stub.restore();
@@ -164,7 +174,7 @@ describe("metrics", () => {
             static displayName = "Application";
 
             render() {
-                return (<div>{this.props.children}</div>);
+                return <div>{this.props.children}</div>;
             }
         }
 
@@ -174,11 +184,11 @@ describe("metrics", () => {
         });
 
         const steps = [
-            function () {
+            function() {
                 expect(pageView.calledOnce).to.be.false;
                 this.history.pushState(null, "/page");
             },
-            function () {
+            function() {
                 expect(pageView.calledOnce).to.be.true;
                 stub.restore();
                 pageView.restore();
@@ -202,19 +212,21 @@ describe("metrics", () => {
             }
 
             render() {
-                return (<div><h2>Page</h2></div>);
+                return <div><h2>Page</h2></div>;
             }
         }
 
         const execNextStep = execSteps(steps, done);
 
-        ReactDOM.render((
+        ReactDOM.render(
             <Router history={createHistory("/")} onUpdate={execNextStep}>
                 <Route path="/" component={Application}>
-                    <Route path="/page" component={Page}/>
+                    <Route path="/page" component={Page} />
                 </Route>
-            </Router>
-        ), node, execNextStep);
+            </Router>,
+            node,
+            execNextStep
+        );
     });
 
     it("should not throw invariant error when `enabled` is set to false in metrics config and pageView is not defined.", done => {
@@ -223,7 +235,7 @@ describe("metrics", () => {
             static displayName = "Application";
 
             render() {
-                return (<div><h2>Appication</h2></div>);
+                return <div><h2>Appication</h2></div>;
             }
         }
 
@@ -236,11 +248,13 @@ describe("metrics", () => {
         });
 
         expect(() => {
-            ReactDOM.render((
+            ReactDOM.render(
                 <Router history={createHistory("/")}>
-                    <Route path="/" component={Application}/>
-                </Router>
-            ), node, done);
+                    <Route path="/" component={Application} />
+                </Router>,
+                node,
+                done
+            );
         }).to.not.throw();
     });
 
@@ -260,40 +274,49 @@ describe("metrics", () => {
                 }, 0);
             }
             render() {
-                return (<div><a ref="link" href="#" data-metrics-event-name="myEvent"></a></div>);
+                return (
+                    <div>
+                        <a
+                            ref="link"
+                            href="#"
+                            data-metrics-event-name="myEvent"
+                        />
+                    </div>
+                );
             }
         }
 
-        ReactDOM.render((
-            <Application/>
-        ), node);
+        ReactDOM.render(<Application />, node);
     });
 
     it("throws when 'pageView' api is not defined in the config when auto page view tracking is triggered.", () => {
         @metrics({
-            vendors: [{
-                name: "Test",
-                api: {
-                    track() {
-                        return {};
+            vendors: [
+                {
+                    name: "Test",
+                    api: {
+                        track() {
+                            return {};
+                        }
                     }
                 }
-            }]
+            ]
         })
         class Application extends React.Component {
             static displayName = "Application";
 
             render() {
-                return (<div><h2>Appication</h2></div>);
+                return <div><h2>Appication</h2></div>;
             }
         }
 
         expect(() => {
-            ReactDOM.render((
+            ReactDOM.render(
                 <Router history={createHistory("/")}>
-                    <Route path="/" component={Application}/>
-                </Router>
-            ), node);
+                    <Route path="/" component={Application} />
+                </Router>,
+                node
+            );
         }).to.throw(/'pageView' api needs to be defined/);
     });
 
@@ -322,7 +345,7 @@ describe("metrics", () => {
             }
 
             render() {
-                return (<div></div>);
+                return <div />;
             }
         }
 
@@ -339,9 +362,7 @@ describe("metrics", () => {
             };
         });
 
-        ReactDOM.render((
-            <Application/>
-        ), node);
+        ReactDOM.render(<Application />, node);
     });
 
     it("should be able to manually track.", done => {
@@ -369,7 +390,7 @@ describe("metrics", () => {
             }
 
             render() {
-                return (<div></div>);
+                return <div />;
             }
         }
 
@@ -386,8 +407,6 @@ describe("metrics", () => {
             };
         });
 
-        ReactDOM.render((
-            <Application/>
-        ), node);
+        ReactDOM.render(<Application />, node);
     });
 });

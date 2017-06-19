@@ -42,7 +42,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop": "value"
             },
@@ -51,14 +51,8 @@ describe("useTrackBindingPlugin", () => {
 
         const plugin = new TrackBindingPlugin();
         const spy = sinon.spy();
-        plugin.listen(
-            spy,
-            node
-        );
-        listener = plugin.listen(
-            spy,
-            node
-        );
+        plugin.listen(spy, node);
+        listener = plugin.listen(spy, node);
 
         const linkNode = node.firstChild;
         linkNode.click();
@@ -66,11 +60,11 @@ describe("useTrackBindingPlugin", () => {
         spy.should.have.callCount(1);
     });
 
-    it("calls callback function with expected arguments when an element is clicked", (done) => {
+    it("calls callback function with expected arguments when an element is clicked", done => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop": "value"
             },
@@ -96,8 +90,8 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(document.body, {
             tagName: "a",
             attrs: {
-                "id": "linkInDoc",
-                "href": "#",
+                id: "linkInDoc",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop": "value"
             },
@@ -118,11 +112,11 @@ describe("useTrackBindingPlugin", () => {
         document.body.removeChild(linkNode);
     });
 
-    it("does not require 'rootElement'", (done) => {
+    it("does not require 'rootElement'", done => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop": "value"
             },
@@ -142,13 +136,13 @@ describe("useTrackBindingPlugin", () => {
         linkNode.click();
     });
 
-    it("allows custom tracking attribute prefix", (done) => {
+    it("allows custom tracking attribute prefix", done => {
         const attributePrefix = "metrics";
 
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "metrics-event-name": "myEvent",
                 "metrics-prop": "value"
             },
@@ -175,7 +169,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop": "value"
             },
@@ -201,7 +195,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#"
+                href: "#"
             },
             content: "Link to Track"
         });
@@ -222,7 +216,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-prop": "value"
             },
             content: "Link to Track"
@@ -240,11 +234,11 @@ describe("useTrackBindingPlugin", () => {
         expect(spy.calledOnce).to.be.false;
     });
 
-    it("calls 'callback' with empty 'params'", (done) => {
+    it("calls 'callback' with empty 'params'", done => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent"
             },
             content: "Link to Track"
@@ -269,7 +263,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent"
             },
             content: "Link to Track"
@@ -303,7 +297,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#"
+                href: "#"
             },
             content: "Link to Track"
         });
@@ -325,11 +319,11 @@ describe("useTrackBindingPlugin", () => {
         expect(spy.calledOnce).to.be.false;
     });
 
-    it("merges pageDefaults data when '{prefix}-merge-pagedefaults' is set to 'true'", (done) => {
+    it("merges pageDefaults data when '{prefix}-merge-pagedefaults' is set to 'true'", done => {
         addChildToNode(node, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop": "value",
                 "data-metrics-merge-pagedefaults": "true"
@@ -353,7 +347,7 @@ describe("useTrackBindingPlugin", () => {
         linkNode.click();
     });
 
-    it("aggregates metrics data up to the root element", (done) => {
+    it("aggregates metrics data up to the root element", done => {
         const childNode = addChildToNode(node, {
             tagName: "div",
             attrs: {
@@ -364,7 +358,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(childNode, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop1": "value1"
             },
@@ -390,7 +384,7 @@ describe("useTrackBindingPlugin", () => {
         linkNode.click();
     });
 
-    it("overrides metrics data from parent to child", (done) => {
+    it("overrides metrics data from parent to child", done => {
         const childNode = addChildToNode(node, {
             tagName: "div",
             attrs: {
@@ -402,7 +396,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(childNode, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop": "value-overriden",
                 "data-metrics-prop1": "value1"
@@ -429,7 +423,7 @@ describe("useTrackBindingPlugin", () => {
         linkNode.click();
     });
 
-    it("aggregates metrics data only when 'traverseParent' is set to true", (done) => {
+    it("aggregates metrics data only when 'traverseParent' is set to true", done => {
         const childNode = addChildToNode(node, {
             tagName: "div",
             attrs: {
@@ -440,7 +434,7 @@ describe("useTrackBindingPlugin", () => {
         addChildToNode(childNode, {
             tagName: "a",
             attrs: {
-                "href": "#",
+                href: "#",
                 "data-metrics-event-name": "myEvent",
                 "data-metrics-prop1": "value1"
             },

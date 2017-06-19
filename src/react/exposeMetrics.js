@@ -41,9 +41,7 @@ function wrap(ComposedComponent) {
         }
 
         render() {
-            return (
-                <ComposedComponent {...this.props} {...this.context}/>
-            );
+            return <ComposedComponent {...this.props} {...this.context} />;
         }
     }
     return hoistStatics(Metrics, ComposedComponent);

@@ -30,17 +30,19 @@ class AdobeTagManager {
      */
     track(eventName, params) {
         return new Promise((resolve, reject) => {
-            this._load().then((satellite) => {
-                this._satellite = this._satellite || satellite;
-                this._track(eventName, params);
-                resolve({
-                    eventName,
-                    params
+            this._load()
+                .then(satellite => {
+                    this._satellite = this._satellite || satellite;
+                    this._track(eventName, params);
+                    resolve({
+                        eventName,
+                        params
+                    });
+                })
+                .catch(error => {
+                    console.error("Omniture: Failed to load seed file", error);
+                    reject(error);
                 });
-            }).catch((error) => {
-                console.error("Omniture: Failed to load seed file", error);
-                reject(error);
-            });
         });
     }
     /**
@@ -61,25 +63,28 @@ class AdobeTagManager {
      * @protected
      */
     _load() {
-        return this._promise || (this._promise = new Promise((resolve, reject) => {
-            if (window._satellite) {
-                resolve(window._satellite);
-            } else {
-                const script = document.createElement("script");
-
-                script.onload = () => {
-                    this._addPageBottom();
+        return (
+            this._promise ||
+            (this._promise = new Promise((resolve, reject) => {
+                if (window._satellite) {
                     resolve(window._satellite);
-                };
+                } else {
+                    const script = document.createElement("script");
 
-                script.onerror = (error) => {
-                    reject(error);
-                };
+                    script.onload = () => {
+                        this._addPageBottom();
+                        resolve(window._satellite);
+                    };
 
-                script.src = this.options.seedFile;
-                document.head.appendChild(script);
-            }
-        }));
+                    script.onerror = error => {
+                        reject(error);
+                    };
+
+                    script.src = this.options.seedFile;
+                    document.head.appendChild(script);
+                }
+            }))
+        );
     }
     /**
      *

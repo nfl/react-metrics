@@ -1,4 +1,6 @@
-const EXCLUDES = ["constructor"].concat(Object.getOwnPropertyNames(Object.getPrototypeOf({})));
+const EXCLUDES = ["constructor"].concat(
+    Object.getOwnPropertyNames(Object.getPrototypeOf({}))
+);
 
 export function filterKeysByType(obj, total = [], type = "function") {
     return Object.getOwnPropertyNames(obj).filter(key => {
@@ -14,7 +16,8 @@ export function filterKeysByType(obj, total = [], type = "function") {
 
 export function aggregateApisByType(obj, total = []) {
     const keys = [];
-    while (obj !== null) { // eslint-disable-line no-eq-null
+    while (obj !== null) {
+        // eslint-disable-line no-eq-null
         const arr = filterKeysByType(obj, total);
         keys.push(...arr);
         obj = Object.getPrototypeOf(obj);
@@ -26,7 +29,9 @@ export function aggregateApisByType(obj, total = []) {
 export default function extractApis(services) {
     services = Array.isArray(services) ? services : [services];
     const apis = services.reduce((total, service) => {
-        const obj = service.constructor === Object ? service : Object.getPrototypeOf(service);
+        const obj = service.constructor === Object
+            ? service
+            : Object.getPrototypeOf(service);
         const keys = aggregateApisByType(obj, total);
         total.push(...keys);
         return total;

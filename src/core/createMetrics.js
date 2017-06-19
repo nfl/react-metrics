@@ -9,7 +9,9 @@ import extractApis from "./utils/extractApis";
 import isPromise from "./utils/isPromise";
 import useTrackBindingPlugin from "./useTrackBindingPlugin";
 
-const qs = canUseDOM ? querystring.decode(window.location.search.substr(1)) : {};
+const qs = canUseDOM
+    ? querystring.decode(window.location.search.substr(1))
+    : {};
 const defaults = {
     pageViewEvent: "pageLoad",
     pageDefaults: () => ({}),
@@ -57,7 +59,9 @@ export class Metrics extends EventEmitter {
         super();
         this.enabled = options.enabled !== false;
         // undocumented option for unit test.
-        this.canUseDOM = (options.canUseDOM !== undefined) ? !!options.canUseDOM : canUseDOM;
+        this.canUseDOM = options.canUseDOM !== undefined
+            ? !!options.canUseDOM
+            : canUseDOM;
         if (!this.canUseDOM) {
             this.enabled = false;
         }
@@ -66,9 +70,13 @@ export class Metrics extends EventEmitter {
         this.pageDefaults = options.pageDefaults || defaults.pageDefaults;
         this.pageViewEvent = options.pageViewEvent || defaults.pageViewEvent;
         this.requestTimeout = options.requestTimeout || defaults.requestTimeout;
-        this.cancelOnNext = options.cancelOnNext !== undefined ? !!options.cancelOnNext : true;
-        this.vendors = Array.isArray(options.vendors) ? options.vendors : [options.vendors];
-        this.services = (this.vendors).map(vendor => createService(vendor));
+        this.cancelOnNext = options.cancelOnNext !== undefined
+            ? !!options.cancelOnNext
+            : true;
+        this.vendors = Array.isArray(options.vendors)
+            ? options.vendors
+            : [options.vendors];
+        this.services = this.vendors.map(vendor => createService(vendor));
         this.apiList = extractApis(this.services.map(service => service.apis));
         this.transaction = new Transaction();
         this.routeState = {};
@@ -190,10 +198,15 @@ export class Metrics extends EventEmitter {
                     if (apiExists) {
                         warning(
                             typeof apis[type] === "function",
-                            `'${type}'${name ? `(${name} Service)` : ""} is not a function`
+                            `'${type}'${name
+                                ? `(${name} Service)`
+                                : ""} is not a function`
                         );
                     }
-                    let requestPromise = (apiExists && typeof apis[type] === "function") ? apis[type](...params) : undefined;
+                    let requestPromise = apiExists &&
+                        typeof apis[type] === "function"
+                        ? apis[type](...params)
+                        : undefined;
                     if (!isPromise(requestPromise)) {
                         requestPromise = Promise.resolve(requestPromise);
                     }
@@ -201,11 +214,28 @@ export class Metrics extends EventEmitter {
                     requestPromise.timer = setTimeout(
                         process.bind(requestPromise),
                         requestTimeout,
-                        {name, params, error: new Error(`Request time out after ${requestTimeout} ms.`), status: "failure"}
+                        {
+                            name,
+                            params,
+                            error: new Error(
+                                `Request time out after ${requestTimeout} ms.`
+                            ),
+                            status: "failure"
+                        }
                     );
                     return requestPromise
-                        .then(response => ({name, params, response, status: "success"}))
-                        .catch(error => ({name, params, error, status: "failure"}))
+                        .then(response => ({
+                            name,
+                            params,
+                            response,
+                            status: "success"
+                        }))
+                        .catch(error => ({
+                            name,
+                            params,
+                            error,
+                            status: "failure"
+                        }))
                         .then(process.bind(requestPromise));
                 });
             });
@@ -258,7 +288,7 @@ export class Metrics extends EventEmitter {
      */
     _doTrack(type, promise, tId) {
         promise = this._callServices(type, promise);
-        const dispatchEvent = function (status, response, error) {
+        const dispatchEvent = function(status, response, error) {
             const eventFacade = {
                 type,
                 status
@@ -280,7 +310,12 @@ export class Metrics extends EventEmitter {
 
         promise
             .then(response => {
-                dispatchEvent(response.every(item => item.status === "success") ? "success" : "failure", response);
+                dispatchEvent(
+                    response.every(item => item.status === "success")
+                        ? "success"
+                        : "failure",
+                    response
+                );
             })
             .catch(error => {
                 dispatchEvent("failure", null, error);
@@ -304,7 +339,12 @@ export class Metrics extends EventEmitter {
      * @private
      */
     _mergeWith(data, state) {
-        return Object.assign({}, this._getDefaultData(state), this.customParams, data);
+        return Object.assign(
+            {},
+            this._getDefaultData(state),
+            this.customParams,
+            data
+        );
     }
     /**
      * Checks if this promise should be cancelled by rejecting it before it's sent to the facade.
@@ -317,7 +357,9 @@ export class Metrics extends EventEmitter {
     _addCancelHook(promise) {
         const tId = this.transaction.create();
         return promise.then(data => {
-            return this.transaction.get(tId).shouldCancel ? Promise.reject(new Error("Page view cancelled")) : data;
+            return this.transaction.get(tId).shouldCancel
+                ? Promise.reject(new Error("Page view cancelled"))
+                : data;
         });
     }
     /**
@@ -331,11 +373,13 @@ export class Metrics extends EventEmitter {
      * @private
      */
     _addEventNameToPromise(eventName, promise, shouldMerge) {
-        return promise.then(function (state, data) {
-            data = [shouldMerge ? this._mergeWith(data, state) : data];
-            data.unshift(eventName);
-            return data;
-        }.bind(this, this.routeState));
+        return promise.then(
+            function(state, data) {
+                data = [shouldMerge ? this._mergeWith(data, state) : data];
+                data.unshift(eventName);
+                return data;
+            }.bind(this, this.routeState)
+        );
     }
     /**
      * Run checks to the arguments passed to 'pageView' and 'track', set default page view eventName if it's not provided.
@@ -359,7 +403,10 @@ export class Metrics extends EventEmitter {
                 );
             }
             // this might be confusing but for now, use the last argument as a flag for merge when it's boolean.
-            if (args.length >= 3 && typeof args[args.length - 1] === "boolean") {
+            if (
+                args.length >= 3 &&
+                typeof args[args.length - 1] === "boolean"
+            ) {
                 shouldMerge = args[args.length - 1];
             }
         }
@@ -368,7 +415,9 @@ export class Metrics extends EventEmitter {
         let [eventName, params] = args;
         if (!params && typeof eventName !== "string") {
             params = eventName;
-            eventName = (type === ActionTypes.PAGE_VIEW) ? this.pageViewEvent : null;
+            eventName = type === ActionTypes.PAGE_VIEW
+                ? this.pageViewEvent
+                : null;
         }
 
         // make sure `params` is a promise.
@@ -383,7 +432,11 @@ export class Metrics extends EventEmitter {
 
         // PAGE_VIEW or TRACK should always have `eventName`.
         if (eventName) {
-            params = this._addEventNameToPromise(eventName, params, shouldMerge);
+            params = this._addEventNameToPromise(
+                eventName,
+                params,
+                shouldMerge
+            );
         }
         args = [type, params];
 
@@ -445,8 +498,11 @@ export default function createMetrics(options) {
         setRouteState: metrics.setRouteState.bind(metrics),
         useTrackBinding: metrics.useTrackBinding.bind(metrics),
         destroy: metrics.destroy.bind(metrics),
-        get enabled() {return metrics.enabled;},
-        get api() {return metrics.api;}
+        get enabled() {
+            return metrics.enabled;
+        },
+        get api() {
+            return metrics.api;
+        }
     };
 }
-

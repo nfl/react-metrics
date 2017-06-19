@@ -7,17 +7,19 @@ function isDirectory(dir) {
 }
 
 module.exports = {
-
     devtool: "inline-source-map",
 
-    entry: fs.readdirSync(__dirname).reduce(function (entries, dir) {
+    entry: fs.readdirSync(__dirname).reduce(function(entries, dir) {
         var isNodeModules = dir === "node_modules";
         var isSrc = dir === "src";
         var dirPath = path.join(__dirname, dir);
         if (!isNodeModules && !isSrc && isDirectory(dirPath)) {
-            fs.readdirSync(dirPath).forEach(function (subdir) {
+            fs.readdirSync(dirPath).forEach(function(subdir) {
                 if (isDirectory(path.join(dirPath, subdir))) {
-                    entries[[dir, subdir].join("_")] = ["babel-polyfill", path.join(dirPath, subdir, "app.js")];
+                    entries[[dir, subdir].join("_")] = [
+                        "babel-polyfill",
+                        path.join(dirPath, subdir, "app.js")
+                    ];
                 }
             });
         }
@@ -61,8 +63,9 @@ module.exports = {
     plugins: [
         new webpack.optimize.CommonsChunkPlugin("shared.js"),
         new webpack.DefinePlugin({
-            "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+            "process.env.NODE_ENV": JSON.stringify(
+                process.env.NODE_ENV || "development"
+            )
         })
     ]
-
 };

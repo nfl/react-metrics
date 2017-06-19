@@ -26,7 +26,7 @@ describe("exposeMetrics", () => {
         class Comp1 extends React.Component {
             static displayName = "Compo1";
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         }
 
@@ -36,7 +36,7 @@ describe("exposeMetrics", () => {
 
         class Comp2 extends React.Component {
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         }
 
@@ -46,7 +46,7 @@ describe("exposeMetrics", () => {
 
         const Comp3 = React.createClass({
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         });
 
@@ -57,7 +57,7 @@ describe("exposeMetrics", () => {
         const Comp4 = React.createClass({
             displayName: null,
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         });
 
@@ -66,11 +66,11 @@ describe("exposeMetrics", () => {
         expect(Metrics.displayName).to.contains("Metrics(");
     });
 
-    it("should provide 'willTrackPageView' static method to route handler component", (done) => {
+    it("should provide 'willTrackPageView' static method to route handler component", done => {
         @metrics(MetricsConfig)
         class Application extends React.Component {
             render() {
-                return (<div>{this.props.children}</div>);
+                return <div>{this.props.children}</div>;
             }
         }
 
@@ -84,64 +84,65 @@ describe("exposeMetrics", () => {
             }
 
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         }
 
-        ReactDOM.render((
+        ReactDOM.render(
             <Router history={createHistory("/")}>
                 <Route path="/" component={Application}>
-                    <Route path="/page/:id" component={Page}/>
+                    <Route path="/page/:id" component={Page} />
                 </Route>
-            </Router>
-        ), node, function () {
-            this.history.pushState(null, "/page/1");
-        });
+            </Router>,
+            node,
+            function() {
+                this.history.pushState(null, "/page/1");
+            }
+        );
     });
 
-    it("should support partial application", (done) => {
+    it("should support partial application", done => {
         @metrics(MetricsConfig)
         class Application extends React.Component {
             render() {
-                return (<div>{this.props.children}</div>);
+                return <div>{this.props.children}</div>;
             }
         }
 
         @exposeMetrics()
         class Page extends React.Component {
-
             static willTrackPageView() {
                 expect(true).to.be.ok;
                 done();
             }
 
             render() {
-                return (<h1>Page</h1>);
+                return <h1>Page</h1>;
             }
         }
 
-        ReactDOM.render((
+        ReactDOM.render(
             <Router history={createHistory("/")}>
                 <Route path="/" component={Application}>
-                    <Route path="/page/:id" component={Page}/>
+                    <Route path="/page/:id" component={Page} />
                 </Route>
-            </Router>
-        ), node, function () {
-            this.history.pushState(null, "/page/1");
-        });
+            </Router>,
+            node,
+            function() {
+                this.history.pushState(null, "/page/1");
+            }
+        );
     });
 
-    it("should register itself to a registry when mounting, unregister itself from a registry when unmounting", (done) => {
+    it("should register itself to a registry when mounting, unregister itself from a registry when unmounting", done => {
         @exposeMetrics
         class Application extends React.Component {
             render() {
-                return (<div>Application</div>);
+                return <div>Application</div>;
             }
         }
 
-        ReactDOM.render((
-            <Application />
-        ), node, function () {
+        ReactDOM.render(<Application />, node, function() {
             const registry = getMountedInstances();
             expect(registry).to.have.length(1);
             ReactDOM.unmountComponentAtNode(node);

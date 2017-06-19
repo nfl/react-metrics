@@ -23,7 +23,8 @@ class App extends Component {
                     <li><a href={createHref("/page/A")}>Page A</a></li>
                     <li><a href={createHref("/page/B")}>Page B</a></li>
                 </ul>
-                {this.props.children && React.cloneElement(this.props.children, {...this.props})}
+                {this.props.children &&
+                    React.cloneElement(this.props.children, {...this.props})}
             </div>
         );
     }
@@ -57,9 +58,10 @@ class AppContainer extends Component {
 
     render() {
         return (
-            <App history={this.history}
-                 location={this.state.location}
-                 params={this.state.params}
+            <App
+                history={this.history}
+                location={this.state.location}
+                params={this.state.params}
             >
                 {React.createElement(this.state.routeComponent)}
             </App>
@@ -67,6 +69,4 @@ class AppContainer extends Component {
     }
 }
 
-ReactDOM.render((
-    <AppContainer/>
-), document.getElementById("example"));
+ReactDOM.render(<AppContainer />, document.getElementById("example"));
