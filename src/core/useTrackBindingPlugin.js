@@ -62,7 +62,7 @@ export class TrackBindingPlugin {
         if (this._traverseParent) {
             const rootElement = this._rootElement;
             while (elem !== rootElement) {
-                elem = elem.parentElement;
+                elem = elem.parentElement || elem.parentNode;
                 dataset = {...this._getData(elem), ...dataset};
             }
         }
