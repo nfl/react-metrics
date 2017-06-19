@@ -33,14 +33,6 @@ export default function metrics(metricsOrConfig, options = {}) {
         class MetricsContainer extends Component {
             static displayName = "MetricsContainer";
 
-            static getMountedMetricsInstances() {
-                // eslint-disable-line react/sort-comp
-                if (!mountedInstances) {
-                    mountedInstances = [];
-                }
-                return mountedInstances;
-            }
-
             static childContextTypes = {
                 metrics: metricsType.isRequired,
                 _metricsConfig: PropTypes.object
@@ -50,20 +42,6 @@ export default function metrics(metricsOrConfig, options = {}) {
                 location: locationType,
                 params: PropTypes.object
             };
-
-            getChildContext() {
-                return {
-                    metrics: this._getMetrics().api,
-                    _metricsConfig: {
-                        autoTrackPageView,
-                        useTrackBinding,
-                        attributePrefix,
-                        suppressTrackBindingWarning,
-                        getNewRouteState,
-                        findNewRouteComponent
-                    }
-                };
-            }
 
             componentWillMount() {
                 if (!canUseDOM) {
@@ -125,6 +103,28 @@ export default function metrics(metricsOrConfig, options = {}) {
 
                 this._getMetrics().destroy();
             }
+
+            static getMountedMetricsInstances() {
+                // eslint-disable-line react/sort-comp
+                if (!mountedInstances) {
+                    mountedInstances = [];
+                }
+                return mountedInstances;
+            }
+            getChildContext() {
+                return {
+                    metrics: this._getMetrics().api,
+                    _metricsConfig: {
+                        autoTrackPageView,
+                        useTrackBinding,
+                        attributePrefix,
+                        suppressTrackBindingWarning,
+                        getNewRouteState,
+                        findNewRouteComponent
+                    }
+                };
+            }
+
             _getMetrics() {
                 return metricsInstance;
             }
