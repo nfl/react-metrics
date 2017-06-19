@@ -1,23 +1,23 @@
 import React from "react";
-import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
+import exposeMetrics from "react-metrics"; // eslint-disable-line import/no-unresolved
+import PropTypes from "prop-types";
 
-@exposeMetrics
-class ManualPageView extends React.Component {
+@exposeMetrics class ManualPageView extends React.Component {
     static contextTypes = {
         metrics: PropTypes.metrics
     };
 
     static propTypes = {
-        appName: React.PropTypes.string
+        appName: PropTypes.string
     };
+
+    static willTrackPageView() {
+        return false;
+    }
 
     componentDidMount() {
         const {appName} = this.props;
         this.context.metrics.pageView({appName});
-    }
-
-    static willTrackPageView() {
-        return false;
     }
 
     render() {

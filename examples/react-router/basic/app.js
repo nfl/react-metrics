@@ -1,7 +1,15 @@
 /* eslint-disable react/no-multi-comp */
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import {Router, Route, IndexRoute, Link, IndexLink, hashHistory} from "react-router";
+import {
+    Router,
+    Route,
+    IndexRoute,
+    Link,
+    IndexLink,
+    hashHistory
+} from "react-router";
 import {metrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 import MetricsConfig from "./metrics.config";
 import Home from "./home";
@@ -22,13 +30,20 @@ class App extends Component {
                 <ul>
                     <li><IndexLink to="/">Home</IndexLink></li>
                     <li><Link to="/async">Async Page View Track</Link></li>
-                    <li><Link to={{pathname: "/async", query: {param: "abc"}}}>Async Page View Track with query param</Link></li>
+                    <li>
+                        <Link to={{pathname: "/async", query: {param: "abc"}}}>
+                            Async Page View Track with query param
+                        </Link>
+                    </li>
                     <li><Link to="/manual">Manual Page View Track</Link></li>
-                    <li><Link to="/user/123">Page View Track with params</Link></li>
+                    <li>
+                        <Link to="/user/123">Page View Track with params</Link>
+                    </li>
                 </ul>
-                {this.props.children && React.cloneElement(this.props.children, {
-                    appName: App.displayName
-                })}
+                {this.props.children &&
+                    React.cloneElement(this.props.children, {
+                        appName: App.displayName
+                    })}
             </div>
         );
     }
@@ -37,20 +52,19 @@ const DecoratedApp = metrics(MetricsConfig)(App);
 
 class NotFound extends Component {
     render() {
-        return (
-            <h1>404!</h1>
-        );
+        return <h1>404!</h1>;
     }
 }
 
-ReactDOM.render((
+ReactDOM.render(
     <Router history={hashHistory}>
-        <Route path="/" component={DecoratedApp}>
-            <IndexRoute component={Home}/>
-            <Route path="async" component={AsyncPageView}/>
-            <Route path="manual" component={ManualPageView}/>
-            <Route path="user/:id" component={User}/>
-            <Route path="*" component={NotFound}/>
+        <Route component={DecoratedApp} path="/">
+            <IndexRoute component={Home} />
+            <Route component={AsyncPageView} path="async" />
+            <Route component={ManualPageView} path="manual" />
+            <Route component={User} path="user/:id" />
+            <Route component={NotFound} path="*" />
         </Route>
-    </Router>
-), document.getElementById("example"));
+    </Router>,
+    document.getElementById("example")
+);

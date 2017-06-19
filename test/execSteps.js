@@ -2,7 +2,7 @@
 function execSteps(steps, done) {
     let index = 0;
 
-    return function (...args) {
+    return function(...args) {
         if (steps.length === 0) {
             done();
         } else {

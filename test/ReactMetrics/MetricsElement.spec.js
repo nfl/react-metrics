@@ -1,5 +1,6 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import metrics from "../../src/react/metrics";
 import MetricsElement from "../../src/react/MetricsElement";
@@ -37,8 +38,15 @@ describe("MetricsElement", () => {
             render() {
                 return (
                     <MetricsElement ref="metricsElement">
-                        <a data-metrics-event-name="SomeEvent" data-metrics-value="SomeVavlue">
-                            <img ref="img" src="http://placehold.it/200x150?text=Image" />
+                        <a
+                            data-metrics-event-name="SomeEvent"
+                            data-metrics-value="SomeVavlue"
+                        >
+                            <img
+                                alt=""
+                                ref="img"
+                                src="http://placehold.it/200x150?text=Image"
+                            />
                         </a>
                     </MetricsElement>
                 );
@@ -46,10 +54,12 @@ describe("MetricsElement", () => {
         }
         expect(() => {
             ReactDOM.render(<Application />, node);
-        }).to.throw("MetricsElement requires metrics HOC to exist in the parent tree.");
+        }).to.throw(
+            "MetricsElement requires metrics HOC to exist in the parent tree."
+        );
     });
 
-    it("should send tracking as empty wrapper", (done) => {
+    it("should send tracking as empty wrapper", done => {
         @metrics(MetricsConfig)
         class Application extends React.Component {
             componentDidMount() {
@@ -58,20 +68,31 @@ describe("MetricsElement", () => {
             render() {
                 return (
                     <MetricsElement ref="metricsElement">
-                        <a data-metrics-event-name="SomeEvent" data-metrics-value="SomeVavlue">
-                            <img ref="img" src="http://placehold.it/200x150?text=Image" />
+                        <a
+                            data-metrics-event-name="SomeEvent"
+                            data-metrics-value="SomeVavlue"
+                        >
+                            <img
+                                alt=""
+                                ref="img"
+                                src="http://placehold.it/200x150?text=Image"
+                            />
                         </a>
                     </MetricsElement>
                 );
             }
         }
 
-        const track = sinon.stub(metricsMock.api, "track", (eventName, params) => {
-            expect(eventName).to.equal("SomeEvent");
-            expect(params).to.eql({value: "SomeVavlue"});
-            track.restore();
-            done();
-        });
+        const track = sinon.stub(
+            metricsMock.api,
+            "track",
+            (eventName, params) => {
+                expect(eventName).to.equal("SomeEvent");
+                expect(params).to.eql({value: "SomeVavlue"});
+                track.restore();
+                done();
+            }
+        );
         sinon.stub(Application.prototype, "_getMetrics", () => {
             return metricsMock;
         });
@@ -79,7 +100,7 @@ describe("MetricsElement", () => {
         ReactDOM.render(<Application />, node);
     });
 
-    it("should send tracking as an html element", (done) => {
+    it("should send tracking as an html element", done => {
         @metrics(MetricsConfig)
         class Application extends React.Component {
             componentDidMount() {
@@ -88,23 +109,33 @@ describe("MetricsElement", () => {
             render() {
                 return (
                     <MetricsElement
-                        ref="metricsElement"
-                        element="div"
                         data-metrics-event-name="SomeEvent"
                         data-metrics-value="SomeVavlue"
+                        element="div"
+                        ref="metricsElement"
                     >
-                        <a><img ref="img" src="http://placehold.it/200x150?text=Image" /></a>
+                        <a>
+                            <img
+                                alt=""
+                                ref="img"
+                                src="http://placehold.it/200x150?text=Image"
+                            />
+                        </a>
                     </MetricsElement>
                 );
             }
         }
 
-        const track = sinon.stub(metricsMock.api, "track", (eventName, params) => {
-            expect(eventName).to.equal("SomeEvent");
-            expect(params).to.eql({value: "SomeVavlue"});
-            track.restore();
-            done();
-        });
+        const track = sinon.stub(
+            metricsMock.api,
+            "track",
+            (eventName, params) => {
+                expect(eventName).to.equal("SomeEvent");
+                expect(params).to.eql({value: "SomeVavlue"});
+                track.restore();
+                done();
+            }
+        );
         sinon.stub(Application.prototype, "_getMetrics", () => {
             return metricsMock;
         });
@@ -112,14 +143,18 @@ describe("MetricsElement", () => {
         ReactDOM.render(<Application />, node);
     });
 
-    it("should send tracking as a component", (done) => {
+    it("should send tracking as a component", done => {
         class Comp extends React.Component {
             static propTypes = {
                 children: PropTypes.node
-            }
+            };
             render() {
                 return (
-                    <div>{React.cloneElement(this.props.children, {...this.props})}</div>
+                    <div>
+                        {React.cloneElement(this.props.children, {
+                            ...this.props
+                        })}
+                    </div>
                 );
             }
         }
@@ -132,23 +167,33 @@ describe("MetricsElement", () => {
             render() {
                 return (
                     <MetricsElement
-                         ref="metricsElement"
-                         element={Comp}
-                         data-metrics-event-name="SomeEvent"
-                         data-metrics-value="SomeVavlue"
+                        data-metrics-event-name="SomeEvent"
+                        data-metrics-value="SomeVavlue"
+                        element={Comp}
+                        ref="metricsElement"
                     >
-                        <a><img ref="img" src="http://placehold.it/200x150?text=Image" /></a>
+                        <a>
+                            <img
+                                alt=""
+                                ref="img"
+                                src="http://placehold.it/200x150?text=Image"
+                            />
+                        </a>
                     </MetricsElement>
                 );
             }
         }
 
-        const track = sinon.stub(metricsMock.api, "track", (eventName, params) => {
-            expect(eventName).to.equal("SomeEvent");
-            expect(params).to.eql({value: "SomeVavlue"});
-            track.restore();
-            done();
-        });
+        const track = sinon.stub(
+            metricsMock.api,
+            "track",
+            (eventName, params) => {
+                expect(eventName).to.equal("SomeEvent");
+                expect(params).to.eql({value: "SomeVavlue"});
+                track.restore();
+                done();
+            }
+        );
         sinon.stub(Application.prototype, "_getMetrics", () => {
             return metricsMock;
         });
@@ -156,14 +201,18 @@ describe("MetricsElement", () => {
         ReactDOM.render(<Application />, node);
     });
 
-    it("should send tracking as a component instance", (done) => {
+    it("should send tracking as a component instance", done => {
         class Comp extends React.Component {
             static propTypes = {
                 children: PropTypes.node
-            }
+            };
             render() {
                 return (
-                    <div>{React.cloneElement(this.props.children, {...this.props})}</div>
+                    <div>
+                        {React.cloneElement(this.props.children, {
+                            ...this.props
+                        })}
+                    </div>
                 );
             }
         }
@@ -175,27 +224,33 @@ describe("MetricsElement", () => {
             }
             render() {
                 const comp = (
-                    <Comp data-metrics-event-name="SomeEvent" data-metrics-value="SomeVavlue">
+                    <Comp
+                        data-metrics-event-name="SomeEvent"
+                        data-metrics-value="SomeVavlue"
+                    >
                         <a>
-                            <img ref="img" src="http://placehold.it/200x150?text=Image" />
+                            <img
+                                alt=""
+                                ref="img"
+                                src="http://placehold.it/200x150?text=Image"
+                            />
                         </a>
                     </Comp>
                 );
-                return (
-                    <MetricsElement
-                         ref="metricsElement"
-                         element={comp}
-                    />
-                );
+                return <MetricsElement element={comp} ref="metricsElement" />;
             }
         }
 
-        const track = sinon.stub(metricsMock.api, "track", (eventName, params) => {
-            expect(eventName).to.equal("SomeEvent");
-            expect(params).to.eql({value: "SomeVavlue"});
-            track.restore();
-            done();
-        });
+        const track = sinon.stub(
+            metricsMock.api,
+            "track",
+            (eventName, params) => {
+                expect(eventName).to.equal("SomeEvent");
+                expect(params).to.eql({value: "SomeVavlue"});
+                track.restore();
+                done();
+            }
+        );
         sinon.stub(Application.prototype, "_getMetrics", () => {
             return metricsMock;
         });

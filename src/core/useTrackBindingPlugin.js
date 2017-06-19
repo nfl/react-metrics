@@ -10,7 +10,9 @@ function isModifiedEvent(event) {
 }
 
 export class TrackBindingPlugin {
-    constructor({attributePrefix = "data-metrics", traverseParent = false} = {}) {
+    constructor(
+        {attributePrefix = "data-metrics", traverseParent = false} = {}
+    ) {
         this._attributePrefix = attributePrefix;
         this._traverseParent = traverseParent;
     }
@@ -29,7 +31,11 @@ export class TrackBindingPlugin {
         }
 
         this._rootElement = rootElement;
-        this._clickHandler = EventListener.listen(rootElement, "click", this._handleClick.bind(this, callback));
+        this._clickHandler = EventListener.listen(
+            rootElement,
+            "click",
+            this._handleClick.bind(this, callback)
+        );
 
         return {
             target: this,
@@ -86,7 +92,15 @@ export class TrackBindingPlugin {
     }
 }
 
-export default function useTrackBindingPlugin({callback, rootElement, attributePrefix, traverseParent}) {
-    const trackBindingPlugin = new TrackBindingPlugin({attributePrefix, traverseParent});
+export default function useTrackBindingPlugin({
+    callback,
+    rootElement,
+    attributePrefix,
+    traverseParent
+}) {
+    const trackBindingPlugin = new TrackBindingPlugin({
+        attributePrefix,
+        traverseParent
+    });
     return trackBindingPlugin.listen(callback, rootElement);
 }

@@ -31,7 +31,7 @@ describe("willTrackPageView", () => {
             static displayName = "Application";
 
             render() {
-                return (<div><h1>Application</h1>{this.props.children}</div>);
+                return <div><h1>Application</h1>{this.props.children}</div>;
             }
         }
 
@@ -39,13 +39,24 @@ describe("willTrackPageView", () => {
             static displayName = "Page";
 
             render() {
-                return (<div><h2>Page</h2>{this.props.children}</div>);
+                return <div><h2>Page</h2>{this.props.children}</div>;
             }
         }
 
-        @exposeMetrics
-        class Content extends React.Component {
+        @exposeMetrics class Content extends React.Component {
             static displayName = "Content";
+
+            static willTrackPageView() {
+                if (willTrackPageViewCount === 0) {
+                    expect(componentWillMountCalled).to.equal(true);
+                    expect(componentDidMountCalled).to.equal(true);
+                } else if (willTrackPageViewCount === 1) {
+                    expect(componentWillReceivePropsCalled).to.equal(true);
+                    expect(componentDidUpdateCalled).to.equal(true);
+                    done();
+                }
+                willTrackPageViewCount++;
+            }
 
             componentWillMount() {
                 componentWillMountCalled = true;
@@ -63,32 +74,24 @@ describe("willTrackPageView", () => {
                 componentDidUpdateCalled = true;
             }
 
-            static willTrackPageView() {
-                if (willTrackPageViewCount === 0) {
-                    expect(componentWillMountCalled).to.equal(true);
-                    expect(componentDidMountCalled).to.equal(true);
-                } else if (willTrackPageViewCount === 1) {
-                    expect(componentWillReceivePropsCalled).to.equal(true);
-                    expect(componentDidUpdateCalled).to.equal(true);
-                    done();
-                }
-                willTrackPageViewCount++;
-            }
-
             render() {
-                return (<h3>Content</h3>);
+                return <h3>Content</h3>;
             }
         }
 
-        ReactDOM.render((
+        ReactDOM.render(
             <Router history={createHistory("/page/content")}>
-                <Route path="/" component={Application}>
-                    <Route path="page" component={Page}>
-                        <Route path=":content" component={Content}/>
+                <Route component={Application} path="/">
+                    <Route component={Page} path="page">
+                        <Route component={Content} path=":content" />
                     </Route>
                 </Route>
-            </Router>
-        ), node, function () {this.history.pushState(null, "/page/content2");});
+            </Router>,
+            node,
+            function() {
+                this.history.pushState(null, "/page/content2");
+            }
+        );
     });
 
     it("cancels page view tracking when returns 'false'.", done => {
@@ -102,26 +105,32 @@ describe("willTrackPageView", () => {
             }
 
             render() {
-                return (<div>{this.props.children}</div>);
+                return <div>{this.props.children}</div>;
             }
         }
 
         const mock = sinon.mock(metricsMock.api);
-        const pageView = sinon.stub(Application.prototype, "_getMetrics", () => {
-            return metricsMock;
-        });
+        const pageView = sinon.stub(
+            Application.prototype,
+            "_getMetrics",
+            () => {
+                return metricsMock;
+            }
+        );
         mock.expects("pageView").never();
 
-        ReactDOM.render((
+        ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application}/>
-            </Router>
-        ), node, () => {
-            mock.verify();
-            mock.restore();
-            pageView.restore();
-            done();
-        });
+                <Route component={Application} path="/" />
+            </Router>,
+            node,
+            () => {
+                mock.verify();
+                mock.restore();
+                pageView.restore();
+                done();
+            }
+        );
     });
 
     it("can accpets object", done => {
@@ -137,28 +146,33 @@ describe("willTrackPageView", () => {
             }
 
             render() {
-                return (<div>{this.props.children}</div>);
+                return <div>{this.props.children}</div>;
             }
         }
 
-        const pageView = sinon.stub(Application.prototype, "_getMetrics", () => {
-            return {
-                ...metricsMock,
-                api: {
-                    pageView(...args) {
-                        expect(typeof args[0]).to.be.equal("object");
-                        pageView.restore();
-                        done();
+        const pageView = sinon.stub(
+            Application.prototype,
+            "_getMetrics",
+            () => {
+                return {
+                    ...metricsMock,
+                    api: {
+                        pageView(...args) {
+                            expect(typeof args[0]).to.be.equal("object");
+                            pageView.restore();
+                            done();
+                        }
                     }
-                }
-            };
-        });
+                };
+            }
+        );
 
-        ReactDOM.render((
+        ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application}/>
-            </Router>
-        ), node);
+                <Route component={Application} path="/" />
+            </Router>,
+            node
+        );
     });
 
     it("receives 'routeState' object with expected props and values", done => {
@@ -169,37 +183,42 @@ describe("willTrackPageView", () => {
             static displayName = "Application";
 
             render() {
-                return (<div>{this.props.children}</div>);
+                return <div>{this.props.children}</div>;
             }
         }
 
-        @exposeMetrics
-        class Page extends React.Component {
+        @exposeMetrics class Page extends React.Component {
             static displayName = "Page";
 
             static willTrackPageView(routeState) {
                 expect(routeState.pathname).to.equal("/page/123");
                 expect(routeState.search).to.equal("?param1=value1");
                 expect(routeState.hash).to.equal("");
-                expect(JSON.stringify(routeState.state)).to.equal(JSON.stringify(state));
-                expect(JSON.stringify(routeState.params)).to.equal(JSON.stringify({id: "123"}));
+                expect(JSON.stringify(routeState.state)).to.equal(
+                    JSON.stringify(state)
+                );
+                expect(JSON.stringify(routeState.params)).to.equal(
+                    JSON.stringify({id: "123"})
+                );
                 done();
                 return true;
             }
 
             render() {
-                return (<div><h2>Page</h2>{this.props.children}</div>);
+                return <div><h2>Page</h2>{this.props.children}</div>;
             }
         }
 
-        ReactDOM.render((
+        ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application}>
-                    <Route path="/page/:id" component={Page}/>
+                <Route component={Application} path="/">
+                    <Route component={Page} path="/page/:id" />
                 </Route>
-            </Router>
-        ), node, function () {
-            this.history.pushState(state, "/page/123?param1=value1");
-        });
+            </Router>,
+            node,
+            function() {
+                this.history.pushState(state, "/page/123?param1=value1");
+            }
+        );
     });
 });

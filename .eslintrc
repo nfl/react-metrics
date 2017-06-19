@@ -1,3 +1,28 @@
 {
-    "extends": "eslint-config-nfl"
+    "extends": ["eslint-config-nfl", "prettier"],
+    "env": {
+        "mocha": true
+    },
+    "globals": {
+        "expect": true,
+        "sinon": true
+    },
+    "plugins": [
+        "prettier"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+        "prettier/prettier": ["error", {
+            "printWidth": 80,
+            "tabWidth": 4,
+            "singleQuote": false,
+            "trailingComma": "none",
+            "bracketSpacing": false,
+            "semi": true,
+            "useTabs": false,
+            "parser": "babylon",
+            "jsxBracketSameLine": false
+        }
+        ]
+    }
 }
