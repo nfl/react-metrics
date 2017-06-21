@@ -114,9 +114,9 @@ ReactDOM.render(
     <div>
         <Provider store={store}>
             <Router history={appHistory}>
-                <Route path="/" component={Application}>
+                <Route component={Application} path="/">
                     <IndexRoute component={Home} />
-                    <Route path="/page/:id" component={Page} />
+                    <Route component={Page} path="/page/:id" />
                 </Route>
             </Router>
         </Provider>

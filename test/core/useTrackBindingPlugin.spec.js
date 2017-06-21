@@ -1,5 +1,7 @@
 /* eslint-disable no-empty */
-import useTrackBindingPlugin, {TrackBindingPlugin} from "../../src/core/useTrackBindingPlugin";
+import useTrackBindingPlugin, {
+    TrackBindingPlugin
+} from "../../src/core/useTrackBindingPlugin";
 import {addChildToNode, removeChildFromNode} from "../nodeUtils";
 
 describe("useTrackBindingPlugin", () => {

@@ -1,8 +1,7 @@
 import React from "react";
 import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 
-@exposeMetrics
-class AsyncPageView extends React.Component {
+@exposeMetrics class AsyncPageView extends React.Component {
     static contextTypes = {
         metrics: PropTypes.metrics
     };

@@ -31,8 +31,8 @@ class Page extends React.Component {
                 <button onClick={this.onClick.bind(this)}>Manual Track</button>
                 <button
                     data-metrics-event-name="trackClick"
-                    data-metrics-page={params.id}
                     data-metrics-merge-pagedefaults="true"
+                    data-metrics-page={params.id}
                 >
                     Declarative Track
                 </button>

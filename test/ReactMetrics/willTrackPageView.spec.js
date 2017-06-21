@@ -43,9 +43,20 @@ describe("willTrackPageView", () => {
             }
         }
 
-        @exposeMetrics
-        class Content extends React.Component {
+        @exposeMetrics class Content extends React.Component {
             static displayName = "Content";
+
+            static willTrackPageView() {
+                if (willTrackPageViewCount === 0) {
+                    expect(componentWillMountCalled).to.equal(true);
+                    expect(componentDidMountCalled).to.equal(true);
+                } else if (willTrackPageViewCount === 1) {
+                    expect(componentWillReceivePropsCalled).to.equal(true);
+                    expect(componentDidUpdateCalled).to.equal(true);
+                    done();
+                }
+                willTrackPageViewCount++;
+            }
 
             componentWillMount() {
                 componentWillMountCalled = true;
@@ -63,18 +74,6 @@ describe("willTrackPageView", () => {
                 componentDidUpdateCalled = true;
             }
 
-            static willTrackPageView() {
-                if (willTrackPageViewCount === 0) {
-                    expect(componentWillMountCalled).to.equal(true);
-                    expect(componentDidMountCalled).to.equal(true);
-                } else if (willTrackPageViewCount === 1) {
-                    expect(componentWillReceivePropsCalled).to.equal(true);
-                    expect(componentDidUpdateCalled).to.equal(true);
-                    done();
-                }
-                willTrackPageViewCount++;
-            }
-
             render() {
                 return <h3>Content</h3>;
             }
@@ -82,9 +81,9 @@ describe("willTrackPageView", () => {
 
         ReactDOM.render(
             <Router history={createHistory("/page/content")}>
-                <Route path="/" component={Application}>
-                    <Route path="page" component={Page}>
-                        <Route path=":content" component={Content} />
+                <Route component={Application} path="/">
+                    <Route component={Page} path="page">
+                        <Route component={Content} path=":content" />
                     </Route>
                 </Route>
             </Router>,
@@ -122,7 +121,7 @@ describe("willTrackPageView", () => {
 
         ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application} />
+                <Route component={Application} path="/" />
             </Router>,
             node,
             () => {
@@ -170,7 +169,7 @@ describe("willTrackPageView", () => {
 
         ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application} />
+                <Route component={Application} path="/" />
             </Router>,
             node
         );
@@ -188,8 +187,7 @@ describe("willTrackPageView", () => {
             }
         }
 
-        @exposeMetrics
-        class Page extends React.Component {
+        @exposeMetrics class Page extends React.Component {
             static displayName = "Page";
 
             static willTrackPageView(routeState) {
@@ -213,8 +211,8 @@ describe("willTrackPageView", () => {
 
         ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application}>
-                    <Route path="/page/:id" component={Page} />
+                <Route component={Application} path="/">
+                    <Route component={Page} path="/page/:id" />
                 </Route>
             </Router>,
             node,

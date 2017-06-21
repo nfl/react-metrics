@@ -24,9 +24,9 @@ class App extends Component {
     render() {
         const link = (
             <Link
-                to="/page/A"
                 data-tracking-event-name="linkClick"
                 data-tracking-value="A"
+                to="/page/A"
             >
                 <span>Page A</span>
             </Link>
@@ -37,8 +37,8 @@ class App extends Component {
                     <li>
                         <MetricsElement>
                             <IndexLink
-                                to="/"
                                 data-tracking-event-name="linkClick"
+                                to="/"
                             >
                                 <span>Home</span>
                             </IndexLink>
@@ -51,10 +51,10 @@ class App extends Component {
                     </li>
                     <li>
                         <MetricsElement
-                            to="/page/B"
                             data-tracking-event-name="linkClick"
                             data-tracking-value="B"
                             element={Link}
+                            to="/page/B"
                         >
                             <span>Page B</span>
                         </MetricsElement>
@@ -81,10 +81,10 @@ class NotFound extends Component {
 
 ReactDOM.render(
     <Router history={hashHistory}>
-        <Route path="/" component={DecoratedApp}>
+        <Route component={DecoratedApp} path="/">
             <IndexRoute component={Home} />
-            <Route path="page/:id" component={Page} />
-            <Route path="*" component={NotFound} />
+            <Route component={Page} path="page/:id" />
+            <Route component={NotFound} path="*" />
         </Route>
     </Router>,
     document.getElementById("example")

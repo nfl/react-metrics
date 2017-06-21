@@ -4,7 +4,9 @@ import ReactDOM from "react-dom";
 import createHistory from "history/lib/createMemoryHistory";
 import {Router, Route} from "react-router";
 import metrics from "../../src/react/metrics";
-import exposeMetrics, {getMountedInstances} from "../../src/react/exposeMetrics";
+import exposeMetrics, {
+    getMountedInstances
+} from "../../src/react/exposeMetrics";
 import MetricsConfig from "../metrics.config";
 
 describe("exposeMetrics", () => {
@@ -74,8 +76,7 @@ describe("exposeMetrics", () => {
             }
         }
 
-        @exposeMetrics
-        class Page extends React.Component {
+        @exposeMetrics class Page extends React.Component {
             static displayName = "Page";
 
             static willTrackPageView() {
@@ -90,8 +91,8 @@ describe("exposeMetrics", () => {
 
         ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application}>
-                    <Route path="/page/:id" component={Page} />
+                <Route component={Application} path="/">
+                    <Route component={Page} path="/page/:id" />
                 </Route>
             </Router>,
             node,
@@ -123,8 +124,8 @@ describe("exposeMetrics", () => {
 
         ReactDOM.render(
             <Router history={createHistory("/")}>
-                <Route path="/" component={Application}>
-                    <Route path="/page/:id" component={Page} />
+                <Route component={Application} path="/">
+                    <Route component={Page} path="/page/:id" />
                 </Route>
             </Router>,
             node,
@@ -135,14 +136,13 @@ describe("exposeMetrics", () => {
     });
 
     it("should register itself to a registry when mounting, unregister itself from a registry when unmounting", done => {
-        @exposeMetrics
-        class Application extends React.Component {
+        @exposeMetrics class Application extends React.Component {
             render() {
                 return <div>Application</div>;
             }
         }
 
-        ReactDOM.render(<Application />, node, function() {
+        ReactDOM.render(<Application />, node, () => {
             const registry = getMountedInstances();
             expect(registry).to.have.length(1);
             ReactDOM.unmountComponentAtNode(node);

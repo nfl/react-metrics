@@ -42,6 +42,7 @@ describe("MetricsElement", () => {
                             data-metrics-value="SomeVavlue"
                         >
                             <img
+                                alt=""
                                 ref="img"
                                 src="http://placehold.it/200x150?text=Image"
                             />
@@ -71,6 +72,7 @@ describe("MetricsElement", () => {
                             data-metrics-value="SomeVavlue"
                         >
                             <img
+                                alt=""
                                 ref="img"
                                 src="http://placehold.it/200x150?text=Image"
                             />
@@ -106,13 +108,14 @@ describe("MetricsElement", () => {
             render() {
                 return (
                     <MetricsElement
-                        ref="metricsElement"
-                        element="div"
                         data-metrics-event-name="SomeEvent"
                         data-metrics-value="SomeVavlue"
+                        element="div"
+                        ref="metricsElement"
                     >
                         <a>
                             <img
+                                alt=""
                                 ref="img"
                                 src="http://placehold.it/200x150?text=Image"
                             />
@@ -163,13 +166,14 @@ describe("MetricsElement", () => {
             render() {
                 return (
                     <MetricsElement
-                        ref="metricsElement"
-                        element={Comp}
                         data-metrics-event-name="SomeEvent"
                         data-metrics-value="SomeVavlue"
+                        element={Comp}
+                        ref="metricsElement"
                     >
                         <a>
                             <img
+                                alt=""
                                 ref="img"
                                 src="http://placehold.it/200x150?text=Image"
                             />
@@ -225,13 +229,14 @@ describe("MetricsElement", () => {
                     >
                         <a>
                             <img
+                                alt=""
                                 ref="img"
                                 src="http://placehold.it/200x150?text=Image"
                             />
                         </a>
                     </Comp>
                 );
-                return <MetricsElement ref="metricsElement" element={comp} />;
+                return <MetricsElement element={comp} ref="metricsElement" />;
             }
         }
 

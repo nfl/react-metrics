@@ -57,12 +57,12 @@ class NotFound extends Component {
 
 ReactDOM.render(
     <Router history={hashHistory}>
-        <Route path="/" component={DecoratedApp}>
+        <Route component={DecoratedApp} path="/">
             <IndexRoute component={Home} />
-            <Route path="async" component={AsyncPageView} />
-            <Route path="manual" component={ManualPageView} />
-            <Route path="user/:id" component={User} />
-            <Route path="*" component={NotFound} />
+            <Route component={AsyncPageView} path="async" />
+            <Route component={ManualPageView} path="manual" />
+            <Route component={User} path="user/:id" />
+            <Route component={NotFound} path="*" />
         </Route>
     </Router>,
     document.getElementById("example")

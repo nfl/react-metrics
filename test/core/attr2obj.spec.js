@@ -48,11 +48,11 @@ describe("attr2obj", () => {
             render() {
                 return (
                     <a
-                        href="#"
+                        data-analytics-another-camel-case="value 3"
+                        data-analytics-camel-case="value 2"
                         data-analytics-event="My Event Name"
                         data-analytics-prop="value"
-                        data-analytics-camel-case="value 2"
-                        data-analytics-another-camel-case="value 3"
+                        href=""
                     />
                 );
             }
@@ -94,11 +94,11 @@ describe("attr2obj", () => {
             render() {
                 return (
                     <a
-                        href="#"
+                        custom-another-camel-case="value 3"
+                        custom-camel-case="value 2"
                         custom-event="My Event Name"
                         custom-prop="value"
-                        custom-camel-case="value 2"
-                        custom-another-camel-case="value 3"
+                        href=""
                     />
                 );
             }

@@ -198,9 +198,7 @@ export class Metrics extends EventEmitter {
                     if (apiExists) {
                         warning(
                             typeof apis[type] === "function",
-                            `'${type}'${name
-                                ? `(${name} Service)`
-                                : ""} is not a function`
+                            `'${type}'${name ? `(${name} Service)` : ""} is not a function`
                         );
                     }
                     let requestPromise = apiExists &&

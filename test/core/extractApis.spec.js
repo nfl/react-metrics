@@ -17,7 +17,7 @@ describe("extractApis", () => {
             methodA() {}
         };
         const service = Object.create(parent, {
-            methodB: {value: function() {}}
+            methodB: {value() {}}
         });
         const result = extractApis(service);
         expect(result).to.be.an("array");

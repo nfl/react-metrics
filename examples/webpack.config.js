@@ -1,6 +1,6 @@
-var fs = require("fs");
-var path = require("path");
-var webpack = require("webpack");
+const fs = require("fs");
+const path = require("path");
+const webpack = require("webpack");
 
 function isDirectory(dir) {
     return fs.lstatSync(dir).isDirectory();
@@ -9,12 +9,12 @@ function isDirectory(dir) {
 module.exports = {
     devtool: "inline-source-map",
 
-    entry: fs.readdirSync(__dirname).reduce(function(entries, dir) {
-        var isNodeModules = dir === "node_modules";
-        var isSrc = dir === "src";
-        var dirPath = path.join(__dirname, dir);
+    entry: fs.readdirSync(__dirname).reduce((entries, dir) => {
+        const isNodeModules = dir === "node_modules";
+        const isSrc = dir === "src";
+        const dirPath = path.join(__dirname, dir);
         if (!isNodeModules && !isSrc && isDirectory(dirPath)) {
-            fs.readdirSync(dirPath).forEach(function(subdir) {
+            fs.readdirSync(dirPath).forEach(subdir => {
                 if (isDirectory(path.join(dirPath, subdir))) {
                     entries[[dir, subdir].join("_")] = [
                         "babel-polyfill",
@@ -54,7 +54,7 @@ module.exports = {
 
     resolve: {
         alias: {
-            "react-metrics": process.cwd() + "/src"
+            "react-metrics": `${process.cwd()}/src`
         }
     },
 

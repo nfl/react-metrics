@@ -16,10 +16,8 @@ function getDisplayName(Comp) {
 let mountedInstances;
 
 export default function metrics(metricsOrConfig, options = {}) {
-    const autoTrackPageView = options.autoTrackPageView === false
-        ? false
-        : true;
-    const useTrackBinding = options.useTrackBinding === false ? false : true;
+    const autoTrackPageView = options.autoTrackPageView !== false;
+    const useTrackBinding = options.useTrackBinding !== false;
     const attributePrefix = options.attributePrefix;
     const suppressTrackBindingWarning = !!options.suppressTrackBindingWarning;
     const getNewRouteState = options.getRouteState || getRouteState;
@@ -42,6 +40,14 @@ export default function metrics(metricsOrConfig, options = {}) {
                 location: locationType,
                 params: PropTypes.object
             };
+
+            static getMountedMetricsInstances() {
+                // eslint-disable-line react/sort-comp
+                if (!mountedInstances) {
+                    mountedInstances = [];
+                }
+                return mountedInstances;
+            }
 
             componentWillMount() {
                 if (!canUseDOM) {
@@ -104,13 +110,6 @@ export default function metrics(metricsOrConfig, options = {}) {
                 this._getMetrics().destroy();
             }
 
-            static getMountedMetricsInstances() {
-                // eslint-disable-line react/sort-comp
-                if (!mountedInstances) {
-                    mountedInstances = [];
-                }
-                return mountedInstances;
-            }
             getChildContext() {
                 return {
                     metrics: this._getMetrics().api,

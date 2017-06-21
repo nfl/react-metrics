@@ -7,7 +7,9 @@ import execSteps from "../execSteps";
 import ReactTestUtils from "react-addons-test-utils";
 import metrics from "../../src/react/metrics";
 import createMetrics, {isMetrics, Metrics} from "../../src/core/createMetrics";
-import exposeMetrics, {clearMountedInstances} from "../../src/react/exposeMetrics";
+import exposeMetrics, {
+    clearMountedInstances
+} from "../../src/react/exposeMetrics";
 import PropTypes from "../../src/react/PropTypes";
 import metricsConfig from "../metrics.config";
 import metricsMock from "../metricsMock";
@@ -108,8 +110,8 @@ describe("metrics", () => {
         expect(() => {
             ReactDOM.render(
                 <Router history={createHistory("/")} onUpdate={execNextStep}>
-                    <Route path="/" component={Application}>
-                        <Route path="/page" component={Page} />
+                    <Route component={Application} path="/">
+                        <Route component={Page} path="/page" />
                     </Route>
                 </Router>,
                 node
@@ -203,12 +205,11 @@ describe("metrics", () => {
                 metrics: PropTypes.metrics.isRequired
             };
 
-            componentDidMount() {
-                this.context.metrics.pageView();
-            }
-
             static willTrackPageView() {
                 return false;
+            }
+            componentDidMount() {
+                this.context.metrics.pageView();
             }
 
             render() {
@@ -220,8 +221,8 @@ describe("metrics", () => {
 
         ReactDOM.render(
             <Router history={createHistory("/")} onUpdate={execNextStep}>
-                <Route path="/" component={Application}>
-                    <Route path="/page" component={Page} />
+                <Route component={Application} path="/">
+                    <Route component={Page} path="/page" />
                 </Route>
             </Router>,
             node,
@@ -250,7 +251,7 @@ describe("metrics", () => {
         expect(() => {
             ReactDOM.render(
                 <Router history={createHistory("/")}>
-                    <Route path="/" component={Application} />
+                    <Route component={Application} path="/" />
                 </Router>,
                 node,
                 done
@@ -277,9 +278,9 @@ describe("metrics", () => {
                 return (
                     <div>
                         <a
-                            ref="link"
-                            href="#"
                             data-metrics-event-name="myEvent"
+                            href=""
+                            ref="link"
                         />
                     </div>
                 );
@@ -313,7 +314,7 @@ describe("metrics", () => {
         expect(() => {
             ReactDOM.render(
                 <Router history={createHistory("/")}>
-                    <Route path="/" component={Application} />
+                    <Route component={Application} path="/" />
                 </Router>,
                 node
             );
@@ -336,12 +337,12 @@ describe("metrics", () => {
                 metrics: PropTypes.metrics.isRequired
             };
 
-            componentDidMount() {
-                this.context.metrics.pageView(customPageViewRule, customData);
-            }
-
             static willTrackPageView() {
                 return false;
+            }
+
+            componentDidMount() {
+                this.context.metrics.pageView(customPageViewRule, customData);
             }
 
             render() {
@@ -381,12 +382,12 @@ describe("metrics", () => {
                 metrics: PropTypes.metrics.isRequired
             };
 
-            componentDidMount() {
-                this.context.metrics.track(trackId, customData);
-            }
-
             static willTrackPageView() {
                 return false;
+            }
+
+            componentDidMount() {
+                this.context.metrics.track(trackId, customData);
             }
 
             render() {

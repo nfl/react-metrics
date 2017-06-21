@@ -10,26 +10,29 @@ class Page extends React.Component {
 
     render() {
         const {params} = this.props;
-        const listItem = Array.from("123").map(key =>
+        const listItem = Array.from("123").map(key => (
             <li
-                key={key}
                 data-tracking-event-name="SomeEvent"
                 data-tracking-key={key}
                 data-tracking-page={params.id}
+                key={key}
             >
-                <img src={`http://placehold.it/200x50?text=Item+${key}`} />
+                <img
+                    alt=""
+                    src={`http://placehold.it/200x50?text=Item+${key}`}
+                />
             </li>
-        );
+        ));
 
         return (
             <div>
                 <h1>Page {params.id}</h1>
                 {/* Ex 1: self target */}
                 <MetricsElement
-                    element="a"
                     data-tracking-event-name="SomeEvent"
-                    data-tracking-value="SomeValue"
                     data-tracking-merge-pagedefaults="true"
+                    data-tracking-value="SomeValue"
+                    element="a"
                 >
                     Link
                 </MetricsElement>
@@ -40,6 +43,7 @@ class Page extends React.Component {
                         data-tracking-value="SomeValue"
                     >
                         <img
+                            alt=""
                             src="http://placehold.it/200x150?text=Image+1"
                             style={{padding: 5}}
                         />
@@ -47,11 +51,12 @@ class Page extends React.Component {
                 </MetricsElement>
                 {/* Ex 3: event bubbling */}
                 <MetricsElement
-                    element="a"
                     data-tracking-event-name="SomeEvent"
                     data-tracking-value="SomeValue"
+                    element="a"
                 >
                     <img
+                        alt=""
                         src="http://placehold.it/200x150?text=Image+2"
                         style={{padding: 5}}
                     />
@@ -64,16 +69,17 @@ class Page extends React.Component {
                     {listItem}
                 </MetricsElement>
                 {/* Ex 5: aggregate metrics data */}
-                <MetricsElement element="div" data-tracking-key1="val1">
+                <MetricsElement data-tracking-key1="val1" element="div">
                     <div
-                        data-tracking-merge-pagedefaults="true"
                         data-tracking-key2="val2"
+                        data-tracking-merge-pagedefaults="true"
                     >
                         <a
                             data-tracking-event-name="AnotherEvent"
                             data-tracking-value="AnotherValue"
                         >
                             <img
+                                alt=""
                                 src="http://placehold.it/200x150?text=Image+1"
                                 style={{padding: 5}}
                             />
