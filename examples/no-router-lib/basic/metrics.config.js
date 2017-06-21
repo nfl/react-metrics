@@ -24,7 +24,7 @@ const config = {
                     });
                 },
                 user(user) {
-                    return new Promise((resolve) => {
+                    return new Promise(resolve => {
                         // reject(new Error("dummy error Test"));
                         resolve({
                             user
@@ -39,7 +39,7 @@ const config = {
             })
         }
     ],
-    pageDefaults: (routeState) => {
+    pageDefaults: routeState => {
         const paths = routeState.pathname.substr(1).split("/");
         const timestamp = new Date();
         return {

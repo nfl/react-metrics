@@ -2,7 +2,7 @@
 import ActionTypes from "./ActionTypes";
 import {aggregateApisByType} from "./utils/extractApis";
 
-const noop = function () {};
+const noop = function() {};
 
 function isService(obj) {
     const functionProps = aggregateApisByType(obj);

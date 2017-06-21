@@ -26,7 +26,7 @@ class GoogleTagManager {
         return this.track(...args);
     }
     user(user) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             // reject(new Error("dummy error"));
             resolve({
                 user
@@ -43,16 +43,18 @@ class GoogleTagManager {
      */
     track(eventName, params) {
         return new Promise((resolve, reject) => {
-            this._load().then(() => {
-                this._track(eventName, params);
-                resolve({
-                    eventName,
-                    params
+            this._load()
+                .then(() => {
+                    this._track(eventName, params);
+                    resolve({
+                        eventName,
+                        params
+                    });
+                })
+                .catch(error => {
+                    console.error("GTM: Failed to initialize", error);
+                    reject(error);
                 });
-            }).catch((error) => {
-                console.error("GTM: Failed to initialize", error);
-                reject(error);
-            });
         });
     }
     /**
@@ -75,19 +77,22 @@ class GoogleTagManager {
      * @protected
      */
     _load() {
-        return this._promise || (this._promise = new Promise((resolve) => {
-            if (this._loaded) {
-                resolve();
-            } else {
-                analytics.once("ready", () => {
-                    this._loaded = true;
+        return (
+            this._promise ||
+            (this._promise = new Promise(resolve => {
+                if (this._loaded) {
                     resolve();
-                });
-                analytics.initialize({
-                    "Google Tag Manager": this.options
-                });
-            }
-        }));
+                } else {
+                    analytics.once("ready", () => {
+                        this._loaded = true;
+                        resolve();
+                    });
+                    analytics.initialize({
+                        "Google Tag Manager": this.options
+                    });
+                }
+            }))
+        );
     }
 }
 

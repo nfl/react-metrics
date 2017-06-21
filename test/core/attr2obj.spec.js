@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp */
+/* eslint-disable react/no-multi-comp,jsx-a11y/href-no-hash */
 import React from "react";
 import ReactDOM from "react-dom";
 import TestUtils from "react-addons-test-utils";
@@ -40,28 +40,37 @@ describe("attr2obj", () => {
         expect(obj).to.have.property("event").and.to.equal("My Event Name");
         expect(obj).to.have.property("prop").and.to.equal("value");
         expect(obj).to.have.property("camelCase").and.to.equal("value 2");
-        expect(obj).to.have.property("anotherCamelCase").and.to.equal("value 3");
+        expect(obj).to.have
+            .property("anotherCamelCase")
+            .and.to.equal("value 3");
 
         class Wrapper extends React.Component {
             render() {
                 return (
-                    <a href="#" data-analytics-event="My Event Name"
-                        data-analytics-prop="value"
+                    <a
+                        data-analytics-another-camel-case="value 3"
                         data-analytics-camel-case="value 2"
-                        data-analytics-another-camel-case="value 3"/>
+                        data-analytics-event="My Event Name"
+                        data-analytics-prop="value"
+                        href="#"
+                    />
                 );
             }
         }
 
-        const element = TestUtils.renderIntoDocument(<Wrapper/>);
-        node = ReactDOM.findDOMNode(TestUtils.findRenderedDOMComponentWithTag(element, "a"));
+        const element = TestUtils.renderIntoDocument(<Wrapper />);
+        node = ReactDOM.findDOMNode(
+            TestUtils.findRenderedDOMComponentWithTag(element, "a")
+        );
         obj = attr2obj(node, "data-analytics");
 
         expect(obj).to.be.an("object");
         expect(obj).to.have.property("event").and.to.equal("My Event Name");
         expect(obj).to.have.property("prop").and.to.equal("value");
         expect(obj).to.have.property("camelCase").and.to.equal("value 2");
-        expect(obj).to.have.property("anotherCamelCase").and.to.equal("value 3");
+        expect(obj).to.have
+            .property("anotherCamelCase")
+            .and.to.equal("value 3");
     });
 
     it("extracts custom prefixed attributes as object", () => {
@@ -77,22 +86,29 @@ describe("attr2obj", () => {
         expect(obj).to.have.property("event").and.to.equal("My Event Name");
         expect(obj).to.have.property("prop").and.to.equal("value");
         expect(obj).to.have.property("camelCase").and.to.equal("value 2");
-        expect(obj).to.have.property("anotherCamelCase").and.to.equal("value 3");
+        expect(obj).to.have
+            .property("anotherCamelCase")
+            .and.to.equal("value 3");
 
         class Wrapper extends React.Component {
             render() {
                 return (
-                    <a href="#" custom-event="My Event Name"
-                        custom-prop="value"
+                    <a
+                        custom-another-camel-case="value 3"
                         custom-camel-case="value 2"
-                        custom-another-camel-case="value 3"/>
+                        custom-event="My Event Name"
+                        custom-prop="value"
+                        href="#"
+                    />
                 );
             }
         }
 
-        const element = TestUtils.renderIntoDocument(<Wrapper/>);
+        const element = TestUtils.renderIntoDocument(<Wrapper />);
 
-        node = ReactDOM.findDOMNode(TestUtils.findRenderedDOMComponentWithTag(element, "a"));
+        node = ReactDOM.findDOMNode(
+            TestUtils.findRenderedDOMComponentWithTag(element, "a")
+        );
         obj = attr2obj(node, "data-analytics");
 
         // React will remove non-HTML spec attributes

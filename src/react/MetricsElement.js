@@ -17,12 +17,12 @@ export default class MetricsElement extends Component {
         metrics: MetricsPropTypes.metrics,
         _metrics: PropTypes.object,
         _metricsConfig: PropTypes.object
-    }
+    };
 
     static propTypes = {
         children: PropTypes.node,
         element: PropTypes.any
-    }
+    };
 
     componentDidMount() {
         const {metrics, _metricsConfig} = this.context;
@@ -32,14 +32,18 @@ export default class MetricsElement extends Component {
             "MetricsElement requires metrics HOC to exist in the parent tree."
         );
 
-        const {useTrackBinding, attributePrefix, suppressTrackBindingWarning} = _metricsConfig;
+        const {
+            useTrackBinding,
+            attributePrefix,
+            suppressTrackBindingWarning
+        } = _metricsConfig;
 
         if (!suppressTrackBindingWarning) {
             warning(
                 !useTrackBinding,
                 "You are using 'MetricsElement' while default track binding is turned on. " +
-                "It is recommended that you stick with either one to avoid double tracking accidentally. " +
-                "If you intentionally use both and want to suppress this warning, pass 'suppressTrackBindingWarning=true' to the metrics options."
+                    "It is recommended that you stick with either one to avoid double tracking accidentally. " +
+                    "If you intentionally use both and want to suppress this warning, pass 'suppressTrackBindingWarning=true' to the metrics options."
             );
         }
 
@@ -69,6 +73,8 @@ export default class MetricsElement extends Component {
             return Children.only(children);
         }
 
-        return isValidElement(element) ? cloneElement(element, rest) : createElement(element, rest, children);
+        return isValidElement(element)
+            ? cloneElement(element, rest)
+            : createElement(element, rest, children);
     }
 }

@@ -32,7 +32,7 @@ const config = {
             }
         }
     ],
-    pageDefaults: (routeState) => {
+    pageDefaults: routeState => {
         const paths = routeState.pathname.substr(1).split("/");
         const timestamp = new Date();
         return {

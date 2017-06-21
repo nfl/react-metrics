@@ -12,7 +12,7 @@ describe("createService", () => {
         }).to.not.throw();
 
         const options = {
-            api: function () {}
+            api() {}
         };
         service = createService(options);
         expect(service).to.have.property("name", undefined);
@@ -55,8 +55,8 @@ describe("createService", () => {
             pageView() {}
         };
         const api = Object.create(parent, {
-            track: {value: function () {}},
-            methodA: {value: function () {}}
+            track: {value() {}},
+            methodA: {value() {}}
         });
         const options = {
             name: "Test",
@@ -109,9 +109,7 @@ describe("createService", () => {
             track() {}
             methodA() {}
         }
-        class ServiceClass extends ParentClass {
-
-        }
+        class ServiceClass extends ParentClass {}
         const options = {
             name: "Test",
             api: ServiceClass

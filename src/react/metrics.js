@@ -16,24 +16,20 @@ function getDisplayName(Comp) {
 let mountedInstances;
 
 export default function metrics(metricsOrConfig, options = {}) {
-    const autoTrackPageView = options.autoTrackPageView === false ? false : true;
-    const useTrackBinding = options.useTrackBinding === false ? false : true;
+    const autoTrackPageView = options.autoTrackPageView !== false;
+    const useTrackBinding = options.useTrackBinding !== false;
     const attributePrefix = options.attributePrefix;
     const suppressTrackBindingWarning = !!options.suppressTrackBindingWarning;
     const getNewRouteState = options.getRouteState || getRouteState;
-    const findNewRouteComponent = options.findRouteComponent || findRouteComponent;
-    const metricsInstance = isMetrics(metricsOrConfig) ? metricsOrConfig : createMetrics(metricsOrConfig);
+    const findNewRouteComponent =
+        options.findRouteComponent || findRouteComponent;
+    const metricsInstance = isMetrics(metricsOrConfig)
+        ? metricsOrConfig
+        : createMetrics(metricsOrConfig);
 
     return function wrap(ComposedComponent) {
         class MetricsContainer extends Component {
             static displayName = "MetricsContainer";
-
-            static getMountedMetricsInstances() { // eslint-disable-line react/sort-comp
-                if (!mountedInstances) {
-                    mountedInstances = [];
-                }
-                return mountedInstances;
-            }
 
             static childContextTypes = {
                 metrics: metricsType.isRequired,
@@ -45,18 +41,12 @@ export default function metrics(metricsOrConfig, options = {}) {
                 params: PropTypes.object
             };
 
-            getChildContext() {
-                return {
-                    metrics: this._getMetrics().api,
-                    _metricsConfig: {
-                        autoTrackPageView,
-                        useTrackBinding,
-                        attributePrefix,
-                        suppressTrackBindingWarning,
-                        getNewRouteState,
-                        findNewRouteComponent
-                    }
-                };
+            static getMountedMetricsInstances() {
+                // eslint-disable-line react/sort-comp
+                if (!mountedInstances) {
+                    mountedInstances = [];
+                }
+                return mountedInstances;
             }
 
             componentWillMount() {
@@ -89,7 +79,10 @@ export default function metrics(metricsOrConfig, options = {}) {
                         rootElement,
                         "`metrics` should be added to the root most component which renders node element for declarative tracking to work."
                     );
-                    this._getMetrics().useTrackBinding(rootElement, attributePrefix);
+                    this._getMetrics().useTrackBinding(
+                        rootElement,
+                        attributePrefix
+                    );
                 }
 
                 if (this._newRouteState) {
@@ -116,6 +109,21 @@ export default function metrics(metricsOrConfig, options = {}) {
 
                 this._getMetrics().destroy();
             }
+
+            getChildContext() {
+                return {
+                    metrics: this._getMetrics().api,
+                    _metricsConfig: {
+                        autoTrackPageView,
+                        useTrackBinding,
+                        attributePrefix,
+                        suppressTrackBindingWarning,
+                        getNewRouteState,
+                        findNewRouteComponent
+                    }
+                };
+            }
+
             _getMetrics() {
                 return metricsInstance;
             }
@@ -133,7 +141,9 @@ export default function metrics(metricsOrConfig, options = {}) {
                 let shouldSuppress = false;
 
                 if (component) {
-                    const ret = (component.willTrackPageView && component.willTrackPageView(routeState));
+                    const ret =
+                        component.willTrackPageView &&
+                        component.willTrackPageView(routeState);
                     if (ret === false) {
                         shouldSuppress = true;
                     } else if (ret) {
@@ -141,7 +151,11 @@ export default function metrics(metricsOrConfig, options = {}) {
                     }
                 }
 
-                if (metricsInst.enabled && autoTrackPageView && !shouldSuppress) {
+                if (
+                    metricsInst.enabled &&
+                    autoTrackPageView &&
+                    !shouldSuppress
+                ) {
                     invariant(
                         typeof metricsInst.api.pageView === "function",
                         "react-metrics: 'pageView' api needs to be defined for automatic page view tracking."
@@ -157,7 +171,10 @@ export default function metrics(metricsOrConfig, options = {}) {
              */
             render() {
                 return (
-                    <ComposedComponent {...this.props} {...this.getChildContext()}/>
+                    <ComposedComponent
+                        {...this.props}
+                        {...this.getChildContext()}
+                    />
                 );
             }
         }

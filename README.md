@@ -26,7 +26,6 @@ An analytics module for [React](https://github.com/facebook/react).
  * Provides a custom event tracking API.
  * Supports multiple simultaneous analytics vendor tracking.
 
-
 ## Installation
 
 ```
