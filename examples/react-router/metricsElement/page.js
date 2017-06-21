@@ -1,5 +1,6 @@
-/* eslint-disable react/no-deprecated */
-import React, {PropTypes} from "react";
+/* eslint-disable */
+import React from "react";
+import PropTypes from "prop-types";
 import {MetricsElement} from "react-metrics"; // eslint-disable-line import/no-unresolved
 
 // Note: `data-tracking` prefix is set in app.js as `attributePrefix` option

@@ -1,5 +1,6 @@
-/* eslint-disable react/no-multi-comp, react/no-deprecated */
-import React, {Component, PropTypes} from "react";
+/* eslint-disable react/no-multi-comp */
+import React, {Component} from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import {
     Router,

@@ -1,6 +1,6 @@
-/* eslint-disable react/no-deprecated */
 import React from "react";
-import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
+import exposeMetrics from "react-metrics"; // eslint-disable-line import/no-unresolved
+import PropTypes from "prop-types";
 
 @exposeMetrics class ManualPageView extends React.Component {
     static contextTypes = {
@@ -8,7 +8,7 @@ import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line i
     };
 
     static propTypes = {
-        appName: React.PropTypes.string
+        appName: PropTypes.string
     };
 
     static willTrackPageView() {

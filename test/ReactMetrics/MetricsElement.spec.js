@@ -1,5 +1,6 @@
-/* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks, react/no-deprecated */
-import React, {PropTypes} from "react";
+/* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
+import React from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import metrics from "../../src/react/metrics";
 import MetricsElement from "../../src/react/MetricsElement";

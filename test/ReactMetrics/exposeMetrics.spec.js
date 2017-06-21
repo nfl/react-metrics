@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks, react/no-deprecated */
+/* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
 import React from "react";
 import ReactDOM from "react-dom";
 import createHistory from "history/lib/createMemoryHistory";
@@ -46,22 +46,23 @@ describe("exposeMetrics", () => {
 
         expect(Metrics.displayName).to.be.equal("Metrics(Comp2)");
 
-        const Comp3 = React.createClass({
+        class Comp3 extends React.Component {
             render() {
                 return <h1>Page</h1>;
             }
-        });
+        }
 
         Metrics = exposeMetrics(Comp3);
 
         expect(Metrics.displayName).to.be.equal("Metrics(Comp3)");
 
-        const Comp4 = React.createClass({
-            displayName: null,
+        class Comp4 extends React.Component {
+            static displayName = null;
+
             render() {
                 return <h1>Page</h1>;
             }
-        });
+        }
 
         Metrics = exposeMetrics(Comp4);
 

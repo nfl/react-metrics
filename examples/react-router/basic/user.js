@@ -1,5 +1,5 @@
-/* eslint-disable react/no-deprecated */
-import React, {PropTypes} from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import {exposeMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 
 @exposeMetrics class User extends React.Component {
