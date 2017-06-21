@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp */
+/* eslint-disable react/no-multi-comp,jsx-a11y/href-no-hash */
 import React from "react";
 import ReactDOM from "react-dom";
 import TestUtils from "react-addons-test-utils";
@@ -52,7 +52,7 @@ describe("attr2obj", () => {
                         data-analytics-camel-case="value 2"
                         data-analytics-event="My Event Name"
                         data-analytics-prop="value"
-                        href=""
+                        href="#"
                     />
                 );
             }
@@ -98,7 +98,7 @@ describe("attr2obj", () => {
                         custom-camel-case="value 2"
                         custom-event="My Event Name"
                         custom-prop="value"
-                        href=""
+                        href="#"
                     />
                 );
             }

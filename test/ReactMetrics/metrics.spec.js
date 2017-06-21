@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
+/* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks, jsx-a11y/href-no-hash */
 import React from "react";
 import ReactDOM from "react-dom";
 import createHistory from "history/lib/createMemoryHistory";
@@ -279,7 +279,7 @@ describe("metrics", () => {
                     <div>
                         <a
                             data-metrics-event-name="myEvent"
-                            href=""
+                            href="#"
                             ref="link"
                         />
                     </div>
