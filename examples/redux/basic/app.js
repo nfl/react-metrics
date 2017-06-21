@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp */
+/* eslint-disable react/no-multi-comp, react/no-deprecated */
 import React, {Component, PropTypes} from "react";
 import ReactDOM from "react-dom";
 import {

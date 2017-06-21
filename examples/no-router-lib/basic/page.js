@@ -1,3 +1,4 @@
+/* eslint-disable react/no-deprecated */
 import React, {PropTypes} from "react";
 import {PropTypes as MetricsPropTypes} from "react-metrics"; // eslint-disable-line import/no-unresolved
 

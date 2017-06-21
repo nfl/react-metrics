@@ -1,3 +1,4 @@
+/* eslint-disable react/no-deprecated */
 import React from "react";
 import {PropTypes, exposeMetrics} from "react-metrics"; // eslint-disable-line import/no-unresolved
 

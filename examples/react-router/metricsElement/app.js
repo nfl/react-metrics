@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp */
+/* eslint-disable react/no-multi-comp, react/no-deprecated */
 import React, {Component, PropTypes} from "react";
 import ReactDOM from "react-dom";
 import {
@@ -13,7 +13,6 @@ import {metrics, MetricsElement} from "react-metrics"; // eslint-disable-line im
 import MetricsConfig from "./metrics.config";
 import Home from "./home";
 import Page from "./page";
-
 class App extends Component {
     static displayName = "My Application";
 
