@@ -118,6 +118,7 @@ export class Metrics extends EventEmitter {
         this.routeState = state;
     }
 
+    /* eslint-disable consistent-return */
     useTrackBinding(rootElement, attributePrefix) {
         if (!this.enabled) {
             return;

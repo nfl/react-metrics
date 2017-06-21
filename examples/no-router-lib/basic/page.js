@@ -2,6 +2,12 @@ import React, {PropTypes} from "react";
 import {PropTypes as MetricsPropTypes} from "react-metrics"; // eslint-disable-line import/no-unresolved
 
 class Page extends React.Component {
+    constructor(...args) {
+        super(...args);
+
+        this.onClick = this.onClick.bind(this);
+    }
+
     static contextTypes = {
         metrics: MetricsPropTypes.metrics,
         appState: PropTypes.any
@@ -28,7 +34,7 @@ class Page extends React.Component {
         return (
             <div>
                 <h1>Page {params.id}</h1>
-                <button onClick={this.onClick.bind(this)}>Manual Track</button>
+                <button onClick={this.onClick}>Manual Track</button>
                 <button
                     data-metrics-event-name="trackClick"
                     data-metrics-merge-pagedefaults="true"

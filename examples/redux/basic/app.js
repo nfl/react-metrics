@@ -40,6 +40,13 @@ const appHistory = useRouterHistory(createHistory)();
     counterB: state.counterB
 }))
 class Application extends Component {
+    constructor(...args) {
+        super(...args);
+
+        this.onInclementClick = this.onInclementClick.bind(this);
+        this.onDeclementClick = this.onDeclementClick.bind(this);
+    }
+
     static propTypes = {
         children: PropTypes.node,
         dispatch: PropTypes.func.isRequired
@@ -61,8 +68,8 @@ class Application extends Component {
                 {this.props.children &&
                     React.cloneElement(this.props.children, {
                         ...this.props,
-                        onInclementClick: this.onInclementClick.bind(this),
-                        onDeclementClick: this.onDeclementClick.bind(this)
+                        onInclementClick: this.onInclementClick,
+                        onDeclementClick: this.onDeclementClick
                     })}
             </div>
         );
