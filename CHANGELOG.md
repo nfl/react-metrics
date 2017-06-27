@@ -1,3 +1,12 @@
+<a name="2.3.2"></a>
+## [2.3.2](https://github.com/nfl/react-metrics/compare/v2.3.1...v2.3.2) (2017-06-27)
+
+
+### Bug Fixes
+
+* Fix for IE console log error with SVG parentNode (#46) ([51ff8a5](https://github.com/nfl/react-metrics/commit/51ff8a55bfa9c6dcdda9ab229d0ecf495961ef7c))
+
+
 <a name="2.3.1"></a>
 ## [2.3.1](https://github.com/nfl/react-metrics/compare/v2.3.0...v2.3.1) (2017-05-22)
 
