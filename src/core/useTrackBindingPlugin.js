@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import EventListener from "fbjs/lib/EventListener";
 import attr2obj from "./utils/attr2obj";
 
@@ -62,7 +63,8 @@ export class TrackBindingPlugin {
             return;
         }
 
-        let elem = event.target || event.srcElement;
+        var originalElem = event.target || event.srcElement;
+        var elem = originalElem;
         let dataset = this._getData(elem);
 
         if (this._traverseParent) {
@@ -83,7 +85,7 @@ export class TrackBindingPlugin {
 
         if (eventName) {
             delete dataset.eventName;
-            callback(eventName, dataset, mergePagedefaults === "true");
+            callback(eventName, dataset, mergePagedefaults === "true", originalElem);
         }
     }
 
