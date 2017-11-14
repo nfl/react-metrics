@@ -1,3 +1,13 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/nfl/react-metrics/compare/v2.3.0...v2.4.0) (2017-11-14)
+
+
+### Bug Fixes
+
+* Remove multiple instance check ([41b7bfa](https://github.com/nfl/react-metrics/commit/41b7bfa))
+
+
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/nfl/react-metrics/compare/v2.3.1...v2.3.2) (2017-06-27)
 
