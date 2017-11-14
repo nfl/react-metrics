@@ -85,42 +85,6 @@ describe("metrics", () => {
         tree.componentWillUnmount();
     });
 
-    it("throws when added to more than one component", done => {
-        @metrics(metricsConfig)
-        class Application extends React.Component {
-            static displayName = "TestApplication";
-            render() {
-                return <div>{this.props.children}</div>;
-            }
-        }
-
-        @metrics(metricsConfig)
-        class Page extends React.Component {
-            static displayName = "TestPage";
-            render() {
-                return <h1>Page</h1>;
-            }
-        }
-
-        const execNextStep = function() {
-            this.history.pushState(null, "/page");
-            done();
-        };
-
-        expect(() => {
-            ReactDOM.render(
-                <Router history={createHistory("/")} onUpdate={execNextStep}>
-                    <Route component={Application} path="/">
-                        <Route component={Page} path="/page" />
-                    </Route>
-                </Router>,
-                node
-            );
-        }).to.throw(
-            "metrics should only be added once to the root level component. You have added to both TestApplication and TestPage"
-        );
-    });
-
     it("should make 'metrics' context available", () => {
         const metricsContext = {};
 
