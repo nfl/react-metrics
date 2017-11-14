@@ -7,6 +7,7 @@
 * Remove multiple instance check ([41b7bfa](https://github.com/nfl/react-metrics/commit/41b7bfa))
 
 
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/nfl/react-metrics/compare/v2.3.1...v2.3.2) (2017-06-27)
 
