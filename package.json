@@ -50,6 +50,7 @@
     "babel-preset-es2015-without-strict": "0.0.2",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "bundlesize": "^0.15.3",
     "chai": "^3.5.0",
     "codecov.io": "^0.1.6",
     "commitizen": "^2.5.0",
@@ -102,6 +103,7 @@
     "build": "npm run clean && npm run compile",
     "build:umd": "NODE_ENV=development webpack src/index.js dist/react-metrics.js",
     "build:umd:min": "NODE_ENV=production webpack -p src/index.js dist/react-metrics.min.js",
+    "bundlesize": "npm run build:umd:min && bundlesize",
     "clean": "rimraf lib build",
     "compile": "babel src --out-dir lib",
     "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline",
@@ -115,5 +117,11 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "bundlesize": [
+      {
+          "path": "./dist/react-metrics.min.js",
+          "maxSize": "8.8 kB"
+      }
+  ],
   "registry": "npm"
 }
