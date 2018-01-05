@@ -1,10 +1,10 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks, jsx-a11y/href-no-hash */
 import React from "react";
 import ReactDOM from "react-dom";
+import ReactTestUtils from "react-dom/test-utils";
 import createHistory from "history/lib/createMemoryHistory";
 import {Router, Route} from "react-router";
 import execSteps from "../execSteps";
-import ReactTestUtils from "react-addons-test-utils";
 import metrics from "../../src/react/metrics";
 import createMetrics, {isMetrics, Metrics} from "../../src/core/createMetrics";
 import exposeMetrics, {

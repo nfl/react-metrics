@@ -1,10 +1,11 @@
 import React from "react";
-import exposeMetrics from "react-metrics"; // eslint-disable-line import/no-unresolved
+import {exposeMetrics, PropTypes as MetricsPropTypes} from "react-metrics"; // eslint-disable-line import/no-unresolved
 import PropTypes from "prop-types";
 
-@exposeMetrics class ManualPageView extends React.Component {
+@exposeMetrics
+class ManualPageView extends React.Component {
     static contextTypes = {
-        metrics: PropTypes.metrics
+        metrics: MetricsPropTypes.metrics
     };
 
     static propTypes = {

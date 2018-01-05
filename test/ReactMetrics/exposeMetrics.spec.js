@@ -1,8 +1,7 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
 import React from "react";
 import ReactDOM from "react-dom";
-import createHistory from "history/lib/createMemoryHistory";
-import {Router, Route} from "react-router";
+import {browserHistory, Router, Route} from "react-router";
 import metrics from "../../src/react/metrics";
 import exposeMetrics, {
     getMountedInstances
@@ -77,7 +76,8 @@ describe("exposeMetrics", () => {
             }
         }
 
-        @exposeMetrics class Page extends React.Component {
+        @exposeMetrics
+        class Page extends React.Component {
             static displayName = "Page";
 
             static willTrackPageView() {
@@ -91,14 +91,14 @@ describe("exposeMetrics", () => {
         }
 
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={browserHistory("/")}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="/page/:id" />
                 </Route>
             </Router>,
             node,
             function() {
-                this.history.pushState(null, "/page/1");
+                this.history.push("/page/1");
             }
         );
     });
@@ -131,13 +131,14 @@ describe("exposeMetrics", () => {
             </Router>,
             node,
             function() {
-                this.history.pushState(null, "/page/1");
+                this.history.push("/page/1");
             }
         );
     });
 
     it("should register itself to a registry when mounting, unregister itself from a registry when unmounting", done => {
-        @exposeMetrics class Application extends React.Component {
+        @exposeMetrics
+        class Application extends React.Component {
             render() {
                 return <div>Application</div>;
             }

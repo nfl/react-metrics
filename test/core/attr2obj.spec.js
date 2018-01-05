@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp,jsx-a11y/href-no-hash */
 import React from "react";
 import ReactDOM from "react-dom";
-import TestUtils from "react-addons-test-utils";
+import ReactTestUtils from "react-dom/test-utils";
 import attr2obj from "../../src/core/utils/attr2obj";
 
 describe("attr2obj", () => {
@@ -58,9 +58,9 @@ describe("attr2obj", () => {
             }
         }
 
-        const element = TestUtils.renderIntoDocument(<Wrapper />);
+        const element = ReactTestUtils.renderIntoDocument(<Wrapper />);
         node = ReactDOM.findDOMNode(
-            TestUtils.findRenderedDOMComponentWithTag(element, "a")
+            ReactTestUtils.findRenderedDOMComponentWithTag(element, "a")
         );
         obj = attr2obj(node, "data-analytics");
 
@@ -104,10 +104,10 @@ describe("attr2obj", () => {
             }
         }
 
-        const element = TestUtils.renderIntoDocument(<Wrapper />);
+        const element = ReactTestUtils.renderIntoDocument(<Wrapper />);
 
         node = ReactDOM.findDOMNode(
-            TestUtils.findRenderedDOMComponentWithTag(element, "a")
+            ReactTestUtils.findRenderedDOMComponentWithTag(element, "a")
         );
         obj = attr2obj(node, "data-analytics");
 

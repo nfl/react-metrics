@@ -28,14 +28,20 @@ class App extends Component {
         return (
             <div>
                 <ul>
-                    <li><IndexLink to="/">Home</IndexLink></li>
-                    <li><Link to="/async">Async Page View Track</Link></li>
+                    <li>
+                        <IndexLink to="/">Home</IndexLink>
+                    </li>
+                    <li>
+                        <Link to="/async">Async Page View Track</Link>
+                    </li>
                     <li>
                         <Link to={{pathname: "/async", query: {param: "abc"}}}>
                             Async Page View Track with query param
                         </Link>
                     </li>
-                    <li><Link to="/manual">Manual Page View Track</Link></li>
+                    <li>
+                        <Link to="/manual">Manual Page View Track</Link>
+                    </li>
                     <li>
                         <Link to="/user/123">Page View Track with params</Link>
                     </li>
