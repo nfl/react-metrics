@@ -55,15 +55,6 @@ export default function metrics(metricsOrConfig, options = {}) {
                 }
 
                 const instances = this.constructor.getMountedMetricsInstances();
-                // Ensure this component should only be added in one root location.
-                if (instances.length === 1) {
-                    invariant(
-                        false,
-                        "`metrics` should only be added once to the root level component. You have added to both %s and %s.",
-                        getDisplayName(instances[0]),
-                        getDisplayName(ComposedComponent)
-                    );
-                }
                 instances.push(ComposedComponent);
 
                 this._newRouteState = getNewRouteState(this.props);
