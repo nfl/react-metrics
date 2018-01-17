@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
 import React from "react";
 import ReactDOM from "react-dom";
-import {browserHistory, Router, Route} from "react-router";
+import {browserHistory, Router, Route, useRouterHistory} from "react-router";
 import metrics from "../../src/react/metrics";
 import exposeMetrics, {
     getMountedInstances
@@ -68,7 +68,7 @@ describe("exposeMetrics", () => {
         expect(Metrics.displayName).to.contains("Metrics(");
     });
 
-    it("should provide 'willTrackPageView' static method to route handler component", done => {
+    it.only("should provide 'willTrackPageView' static method to route handler component", done => {
         @metrics(MetricsConfig)
         class Application extends React.Component {
             render() {
@@ -90,15 +90,20 @@ describe("exposeMetrics", () => {
             }
         }
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={browserHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="/page/:id" />
                 </Route>
             </Router>,
             node,
             function() {
-                this.history.push("/page/1");
+                console.log("history", history);
+                history.push("/page/1");
             }
         );
     });
@@ -123,8 +128,12 @@ describe("exposeMetrics", () => {
             }
         }
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+      });
+
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="/page/:id" />
                 </Route>

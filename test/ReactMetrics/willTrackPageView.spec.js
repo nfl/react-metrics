@@ -1,8 +1,7 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, padded-blocks */
 import React from "react";
 import ReactDOM from "react-dom";
-import createHistory from "history/lib/createMemoryHistory";
-import {Router, Route} from "react-router";
+import {browserHistory, Router, Route, useRouterHistory} from "react-router";
 import metrics from "../../src/react/metrics";
 import exposeMetrics from "../../src/react/exposeMetrics";
 import MetricsConfig from "../metrics.config";
@@ -79,8 +78,12 @@ describe("willTrackPageView", () => {
             }
         }
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/page/content"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/page/content")}>
+            <Router history={history}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="page">
                         <Route component={Content} path=":content" />
@@ -119,8 +122,12 @@ describe("willTrackPageView", () => {
         );
         mock.expects("pageView").never();
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/" />
             </Router>,
             node,
@@ -167,8 +174,12 @@ describe("willTrackPageView", () => {
             }
         );
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/" />
             </Router>,
             node
@@ -209,8 +220,12 @@ describe("willTrackPageView", () => {
             }
         }
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="/page/:id" />
                 </Route>

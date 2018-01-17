@@ -2,8 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils from "react-dom/test-utils";
-import createHistory from "history/lib/createMemoryHistory";
-import {Router, Route} from "react-router";
+import {browserHistory, Router, Route, useRouterHistory} from "react-router";
 import execSteps from "../execSteps";
 import metrics from "../../src/react/metrics";
 import createMetrics, {isMetrics, Metrics} from "../../src/core/createMetrics";
@@ -183,8 +182,12 @@ describe("metrics", () => {
 
         const execNextStep = execSteps(steps, done);
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/")} onUpdate={execNextStep}>
+            <Router history={history} onUpdate={execNextStep}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="/page" />
                 </Route>
@@ -212,9 +215,13 @@ describe("metrics", () => {
             };
         });
 
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+        });
+
         expect(() => {
             ReactDOM.render(
-                <Router history={createHistory("/")}>
+                <Router history={history}>
                     <Route component={Application} path="/" />
                 </Router>,
                 node,
@@ -273,11 +280,15 @@ describe("metrics", () => {
             render() {
                 return <div><h2>Appication</h2></div>;
             }
-        }
+        };
+
+        const history = useRouterHistory(browserHistory)({
+          basename: "/"
+        });
 
         expect(() => {
             ReactDOM.render(
-                <Router history={createHistory("/")}>
+                <Router history={history}>
                     <Route component={Application} path="/" />
                 </Router>,
                 node
