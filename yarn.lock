@@ -3027,7 +3027,16 @@ hawk@~2.3.0:
     hoek "2.x.x"
     sntp "1.x.x"
 
-history@^3.0.0, history@^3.2.0:
+history@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/history/-/history-3.2.0.tgz#48bee0af905b7674b3cb888e6af8f16731e01d3c"
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    query-string "^4.2.2"
+    warning "^3.0.0"
+
+history@^3.0.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/history/-/history-3.3.0.tgz#fcedcce8f12975371545d735461033579a6dae9c"
   dependencies:

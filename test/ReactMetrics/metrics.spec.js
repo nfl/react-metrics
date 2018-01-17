@@ -2,7 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactTestUtils from "react-dom/test-utils";
-import {browserHistory, Router, Route, useRouterHistory} from "react-router";
+import {createMemoryHistory, Router, Route, useRouterHistory} from "react-router";
 import execSteps from "../execSteps";
 import metrics from "../../src/react/metrics";
 import createMetrics, {isMetrics, Metrics} from "../../src/core/createMetrics";
@@ -148,18 +148,25 @@ describe("metrics", () => {
             return metricsMock;
         });
 
+        const history = useRouterHistory(createMemoryHistory)({
+            basename: "/"
+        });
+
         const steps = [
-            function() {
+            () => {
                 expect(pageView.calledOnce).to.be.false;
-                this.history.pushState(null, "/page");
+                history.push("/page");
             },
-            function() {
-                expect(pageView.calledOnce).to.be.true;
-                stub.restore();
-                pageView.restore();
-                done();
+            () => {
+                setTimeout(() => {
+                    expect(pageView.calledOnce).to.be.true;
+                    stub.restore();
+                    pageView.restore();
+                    done();
+                }, 1000);
             }
         ];
+
 
         class Page extends React.Component {
             static displayName = "Page";
@@ -181,10 +188,6 @@ describe("metrics", () => {
         }
 
         const execNextStep = execSteps(steps, done);
-
-        const history = useRouterHistory(browserHistory)({
-          basename: "/"
-        });
 
         ReactDOM.render(
             <Router history={history} onUpdate={execNextStep}>
@@ -215,8 +218,8 @@ describe("metrics", () => {
             };
         });
 
-        const history = useRouterHistory(browserHistory)({
-          basename: "/"
+        const history = useRouterHistory(createMemoryHistory)({
+            basename: "/"
         });
 
         expect(() => {
@@ -282,7 +285,7 @@ describe("metrics", () => {
             }
         };
 
-        const history = useRouterHistory(browserHistory)({
+        const history = useRouterHistory(createMemoryHistory)({
           basename: "/"
         });
 

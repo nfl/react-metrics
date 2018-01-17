@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks */
 import React from "react";
 import ReactDOM from "react-dom";
-import {browserHistory, Router, Route, useRouterHistory} from "react-router";
+import {createMemoryHistory, Router, Route, useRouterHistory} from "react-router";
 import metrics from "../../src/react/metrics";
 import exposeMetrics, {
     getMountedInstances
@@ -68,7 +68,7 @@ describe("exposeMetrics", () => {
         expect(Metrics.displayName).to.contains("Metrics(");
     });
 
-    it.only("should provide 'willTrackPageView' static method to route handler component", done => {
+    it("should provide 'willTrackPageView' static method to route handler component", done => {
         @metrics(MetricsConfig)
         class Application extends React.Component {
             render() {
@@ -88,9 +88,9 @@ describe("exposeMetrics", () => {
             render() {
                 return <h1>Page</h1>;
             }
-        }
+        };
 
-        const history = useRouterHistory(browserHistory)({
+        const history = useRouterHistory(createMemoryHistory)({
           basename: "/"
         });
 
@@ -102,7 +102,6 @@ describe("exposeMetrics", () => {
             </Router>,
             node,
             function() {
-                console.log("history", history);
                 history.push("/page/1");
             }
         );
@@ -128,9 +127,9 @@ describe("exposeMetrics", () => {
             }
         }
 
-        const history = useRouterHistory(browserHistory)({
-          basename: "/"
-      });
+        const history = useRouterHistory(createMemoryHistory)({
+            basename: "/"
+        });
 
         ReactDOM.render(
             <Router history={history}>
@@ -140,7 +139,7 @@ describe("exposeMetrics", () => {
             </Router>,
             node,
             function() {
-                this.history.push("/page/1");
+                history.push("/page/1");
             }
         );
     });
@@ -156,9 +155,13 @@ describe("exposeMetrics", () => {
         ReactDOM.render(<Application />, node, () => {
             const registry = getMountedInstances();
             expect(registry).to.have.length(1);
-            ReactDOM.unmountComponentAtNode(node);
-            expect(registry).to.have.length(0);
-            done();
+            const didReturn = ReactDOM.unmountComponentAtNode(node);
+            expect(didReturn).to.equal(true);
+            setTimeout(() => {
+                expect(registry).to.have.length(0);
+                done();
+            }, 1);
+
         });
     });
 });
