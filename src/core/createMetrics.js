@@ -163,7 +163,6 @@ export class Metrics extends EventEmitter {
      */
     _callServices(type, promise) {
         return promise.then(params => {
-            params = params || [];
             const results = [];
             const services = this.services;
             const requestTimeout = this.requestTimeout;
@@ -205,7 +204,7 @@ export class Metrics extends EventEmitter {
                     }
                     let requestPromise =
                         apiExists && typeof apis[type] === "function"
-                            ? apis[type](...params)
+                            ? params ? apis[type](...params) : apis[type]()
                             : undefined;
                     if (!isPromise(requestPromise)) {
                         requestPromise = Promise.resolve(requestPromise);
