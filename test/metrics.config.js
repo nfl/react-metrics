@@ -31,6 +31,11 @@ export default {
                             user
                         });
                     });
+                },
+                someMethod() {
+                    return new Promise(resolve => {
+                        resolve();
+                    });
                 }
             }
         }

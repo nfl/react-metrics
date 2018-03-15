@@ -59,9 +59,8 @@ export class Metrics extends EventEmitter {
         super();
         this.enabled = options.enabled !== false;
         // undocumented option for unit test.
-        this.canUseDOM = options.canUseDOM !== undefined
-            ? !!options.canUseDOM
-            : canUseDOM;
+        this.canUseDOM =
+            options.canUseDOM !== undefined ? !!options.canUseDOM : canUseDOM;
         if (!this.canUseDOM) {
             this.enabled = false;
         }
@@ -70,9 +69,8 @@ export class Metrics extends EventEmitter {
         this.pageDefaults = options.pageDefaults || defaults.pageDefaults;
         this.pageViewEvent = options.pageViewEvent || defaults.pageViewEvent;
         this.requestTimeout = options.requestTimeout || defaults.requestTimeout;
-        this.cancelOnNext = options.cancelOnNext !== undefined
-            ? !!options.cancelOnNext
-            : true;
+        this.cancelOnNext =
+            options.cancelOnNext !== undefined ? !!options.cancelOnNext : true;
         this.vendors = Array.isArray(options.vendors)
             ? options.vendors
             : [options.vendors];
@@ -165,6 +163,7 @@ export class Metrics extends EventEmitter {
      */
     _callServices(type, promise) {
         return promise.then(params => {
+            params = params || [];
             const results = [];
             const services = this.services;
             const requestTimeout = this.requestTimeout;
@@ -199,13 +198,15 @@ export class Metrics extends EventEmitter {
                     if (apiExists) {
                         warning(
                             typeof apis[type] === "function",
-                            `'${type}'${name ? `(${name} Service)` : ""} is not a function`
+                            `'${type}'${
+                                name ? `(${name} Service)` : ""
+                            } is not a function`
                         );
                     }
-                    let requestPromise = apiExists &&
-                        typeof apis[type] === "function"
-                        ? apis[type](...params)
-                        : undefined;
+                    let requestPromise =
+                        apiExists && typeof apis[type] === "function"
+                            ? apis[type](...params)
+                            : undefined;
                     if (!isPromise(requestPromise)) {
                         requestPromise = Promise.resolve(requestPromise);
                     }
@@ -414,9 +415,8 @@ export class Metrics extends EventEmitter {
         let [eventName, params] = args;
         if (!params && typeof eventName !== "string") {
             params = eventName;
-            eventName = type === ActionTypes.PAGE_VIEW
-                ? this.pageViewEvent
-                : null;
+            eventName =
+                type === ActionTypes.PAGE_VIEW ? this.pageViewEvent : null;
         }
 
         // make sure `params` is a promise.
