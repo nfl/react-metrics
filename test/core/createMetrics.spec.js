@@ -173,48 +173,22 @@ describe("Metrics", () => {
     it("allows a client to listen event", done => {
         const metricsInstance = new Metrics(metricsConfig);
         metricsInstance.listen(event => {
-            expect(event)
-                .to.have.property("type")
-                .and.equal("identify");
-            expect(event)
-                .to.have.property("status")
-                .and.equal("success");
+            expect(event).to.have.property("type").and.equal("identify");
+            expect(event).to.have.property("status").and.equal("success");
         });
         metricsInstance.listen(event => {
-            expect(event)
-                .to.have.property("type")
-                .and.equal("identify");
-            expect(event)
-                .to.have.property("status")
-                .and.equal("success");
+            expect(event).to.have.property("type").and.equal("identify");
+            expect(event).to.have.property("status").and.equal("success");
             done();
         });
         metricsInstance.api.identify({user: "testUser"});
     });
 
-    it("allows a custom vendor method without arguments", done => {
-        const metricsInstance = new Metrics(metricsConfig);
-        metricsInstance.listen(event => {
-            expect(event)
-                .to.have.property("type")
-                .and.equal("someMethod");
-            expect(event)
-                .to.have.property("status")
-                .and.equal("success");
-            done();
-        });
-        metricsInstance.api.someMethod();
-    });
-
     it("allows a client to listen event by api", done => {
         const metricsInstance = new Metrics(metricsConfig);
         metricsInstance.listen("pageView", event => {
-            expect(event)
-                .to.have.property("type")
-                .and.equal("pageView");
-            expect(event)
-                .to.have.property("status")
-                .and.equal("success");
+            expect(event).to.have.property("type").and.equal("pageView");
+            expect(event).to.have.property("status").and.equal("success");
             done();
         });
         metricsInstance.api.pageView();
@@ -249,6 +223,20 @@ describe("Metrics", () => {
         }, 0);
     });
 
+    it("allows a custom vendor method without arguments", done => {
+        const metricsInstance = new Metrics(metricsConfig);
+        metricsInstance.listen(event => {
+            expect(event)
+                .to.have.property("type")
+                .and.equal("someMethod");
+            expect(event)
+                .to.have.property("status")
+                .and.equal("success");
+            done();
+        });
+        metricsInstance.api.someMethod();
+    });
+
     it("should have console log when debug flag is set", done => {
         const missingPageDefaultsConfig = Object.assign({}, metricsConfig, {
             debug: true
@@ -256,12 +244,8 @@ describe("Metrics", () => {
         const metricsInstance = new Metrics(missingPageDefaultsConfig);
         const stub = sinon.stub(console, "log", (logName, event) => {
             expect(logName).to.equal("track result");
-            expect(event)
-                .to.have.property("type")
-                .and.equal("pageView");
-            expect(event)
-                .to.have.property("status")
-                .and.equal("success");
+            expect(event).to.have.property("type").and.equal("pageView");
+            expect(event).to.have.property("status").and.equal("success");
             done();
             stub.restore();
         });
