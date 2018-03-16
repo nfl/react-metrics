@@ -237,14 +237,14 @@ describe("Metrics", () => {
         metricsInstance.api.someMethod();
     });
 
-    it("allows a custom vendor api methods with 2 arguments", done => {
+    it("passes first 2 arguments through custom vendor api methods", done => {
         const metricsInstance = new Metrics(metricsConfig);
         const stub = sinon.stub(console, "log", (logName, event) => {
-            expect(logName).to.equal("someMethod 1 2 undefined");
+            expect(logName).to.equal("argumentTest 1 2 undefined");
             done();
             stub.restore();
         });
-        metricsInstance.api.someMethod(1, 2, 3);
+        metricsInstance.api.argumentTest(1, 2, 3);
     });
 
     it("should have console log when debug flag is set", done => {

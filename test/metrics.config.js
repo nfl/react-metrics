@@ -32,8 +32,13 @@ export default {
                         });
                     });
                 },
-                someMethod(a, b, c) {
-                    console.log(`someMethod ${a} ${b} ${c}`);
+                someMethod() {
+                    return new Promise(resolve => {
+                        resolve();
+                    });
+                },
+                argumentTest(a, b, c) {
+                    console.log(`argumentTest ${a} ${b} ${c}`, b);
                     return new Promise(resolve => {
                         resolve();
                     });
