@@ -1,3 +1,12 @@
+<a name="2.4.1"></a>
+# [2.4.1](https://github.com/nfl/react-metrics/compare/v2.4.0...v2.4.1) (2018-03-16)
+
+
+### Bug Fixes
+
+* Fixes issue calling Custom Vendor API method with no arguments (#59) ([e8dbf85](https://github.com/nfl/react-metrics/commit/e8dbf85))
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/nfl/react-metrics/compare/v2.3.0...v2.4.0) (2017-11-14)
 
