@@ -33,6 +33,12 @@ A name of the vendor service to be returned as part of tracking response if defi
 An object, a class instance or a function which returns an object which exposes tracking APIs. You don't have to define `pageView` or `track` api, but keep in mind that `react-metrics` will assume those methods to exist for auto page view and declarative tracking and throws when not available.
 You can define `name` property in your api, which will be returned as part of tracking response.
 
+Custom `api` methods can take 3 arguments:
+
+```
+someMethod(eventType?: string, eventData?: Object, shouldMergeWithDefaultObject?: boolean)
+```
+
 Example:
 
 ```javascript

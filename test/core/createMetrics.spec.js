@@ -223,6 +223,30 @@ describe("Metrics", () => {
         }, 0);
     });
 
+    it("allows a custom vendor method without arguments", done => {
+        const metricsInstance = new Metrics(metricsConfig);
+        metricsInstance.listen(event => {
+            expect(event)
+                .to.have.property("type")
+                .and.equal("someMethod");
+            expect(event)
+                .to.have.property("status")
+                .and.equal("success");
+            done();
+        });
+        metricsInstance.api.someMethod();
+    });
+
+    it("passes first 2 arguments through custom vendor api methods", done => {
+        const metricsInstance = new Metrics(metricsConfig);
+        const stub = sinon.stub(console, "log", (logName, event) => {
+            expect(logName).to.equal("argumentTest 1 2 undefined");
+            done();
+            stub.restore();
+        });
+        metricsInstance.api.argumentTest(1, 2, 3);
+    });
+
     it("should have console log when debug flag is set", done => {
         const missingPageDefaultsConfig = Object.assign({}, metricsConfig, {
             debug: true
