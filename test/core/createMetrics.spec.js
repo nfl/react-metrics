@@ -237,6 +237,16 @@ describe("Metrics", () => {
         metricsInstance.api.someMethod();
     });
 
+    it("allows a custom vendor api methods with 2 arguments", done => {
+        const metricsInstance = new Metrics(metricsConfig);
+        const stub = sinon.stub(console, "log", (logName, event) => {
+            expect(logName).to.equal("someMethod 1 2 undefined");
+            done();
+            stub.restore();
+        });
+        metricsInstance.api.someMethod(1, 2, 3);
+    });
+
     it("should have console log when debug flag is set", done => {
         const missingPageDefaultsConfig = Object.assign({}, metricsConfig, {
             debug: true

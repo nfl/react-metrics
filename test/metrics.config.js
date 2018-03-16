@@ -32,7 +32,8 @@ export default {
                         });
                     });
                 },
-                someMethod() {
+                someMethod(a, b, c) {
+                    console.log(`someMethod ${a} ${b} ${c}`);
                     return new Promise(resolve => {
                         resolve();
                     });
