@@ -23,6 +23,7 @@ export default function metrics(metricsOrConfig, options = {}) {
     const getNewRouteState = options.getRouteState || getRouteState;
     const findNewRouteComponent =
         options.findRouteComponent || findRouteComponent;
+
     const metricsInstance = isMetrics(metricsOrConfig)
         ? metricsOrConfig
         : createMetrics(metricsOrConfig);
@@ -147,6 +148,7 @@ export default function metrics(metricsOrConfig, options = {}) {
                     autoTrackPageView &&
                     !shouldSuppress
                 ) {
+
                     invariant(
                         typeof metricsInst.api.pageView === "function",
                         "react-metrics: 'pageView' api needs to be defined for automatic page view tracking."

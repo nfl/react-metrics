@@ -1,12 +1,13 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, padded-blocks */
 import React from "react";
 import ReactDOM from "react-dom";
-import createHistory from "history/lib/createMemoryHistory";
-import {Router, Route} from "react-router";
+import {createMemoryHistory, Router, Route, useRouterHistory} from "react-router";
+import execSteps from "../execSteps";
 import metrics from "../../src/react/metrics";
 import exposeMetrics from "../../src/react/exposeMetrics";
 import MetricsConfig from "../metrics.config";
 import metricsMock from "../metricsMock";
+
 
 describe("willTrackPageView", () => {
     let node;
@@ -79,8 +80,10 @@ describe("willTrackPageView", () => {
             }
         }
 
+        const history = useRouterHistory(createMemoryHistory);
+
         ReactDOM.render(
-            <Router history={createHistory("/page/content")}>
+            <Router history={history}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="page">
                         <Route component={Content} path=":content" />
@@ -88,8 +91,8 @@ describe("willTrackPageView", () => {
                 </Route>
             </Router>,
             node,
-            function() {
-                this.history.pushState(null, "/page/content2");
+            () => {
+                history.push("/page/content2");
             }
         );
     });
@@ -119,8 +122,12 @@ describe("willTrackPageView", () => {
         );
         mock.expects("pageView").never();
 
+        const history = useRouterHistory(createMemoryHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/" />
             </Router>,
             node,
@@ -167,8 +174,12 @@ describe("willTrackPageView", () => {
             }
         );
 
+        const history = useRouterHistory(createMemoryHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/" />
             </Router>,
             node
@@ -191,7 +202,7 @@ describe("willTrackPageView", () => {
             static displayName = "Page";
 
             static willTrackPageView(routeState) {
-                expect(routeState.pathname).to.equal("/page/123");
+                expect(routeState.pathname).to.equal("page/123");
                 expect(routeState.search).to.equal("?param1=value1");
                 expect(routeState.hash).to.equal("");
                 expect(JSON.stringify(routeState.state)).to.equal(
@@ -209,15 +220,23 @@ describe("willTrackPageView", () => {
             }
         }
 
+        const history = useRouterHistory(createMemoryHistory)({
+          basename: "/"
+        });
+
         ReactDOM.render(
-            <Router history={createHistory("/")}>
+            <Router history={history}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="/page/:id" />
                 </Route>
             </Router>,
             node,
-            function() {
-                this.history.pushState(state, "/page/123?param1=value1");
+            () => {
+                history.push({
+                    pathname: "/page/123",
+                    search: "?param1=value1",
+                    state
+                });
             }
         );
     });

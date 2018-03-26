@@ -1,10 +1,9 @@
 /* eslint-disable react/no-multi-comp, max-nested-callbacks, react/prop-types, no-empty, padded-blocks, jsx-a11y/href-no-hash */
 import React from "react";
 import ReactDOM from "react-dom";
-import createHistory from "history/lib/createMemoryHistory";
-import {Router, Route} from "react-router";
+import ReactTestUtils from "react-dom/test-utils";
+import {createMemoryHistory, Router, Route, useRouterHistory} from "react-router";
 import execSteps from "../execSteps";
-import ReactTestUtils from "react-addons-test-utils";
 import metrics from "../../src/react/metrics";
 import createMetrics, {isMetrics, Metrics} from "../../src/core/createMetrics";
 import exposeMetrics, {
@@ -149,18 +148,25 @@ describe("metrics", () => {
             return metricsMock;
         });
 
+        const history = useRouterHistory(createMemoryHistory)({
+            basename: "/"
+        });
+
         const steps = [
-            function() {
+            () => {
                 expect(pageView.calledOnce).to.be.false;
-                this.history.pushState(null, "/page");
+                history.push("/page");
             },
-            function() {
-                expect(pageView.calledOnce).to.be.true;
-                stub.restore();
-                pageView.restore();
-                done();
+            () => {
+                setTimeout(() => {
+                    expect(pageView.calledOnce).to.be.true;
+                    stub.restore();
+                    pageView.restore();
+                    done();
+                }, 1000);
             }
         ];
+
 
         class Page extends React.Component {
             static displayName = "Page";
@@ -184,7 +190,7 @@ describe("metrics", () => {
         const execNextStep = execSteps(steps, done);
 
         ReactDOM.render(
-            <Router history={createHistory("/")} onUpdate={execNextStep}>
+            <Router history={history} onUpdate={execNextStep}>
                 <Route component={Application} path="/">
                     <Route component={Page} path="/page" />
                 </Route>
@@ -212,9 +218,13 @@ describe("metrics", () => {
             };
         });
 
+        const history = useRouterHistory(createMemoryHistory)({
+            basename: "/"
+        });
+
         expect(() => {
             ReactDOM.render(
-                <Router history={createHistory("/")}>
+                <Router history={history}>
                     <Route component={Application} path="/" />
                 </Router>,
                 node,
@@ -273,11 +283,15 @@ describe("metrics", () => {
             render() {
                 return <div><h2>Appication</h2></div>;
             }
-        }
+        };
+
+        const history = useRouterHistory(createMemoryHistory)({
+          basename: "/"
+        });
 
         expect(() => {
             ReactDOM.render(
-                <Router history={createHistory("/")}>
+                <Router history={history}>
                     <Route component={Application} path="/" />
                 </Router>,
                 node
