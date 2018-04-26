@@ -372,11 +372,12 @@ export class Metrics extends EventEmitter {
      * @returns {Promise}
      * @private
      */
-    _addEventNameToPromise(eventName, promise, shouldMerge) {
+    _addEventNameToPromise(eventName, promise, shouldMerge, element) {
         return promise.then(
             function(state, data) {
                 data = [shouldMerge ? this._mergeWith(data, state) : data];
                 data.unshift(eventName);
+                element && data.push(element);
                 return data;
             }.bind(this, this.routeState)
         );
@@ -412,7 +413,7 @@ export class Metrics extends EventEmitter {
         }
 
         // set default page view event name when missing.
-        let [eventName, params] = args;
+        let [eventName, params, ,element] = args;
         if (!params && typeof eventName !== "string") {
             params = eventName;
             eventName = type === ActionTypes.PAGE_VIEW
@@ -435,7 +436,8 @@ export class Metrics extends EventEmitter {
             params = this._addEventNameToPromise(
                 eventName,
                 params,
-                shouldMerge
+                shouldMerge,
+                element
             );
         }
         args = [type, params];
