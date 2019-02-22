@@ -310,5 +310,5 @@ Please take a moment to review the [guidelines for contributing](CONTRIBUTING.md
 
 MIT
 
-## 🚀 Segment React Quickstart
-Interested in writing analytics code once? With Segment, you can collect customer data from any source (web, mobile, server, CRM, etc.) and send it to over 250+ destinations (Google Analytics, Amplitude, Mixpanel, etc.) via the Segment dashboard. Follow the [tailored guide for React](https://github.com/segmentio/analytics-react) to get setup.
+## Related Projects
++ [analytics-react](https://github.com/segmentio/analytics-react): Write analytics code once, collect customer data from any source, and send it to over 250+ destinations with [Segment](https://segment.com/).
