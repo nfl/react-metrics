@@ -50,7 +50,7 @@
     "babel-preset-es2015-without-strict": "0.0.2",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
-    "bundlesize": "^0.15.3",
+    "bundlesize": "^0.18.0",
     "chai": "^3.5.0",
     "codecov.io": "^0.1.6",
     "commitizen": "^2.5.0",
