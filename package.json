@@ -95,7 +95,7 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.12.0"
+    "webpack-dev-server": "^3.1.11"
   },
   "scripts": {
     "commit": "git-cz",
